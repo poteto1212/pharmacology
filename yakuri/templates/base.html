@@ -3,7 +3,6 @@
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 
-
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color:#f23ca3;">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -30,10 +29,13 @@
     </ul>
   </div>
 </nav>
-<form class="form-inline"　method="#" action="#">
+<div>
+    <h3>サイト内検索</h3>
+</div>
+<form class="form-inline"　method="GET" action="#">
     {% csrf_token %}
     <input class="form-control mr-sm-2" type="text" placeholder="科目名　分野名等" name="keyword">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <button class="btn btn-info my-2 my-sm-0" type="submit">検索</button>
 </form>
 {% block content %}
 {% endblock content %}
