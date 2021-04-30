@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dbbackup',
+    'yakuri.apps.YakuriConfig',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -37,6 +39,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'pharmacology.urls'
@@ -44,7 +47,7 @@ ROOT_URLCONF = 'pharmacology.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['BASE_DIR','template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -53,6 +56,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins':[
+                'bootstrap4.templatetags.bootstrap4',#bootstrap4のHTMLタグを有効化する
+                ]
         },
     },
 ]
@@ -114,8 +120,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#静的ファイルのディレクトリ設定
 STATIC_URL = '/static/'
-
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+STATICFILES_STRAGE='whitenoise.strage.CompressedManifestStaticFilesStrage'
 
 #データベースバックアップファイルの保存先
 DBBACKUP_STORAGE='django.core.files.storage.FileSystemStorage'

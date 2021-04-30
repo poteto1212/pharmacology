@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'design/home.css' %}">
+<link rel="stylesheet" href="{% static 'design/responsive.css' %}">
+
+
+    <div class="lesson-wrapper">
+      <div class="container">
+        <div class="heading">
+          <h1>城西国際大学薬理系科目トップページ</h1>
+        </div>
+        <div class="lessons">
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'img/htmlgreen.png' %}">
+              <p>薬理学序論</p>
+            </div>
+            <p class="text-contents">抹消神経・自律神経・</p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+             <img src="{% static 'img/htmlbrue.png' %}">
+              <p>薬理学Ⅰ</p>
+            </div>
+            <p class="text-contents">中枢神経</p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+              <img src="{% static 'img/htmlyellow.png' %}">
+              <p>薬理学Ⅱ</p>
+            </div>
+            <p class="text-contents">消化器系</p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+             <img src="{% static 'img/htmlgreen.png' %}">
+              <p>薬理学Ⅲ</p>
+            </div>
+            <p class="text-contents">循環器系</p>
+          </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+            　<img src="{% static 'img/htmlred.png' %}">
+              <p>微生物学</p>
+            </div>
+            <p class="text-contents">抗菌薬・抗ウイルス薬</p>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="message-wrapper">
+      <div class="container">
+        <div class="heading">
+          <h2></h2>
+          <h3></h3>
+        </div>
+        <span class="btn message"></span>
+      </div>
+    </div>
+
+{% endblock content %}
