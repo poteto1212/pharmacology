@@ -6,7 +6,8 @@ from .models import Subject,Grade,Season,Work,Fields,Detail
 
 class FieldsAdmin(admin.ModelAdmin):
     list_display=('subject','fields')
-    
+
+#医薬品登録(管理画面カスタマイズ)    
 class DetailAdmin(admin.ModelAdmin):
     list_display=(
         'field',

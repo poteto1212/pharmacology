@@ -4,5 +4,5 @@ from .import views
 app_name='yakuri'
 
 urlpatterns=[
-    path('',views.test,name='home'),
+    path('',views.HomeView.as_view(),name='home'),
     ]

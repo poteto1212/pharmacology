@@ -17,37 +17,37 @@
           <div class="lesson">
             <div class="lesson-icon">
               <img src="{% static 'img/htmlgreen.png' %}">
-              <p>薬理学序論</p>
+              <p>{{joron.subjects}}</p><!--薬理学序論-->
             </div>
-            <p class="text-contents">抹消神経・自律神経・</p>
+            <p class="text-contents">{{joron.subinfo}}</p>
           </div>
           <div class="lesson">
             <div class="lesson-icon">
              <img src="{% static 'img/htmlbrue.png' %}">
-              <p>薬理学Ⅰ</p>
+              <p>{{yakurione.subjects}}</p><!--薬理学Ⅰ-->
             </div>
-            <p class="text-contents">中枢神経</p>
+            <p class="text-contents">{{yakurione.subinfo}}</p>
           </div>
           <div class="lesson">
             <div class="lesson-icon">
               <img src="{% static 'img/htmlyellow.png' %}">
-              <p>薬理学Ⅱ</p>
+              <p>{{yakuritwo.subjects}}</p><!--薬理学Ⅱ-->
             </div>
-            <p class="text-contents">消化器系</p>
+            <p class="text-contents">{{yakuritwo.subinfo}}</p>
           </div>
           <div class="lesson">
             <div class="lesson-icon">
              <img src="{% static 'img/htmlgreen.png' %}">
-              <p>薬理学Ⅲ</p>
+              <p>{{yakurithree.subjects}}</p><!--薬理学Ⅲ-->
             </div>
-            <p class="text-contents">循環器系</p>
+            <p class="text-contents">{{yakurithree.subinfo}}</p>
           </div>
           <div class="lesson">
             <div class="lesson-icon">
             　<img src="{% static 'img/htmlred.png' %}">
-              <p>微生物学</p>
+              <p>{{biseibutu.subjects}}</p><!--微生物学Ⅱ-->
             </div>
-            <p class="text-contents">抗菌薬・抗ウイルス薬</p>
+            <p class="text-contents">{{biseibutu.subinfo}}</p>
           </div>
           <div class="clear"></div>
         </div>
@@ -59,7 +59,7 @@
           <h2></h2>
           <h3></h3>
         </div>
-        <span class="btn message"></span>
+        <span class="btn message">構造式から学ぶ(医薬品化学)</span>
       </div>
     </div>
 
