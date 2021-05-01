@@ -43,23 +43,45 @@ class Work(models.Model):
 #分野
 class Fields(models.Model):
     #科目名選択
-    subject=models.ForeignKey('Subjects',on_delete=models.CASCADE)
+    subject=models.ForeignKey('Subjects',verbose_name="科目選択",on_delete=models.CASCADE)
     #作用分野(自律神経　中枢神経
-    fields=models.CharField(verbose_name='分野名',max_length=25)
+    fields=models.CharField(verbose_name='分野名(科目)　例：中枢神経(薬理Ⅰ)　',max_length=25,unique=True,)
     
     def __str__(self):
         return self.fields
         
     class Meta:
-        verbose_name_plural="分野名を登録"
+        verbose_name_plural="分野名登録"
         
         constraints=[
+            models.UniqueConstraint(
+                fields=['subject','fields']
+                name="subjects_fields_unique"
+                )
             ]
+        
 # Create your models here.
 
 #詳細な情報
 class Detail(models.Model):
-    name=models.CharField('')
+    field=models.ForeignKey('Fields',verbose_name="分野(科目)選択",on_delete=models.CASCADE)
+    name=models.CharField(verbose_name="薬物名",max_length=models.CASCADE)
+    target=models.CharField(verbose_name="標的受容体・標的タンパク",max_length=35)
+    detail=models.TextField(verbose_name="特徴・説明")
+    work=models.ForeignKey('Work',verbose_name="作用の仕方",on_delete=models.CASCADE)
+    grade=models.ForeignKey('Grade',verbose_name="学年",on_delete=models.CASCADE)
+    season=models.ForeignKey('Season',verbose_name="学期",on_delete=models.CASCADE)
+    
+    #構造式の投稿(imageファイルへのアップロード)
+    structure=models.ImageField(upload_to='image')
+    
+    def __str__(self):
+        return self.name
+        
+    class Meta:
+        verbose_name_plural="医薬品の名前・作用・学習時期・構造式の登録"
+    
+    
 
     
     

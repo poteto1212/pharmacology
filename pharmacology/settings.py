@@ -129,5 +129,11 @@ STATICFILES_STRAGE='whitenoise.strage.CompressedManifestStaticFilesStrage'
 DBBACKUP_STORAGE='django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS={'location':os.path.join(BASE_DIR,'backups')}
 
+#構造式画像のアップロード設定
+
+MEDIA_URL='/image/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'image')
+
+
 
 
