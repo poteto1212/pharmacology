@@ -38,7 +38,7 @@ class DetailAdmin(admin.ModelAdmin):
     
     #薬品名検索
     #説明文から検索
-    search_fields=['name','detail']
+    search_fields=['field__fields','name','detail']
     #作用分類・学年・学期はラジオボタンにする
     radio_fields={'work':admin.HORIZONTAL,'grade':admin.HORIZONTAL,'season':admin.HORIZONTAL,}
 

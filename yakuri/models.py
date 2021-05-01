@@ -3,6 +3,7 @@ from django.db import models
 #講義名
 class Subject(models.Model):
     subjects=models.CharField(verbose_name='講義名',max_length=10)
+    subinfo=models.TextField(verbose_name="講義内容の紹介",null=True,blank=True)
     
     def __str__(self):
         return self.subjects
@@ -80,6 +81,13 @@ class Detail(models.Model):
         
     class Meta:
         verbose_name_plural="医薬品の名前・作用・学習時期・構造式の登録"
+        
+        constraints=[
+            models.UniqueConstraint(
+                fields=['field','name'],
+                name="field_name"
+                )
+            ]
     
     
 
