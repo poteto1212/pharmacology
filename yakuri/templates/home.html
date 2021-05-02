@@ -13,40 +13,51 @@
         <div class="heading">
           <h1>JIU薬学部</h1>
           <h2>薬理系科目トップページ</h2>
+          <p>科目名をクリックして下さい</p>
         </div>
         <div class="lessons">
           <div class="lesson">
             <div class="lesson-icon">
-              <img src="{% static 'img/htmlgreen.png' %}">
-              <p>{{joron.subjects}}</p><!--薬理学序論-->
+              <a href="{% url 'yakuri:list' joron.id %}">
+                <img src="{% static 'img/htmlgreen.png' %}">
+                <p>{{joron.subjects}}</p><!--薬理学序論-->
+              </a>
             </div>
             <p class="text-contents">{{joron.subinfo}}</p>
           </div>
           <div class="lesson">
             <div class="lesson-icon">
+            <a href="{% url 'yakuri:list' yakurione.id %}">
              <img src="{% static 'img/htmlbrue.png' %}">
               <p>{{yakurione.subjects}}</p><!--薬理学Ⅰ-->
+            </a>
             </div>
             <p class="text-contents">{{yakurione.subinfo}}</p>
           </div>
           <div class="lesson">
             <div class="lesson-icon">
+            <a href="{% url 'yakuri:list' yakuritwo.id %}">
               <img src="{% static 'img/htmlyellow.png' %}">
               <p>{{yakuritwo.subjects}}</p><!--薬理学Ⅱ-->
+            </a>
             </div>
             <p class="text-contents">{{yakuritwo.subinfo}}</p>
           </div>
           <div class="lesson">
             <div class="lesson-icon">
+            <a href="{% url 'yakuri:list' yakurithree.id %}">
              <img src="{% static 'img/htmlgreen.png' %}">
               <p>{{yakurithree.subjects}}</p><!--薬理学Ⅲ-->
+            </a>
             </div>
             <p class="text-contents">{{yakurithree.subinfo}}</p>
           </div>
           <div class="lesson">
             <div class="lesson-icon">
+            <a href="{% url 'yakuri:list' biseibutu.id %}">
             　<img src="{% static 'img/htmlred.png' %}">
               <p>{{biseibutu.subjects}}</p><!--微生物学Ⅱ-->
+            </a>
             </div>
             <p class="text-contents">{{biseibutu.subinfo}}</p>
           </div>
