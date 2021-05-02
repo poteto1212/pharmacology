@@ -14,11 +14,12 @@
 {% for field in fields %}
 <div>
     <h2>{{field.field__fields}}</h2>
-            <table border=3>
+            <table border=3 id="pharmacology">
             <tr>
                 <th>薬物名</th>
-                <th>作用部位</th>
+                <th class="target">作用部位</th>
                 <th>作用の仕方</th>
+                <th>特徴</th>
             </tr>
             
             {% for medicine in medicines %}
@@ -27,6 +28,7 @@
                 <td>{{medicine.name}}</td>
                 <td>{{medicine.target}}</td>
                 <td>{{medicine.work.works}}</td>
+                <td>{{medicine.detail|linebreaksbr}}</td>
                 </tr>
                 {% endif %}
             {% endfor %}
