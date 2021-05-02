@@ -12,8 +12,10 @@ class PharmList(ListView):
     def get_context_data(self,**kwargs):
         context=super().get_context_data(**kwargs)
         
+        #Subjectモデルのidをベースに絞り込み
         titlekey=self.kwargs['id']
         context['title']=Subject.objects.filter(id=titlekey).first()
+        context['medicines']=Detail.objects.filter(field__subject__id=titlekey)
         
         return context
         
