@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView,ListView
-from .models import Detail
+from .models import Detail,Subject
 # Create your views here.
 
 class HomeView(TemplateView):
@@ -13,7 +13,7 @@ class PharmList(ListView):
         context=super().get_context_data(**kwargs)
         
         titlekey=self.kwargs['id']
-        context['title']=Detail.objects.filter(field__subject__id=titlekey).first()
+        context['title']=Subject.objects.filter(id=titlekey).first()
         
         return context
         

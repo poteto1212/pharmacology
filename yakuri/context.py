@@ -10,11 +10,11 @@ biseibutu="微生物学Ⅱ"
 #全てのテンプレートに渡すデータを作成
 def related(request):
     context={
-        'joron':Subject.objects.get(subjects=joron),
-        'yakurione':Subject.objects.get(subjects=yakurione),
-        'yakuritwo':Subject.objects.get(subjects=yakuritwo),
-        'yakurithree':Subject.objects.get(subjects=yakurithree),
-        'biseibutu':Subject.objects.get(subjects=biseibutu)
+        'joron':Subject.objects.filter(subjects=joron).first(),
+        'yakurione':Subject.objects.filter(subjects=yakurione).first(),
+        'yakuritwo':Subject.objects.filter(subjects=yakuritwo).first(),
+        'yakurithree':Subject.objects.filter(subjects=yakurithree).first(),
+        'biseibutu':Subject.objects.filter(subjects=biseibutu).first()
     }
     
     return context
