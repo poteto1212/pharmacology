@@ -2,7 +2,7 @@ from django.db import models
 
 #講義名
 class Subject(models.Model):
-    subjects=models.CharField(verbose_name='講義名',max_length=10)
+    subjects=models.CharField(verbose_name='講義名',max_length=10,unique=True)
     subinfo=models.TextField(verbose_name="講義内容の紹介",null=True,blank=True)
     
     def __str__(self):
