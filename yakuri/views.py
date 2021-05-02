@@ -17,6 +17,10 @@ class PharmList(ListView):
         context['title']=Subject.objects.filter(id=titlekey).first()
         context['medicines']=Detail.objects.filter(field__subject__id=titlekey)
         
+        #分野名のみを取得
+        context['fields']=Detail.objects.filter(field__subject__id=titlekey).order_by('field').distinct().values('field__fields')
+        
         return context
         
+  
     

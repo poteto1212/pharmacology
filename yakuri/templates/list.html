@@ -10,4 +10,27 @@
 <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'jquery/list.js'%}" ></script>
 
+
+{% for field in fields %}
+    <p id="field">{{field.field__fields}}</p>
+            <table border=3>
+            <tr>
+                <th>薬物名</th>
+                <th>作用部位</th>
+                <th>作用の仕方</th>
+            </tr>
+            
+            {% for medicine in medicines %}
+            {% if medicine.field.fields in field.field__fields  %}
+                <tr>
+                <td>{{medicine.name}}</td>
+                <td>{{medicine.target}}</td>
+                <td>{{medicine.work.works}}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+                
+            </table>
+{% endfor %}
+
 {% endblock content %}
