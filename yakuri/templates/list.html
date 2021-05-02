@@ -7,34 +7,41 @@
 <title>{{title.subjects}}</title>
 <p>ここに<strong>{{title.subjects}}</strong>で学習した医薬品一覧画面を作成する</p>
 
-<script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'jquery/list.js'%}" ></script>
+<script type="text/javascript" src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery/list.js' %}" ></script>
 
 
 {% for field in fields %}
-<div>
     <h2>{{field.field__fields}}</h2>
-            <table border=3 id="pharmacology">
+            <table border=3 class="mitabla">
             <tr>
                 <th>薬物名</th>
-                <th class="target">作用部位</th>
+                <th>作用部位</th>
                 <th>作用の仕方</th>
                 <th>特徴</th>
             </tr>
             
             {% for medicine in medicines %}
             {% if medicine.field.fields in field.field__fields  %}
-                <tr>
-                <td>{{medicine.name}}</td>
+            <tr>
+                <td class="">{{medicine.name}}</td>
                 <td>{{medicine.target}}</td>
                 <td>{{medicine.work.works}}</td>
                 <td>{{medicine.detail|linebreaksbr}}</td>
-                </tr>
+            </tr>
                 {% endif %}
             {% endfor %}
-                
             </table>
-</div>
+<script>
+//結合プログラム
+!function(t,n,e,i){"use strict";function a(n,e){this.element=n,this.settings=t.extend({},o,e),this._defaults=o,this._name=s,this.init()}var s="rowspanizer",o={vertical_align:"top"};t.extend(a.prototype,{init:function(){var n=this,e=t(this.element),i=[];e.find("tr").each(function(n,e){t(this).find("td").each(function(n,e){var a=t(e),s=a.html();if("undefined"!=typeof i[n]&&"dato"in i[n]&&i[n].dato==s){var o=i[n].elem.data("rowspan");("undefined"==o||isNaN(o))&&(o=1),i[n].elem.data("rowspan",parseInt(o)+1).addClass("rowspan-combine"),a.addClass("rowspan-remove")}else i[n]={dato:s,elem:a}})}),t(".rowspan-combine").each(function(e,i){var a=t(this);a.attr("rowspan",a.data("rowspan")).css({"vertical-align":n.settings.vertical_align})}),t(".rowspan-remove").remove()}}),t.fn[s]=function(n){return this.each(function(){t.data(this,"plugin_"+s)||t.data(this,"plugin_"+s,new a(this,n))})}}(jQuery,window,document);
+
+
+$(function() {
+  $(".mitabla").rowspanizer({vertical_align: 'middle'});
+});
+</script>
 {% endfor %}
+
 
 {% endblock content %}

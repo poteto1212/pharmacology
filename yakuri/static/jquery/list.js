@@ -1,30 +1,6 @@
-$(function(){//テンプレート処理が行われたとき
-    var counter=0;//０行目
-    var text="";
-    var target="";
-    
-    //詰まりを防ぐ為に後ろから探索処理
-    //get()メソッドはテンプレート側の値を取得
-    //each()メソッドは繰り返し処理
-    //text()は表の値をそのまま返す
-    //attrはidや行数を取得して返す
-    $($('#pharmacology tr:first .target').get().reverse()).each(function(){
-        if ($(this).text()==text){//表の値が空の時
-            //counter変数に１を足す
-            counter++;
-            
-            if (target !="")//target変数が空白でない時
-                target.remove();//要素を削除
-        }else{//表の値がある時
-            if (target !="")//target変数がある時　　
-            　　target.attr('rowSpan',counter);//最終行とcounter変数を取得
-            　　
-            counter=1;
-        }
-        text=$(this).text()
-        
-        target=$(this)
-    });
-    
-    
+!function(t,n,e,i){"use strict";function a(n,e){this.element=n,this.settings=t.extend({},o,e),this._defaults=o,this._name=s,this.init()}var s="rowspanizer",o={vertical_align:"top"};t.extend(a.prototype,{init:function(){var n=this,e=t(this.element),i=[];e.find("tr").each(function(n,e){t(this).find("td").each(function(n,e){var a=t(e),s=a.html();if("undefined"!=typeof i[n]&&"dato"in i[n]&&i[n].dato==s){var o=i[n].elem.data("rowspan");("undefined"==o||isNaN(o))&&(o=1),i[n].elem.data("rowspan",parseInt(o)+1).addClass("rowspan-combine"),a.addClass("rowspan-remove")}else i[n]={dato:s,elem:a}})}),t(".rowspan-combine").each(function(e,i){var a=t(this);a.attr("rowspan",a.data("rowspan")).css({"vertical-align":n.settings.vertical_align})}),t(".rowspan-remove").remove()}}),t.fn[s]=function(n){return this.each(function(){t.data(this,"plugin_"+s)||t.data(this,"plugin_"+s,new a(this,n))})}}(jQuery,window,document);
+
+
+$('#combine').on('click', function() {
+  $("#mitabla").rowspanizer({vertical_align: 'middle'});
 });
