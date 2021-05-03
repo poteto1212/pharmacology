@@ -8,7 +8,8 @@
 <p>ここに<strong>{{title.subjects}}</strong>で学習した医薬品一覧画面を作成する</p>
 
 <script type="text/javascript" src="{% static 'jquery/jquery-3.6.0.js' %}"></script>
-<script type="text/javascript" src="{% static 'jquery/list.js' %}" ></script>
+<script type="text/javascript" src="{% static 'jquery/list.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery/switch.js' %}"></script>
 <link rel="stylesheet" href="{% static 'design/list.css' %}">
 
 <button class="hide">医薬品名を非表示にする</button>
@@ -35,15 +36,7 @@
                 {% endif %}
             {% endfor %}
             </table>
-<script>
-//医薬品名を隠す処理
-$('.hide').click(function(){
-        $('.addname').hide();
-});
-$('.show').click(function(){
-        $('.addname').show();
-});
-</script>
+
 
 {% endfor %}
 
