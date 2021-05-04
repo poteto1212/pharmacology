@@ -22,9 +22,16 @@ class PharmList(ListView):
         
         return context
         
-  
+
+#一覧目次画面を作成するクラス
 class PharmIndex(ListView):
     template_name='index.html'
     model=Fields
     
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+
+        context['target_list']=Subject.objects.  
     
+    
+#科目別一覧目次画面を作成するクラス
