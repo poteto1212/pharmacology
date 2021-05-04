@@ -47,7 +47,10 @@ class Fields(models.Model):
     subject=models.ForeignKey('Subject',verbose_name="科目選択",on_delete=models.CASCADE)
     #作用分野(自律神経　中枢神経
     fields=models.CharField(verbose_name='分野名(科目)　例：中枢神経(薬理Ⅰ)　',max_length=25,unique=True,)
+    descriptione=models.TextField(verbose_name="分野の紹介",blank=True,null=True)
+    reltarget=models.ManyToManyField('Target',verbose_name='関連薬の主な作用点',blank=True,null=True)
     
+            
     def __str__(self):
         return self.fields
         
@@ -63,11 +66,20 @@ class Fields(models.Model):
         
 # Create your models here.
 
+class Target(models.Model):
+    targets=models.CharField(verbose_name="作用点",max_length=35,unique=True)
+    
+    def __str__(self):
+        return self.targets
+    
+    class Meta:
+        verbose_name_plural="作用標的部位"
+
 #詳細な情報
 class Detail(models.Model):
     field=models.ForeignKey('Fields',verbose_name="分野(科目)選択",on_delete=models.CASCADE)
     name=models.CharField(verbose_name="薬物名",max_length=25)
-    target=models.CharField(verbose_name="標的受容体・標的タンパク",max_length=35)
+    target=models.ManyToManyField('Target',verbose_name="標的受容体・標的タンパク")
     detail=models.TextField(verbose_name="特徴・説明",blank=True,null=True)
     work=models.ForeignKey('Work',verbose_name="作用の仕方",on_delete=models.CASCADE)
     grade=models.ForeignKey('Grade',verbose_name="学年",on_delete=models.CASCADE)

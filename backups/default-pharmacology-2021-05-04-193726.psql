@@ -17,7 +17,11 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 ALTER TABLE ONLY public.yakuri_fields DROP CONSTRAINT yakuri_fields_subject_id_6eaa592b_fk_yakuri_subject_id;
+ALTER TABLE ONLY public.yakuri_fields_reltarget DROP CONSTRAINT yakuri_fields_reltarget_target_id_a13a1585_fk_yakuri_target_id;
+ALTER TABLE ONLY public.yakuri_fields_reltarget DROP CONSTRAINT yakuri_fields_reltarget_fields_id_1c3c8b75_fk_yakuri_fields_id;
 ALTER TABLE ONLY public.yakuri_detail DROP CONSTRAINT yakuri_detail_work_id_090c5360_fk_yakuri_work_id;
+ALTER TABLE ONLY public.yakuri_detail_target DROP CONSTRAINT yakuri_detail_target_target_id_a4817269_fk_yakuri_target_id;
+ALTER TABLE ONLY public.yakuri_detail_target DROP CONSTRAINT yakuri_detail_target_detail_id_28ffde3f_fk_yakuri_detail_id;
 ALTER TABLE ONLY public.yakuri_detail DROP CONSTRAINT yakuri_detail_season_id_cd913b36_fk_yakuri_season_id;
 ALTER TABLE ONLY public.yakuri_detail DROP CONSTRAINT yakuri_detail_grade_id_4c1d9abd_fk_yakuri_grade_id;
 ALTER TABLE ONLY public.yakuri_detail DROP CONSTRAINT yakuri_detail_field_id_8aa4285f_fk_yakuri_fields_id;
@@ -30,9 +34,15 @@ ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_group_
 ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co;
 ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id;
 ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm;
+DROP INDEX public.yakuri_target_targets_dfa93e81_like;
+DROP INDEX public.yakuri_subject_subjects_060d6f16_like;
 DROP INDEX public.yakuri_fields_subject_id_6eaa592b;
+DROP INDEX public.yakuri_fields_reltarget_target_id_a13a1585;
+DROP INDEX public.yakuri_fields_reltarget_fields_id_1c3c8b75;
 DROP INDEX public.yakuri_fields_fields_f53c1d3b_like;
 DROP INDEX public.yakuri_detail_work_id_090c5360;
+DROP INDEX public.yakuri_detail_target_target_id_a4817269;
+DROP INDEX public.yakuri_detail_target_detail_id_28ffde3f;
 DROP INDEX public.yakuri_detail_season_id_cd913b36;
 DROP INDEX public.yakuri_detail_grade_id_4c1d9abd;
 DROP INDEX public.yakuri_detail_field_id_8aa4285f;
@@ -50,11 +60,18 @@ DROP INDEX public.auth_group_permissions_permission_id_84c5c92e;
 DROP INDEX public.auth_group_permissions_group_id_b120cbf9;
 DROP INDEX public.auth_group_name_a6ea08ec_like;
 ALTER TABLE ONLY public.yakuri_work DROP CONSTRAINT yakuri_work_pkey;
+ALTER TABLE ONLY public.yakuri_target DROP CONSTRAINT yakuri_target_targets_key;
+ALTER TABLE ONLY public.yakuri_target DROP CONSTRAINT yakuri_target_pkey;
+ALTER TABLE ONLY public.yakuri_subject DROP CONSTRAINT yakuri_subject_subjects_key;
 ALTER TABLE ONLY public.yakuri_subject DROP CONSTRAINT yakuri_subject_pkey;
 ALTER TABLE ONLY public.yakuri_season DROP CONSTRAINT yakuri_season_pkey;
 ALTER TABLE ONLY public.yakuri_grade DROP CONSTRAINT yakuri_grade_pkey;
+ALTER TABLE ONLY public.yakuri_fields_reltarget DROP CONSTRAINT yakuri_fields_reltarget_pkey;
+ALTER TABLE ONLY public.yakuri_fields_reltarget DROP CONSTRAINT yakuri_fields_reltarget_fields_id_target_id_cabaa8d8_uniq;
 ALTER TABLE ONLY public.yakuri_fields DROP CONSTRAINT yakuri_fields_pkey;
 ALTER TABLE ONLY public.yakuri_fields DROP CONSTRAINT yakuri_fields_fields_key;
+ALTER TABLE ONLY public.yakuri_detail_target DROP CONSTRAINT yakuri_detail_target_pkey;
+ALTER TABLE ONLY public.yakuri_detail_target DROP CONSTRAINT yakuri_detail_target_detail_id_target_id_50a41c40_uniq;
 ALTER TABLE ONLY public.yakuri_detail DROP CONSTRAINT yakuri_detail_pkey;
 ALTER TABLE ONLY public.yakuri_fields DROP CONSTRAINT subjects_fields_unique;
 ALTER TABLE ONLY public.yakuri_detail DROP CONSTRAINT field_name;
@@ -76,10 +93,13 @@ ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permis
 ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq;
 ALTER TABLE ONLY public.auth_group DROP CONSTRAINT auth_group_name_key;
 ALTER TABLE public.yakuri_work ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.yakuri_target ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.yakuri_subject ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.yakuri_season ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.yakuri_grade ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.yakuri_fields_reltarget ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.yakuri_fields ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.yakuri_detail_target ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.yakuri_detail ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.django_migrations ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.django_content_type ALTER COLUMN id DROP DEFAULT;
@@ -92,14 +112,20 @@ ALTER TABLE public.auth_group_permissions ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.auth_group ALTER COLUMN id DROP DEFAULT;
 DROP SEQUENCE public.yakuri_work_id_seq;
 DROP TABLE public.yakuri_work;
+DROP SEQUENCE public.yakuri_target_id_seq;
+DROP TABLE public.yakuri_target;
 DROP SEQUENCE public.yakuri_subject_id_seq;
 DROP TABLE public.yakuri_subject;
 DROP SEQUENCE public.yakuri_season_id_seq;
 DROP TABLE public.yakuri_season;
 DROP SEQUENCE public.yakuri_grade_id_seq;
 DROP TABLE public.yakuri_grade;
+DROP SEQUENCE public.yakuri_fields_reltarget_id_seq;
+DROP TABLE public.yakuri_fields_reltarget;
 DROP SEQUENCE public.yakuri_fields_id_seq;
 DROP TABLE public.yakuri_fields;
+DROP SEQUENCE public.yakuri_detail_target_id_seq;
+DROP TABLE public.yakuri_detail_target;
 DROP SEQUENCE public.yakuri_detail_id_seq;
 DROP TABLE public.yakuri_detail;
 DROP TABLE public.django_session;
@@ -507,7 +533,6 @@ ALTER TABLE public.django_session OWNER TO postgres;
 CREATE TABLE public.yakuri_detail (
     id integer NOT NULL,
     name character varying(25) NOT NULL,
-    target character varying(35) NOT NULL,
     detail text,
     structure character varying(100),
     field_id integer NOT NULL,
@@ -542,12 +567,48 @@ ALTER SEQUENCE public.yakuri_detail_id_seq OWNED BY public.yakuri_detail.id;
 
 
 --
+-- Name: yakuri_detail_target; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.yakuri_detail_target (
+    id integer NOT NULL,
+    detail_id integer NOT NULL,
+    target_id integer NOT NULL
+);
+
+
+ALTER TABLE public.yakuri_detail_target OWNER TO postgres;
+
+--
+-- Name: yakuri_detail_target_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.yakuri_detail_target_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.yakuri_detail_target_id_seq OWNER TO postgres;
+
+--
+-- Name: yakuri_detail_target_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.yakuri_detail_target_id_seq OWNED BY public.yakuri_detail_target.id;
+
+
+--
 -- Name: yakuri_fields; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.yakuri_fields (
     id integer NOT NULL,
     fields character varying(25) NOT NULL,
+    descriptione text,
     subject_id integer NOT NULL
 );
 
@@ -574,6 +635,41 @@ ALTER TABLE public.yakuri_fields_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.yakuri_fields_id_seq OWNED BY public.yakuri_fields.id;
+
+
+--
+-- Name: yakuri_fields_reltarget; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.yakuri_fields_reltarget (
+    id integer NOT NULL,
+    fields_id integer NOT NULL,
+    target_id integer NOT NULL
+);
+
+
+ALTER TABLE public.yakuri_fields_reltarget OWNER TO postgres;
+
+--
+-- Name: yakuri_fields_reltarget_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.yakuri_fields_reltarget_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.yakuri_fields_reltarget_id_seq OWNER TO postgres;
+
+--
+-- Name: yakuri_fields_reltarget_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.yakuri_fields_reltarget_id_seq OWNED BY public.yakuri_fields_reltarget.id;
 
 
 --
@@ -677,6 +773,40 @@ ALTER TABLE public.yakuri_subject_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.yakuri_subject_id_seq OWNED BY public.yakuri_subject.id;
+
+
+--
+-- Name: yakuri_target; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.yakuri_target (
+    id integer NOT NULL,
+    targets character varying(35) NOT NULL
+);
+
+
+ALTER TABLE public.yakuri_target OWNER TO postgres;
+
+--
+-- Name: yakuri_target_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.yakuri_target_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.yakuri_target_id_seq OWNER TO postgres;
+
+--
+-- Name: yakuri_target_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.yakuri_target_id_seq OWNED BY public.yakuri_target.id;
 
 
 --
@@ -784,10 +914,24 @@ ALTER TABLE ONLY public.yakuri_detail ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: yakuri_detail_target id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_detail_target ALTER COLUMN id SET DEFAULT nextval('public.yakuri_detail_target_id_seq'::regclass);
+
+
+--
 -- Name: yakuri_fields id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.yakuri_fields ALTER COLUMN id SET DEFAULT nextval('public.yakuri_fields_id_seq'::regclass);
+
+
+--
+-- Name: yakuri_fields_reltarget id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_fields_reltarget ALTER COLUMN id SET DEFAULT nextval('public.yakuri_fields_reltarget_id_seq'::regclass);
 
 
 --
@@ -809,6 +953,13 @@ ALTER TABLE ONLY public.yakuri_season ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.yakuri_subject ALTER COLUMN id SET DEFAULT nextval('public.yakuri_subject_id_seq'::regclass);
+
+
+--
+-- Name: yakuri_target id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_target ALTER COLUMN id SET DEFAULT nextval('public.yakuri_target_id_seq'::regclass);
 
 
 --
@@ -875,18 +1026,22 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 34	Can change subject	9	change_subject
 35	Can delete subject	9	delete_subject
 36	Can view subject	9	view_subject
-37	Can add work	10	add_work
-38	Can change work	10	change_work
-39	Can delete work	10	delete_work
-40	Can view work	10	view_work
-41	Can add fields	11	add_fields
-42	Can change fields	11	change_fields
-43	Can delete fields	11	delete_fields
-44	Can view fields	11	view_fields
-45	Can add detail	12	add_detail
-46	Can change detail	12	change_detail
-47	Can delete detail	12	delete_detail
-48	Can view detail	12	view_detail
+37	Can add target	10	add_target
+38	Can change target	10	change_target
+39	Can delete target	10	delete_target
+40	Can view target	10	view_target
+41	Can add work	11	add_work
+42	Can change work	11	change_work
+43	Can delete work	11	delete_work
+44	Can view work	11	view_work
+45	Can add fields	12	add_fields
+46	Can change fields	12	change_fields
+47	Can delete fields	12	delete_fields
+48	Can view fields	12	view_fields
+49	Can add detail	13	add_detail
+50	Can change detail	13	change_detail
+51	Can delete detail	13	delete_detail
+52	Can view detail	13	view_detail
 \.
 
 
@@ -895,7 +1050,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$180000$fsnBeT7cInNg$/lG5eGOCxlYPOd9El0EJmZA68EypdhcRGcB0n8mWEe0=	2021-05-02 04:09:18.263634+00	t	poteto1212			test@gmail.com	t	t	2021-05-01 04:49:38.536267+00
+1	pbkdf2_sha256$180000$ItMITsIAwKau$Hue89INe3WQ4xP4GrmAG6QbiROkCarWZNZZLKVoemKE=	2021-05-04 09:38:04.1877+00	t	poteto1212			test@gmail.com	t	t	2021-05-04 09:37:48.621147+00
 \.
 
 
@@ -920,69 +1075,63 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
-1	2021-05-01 04:50:14.560479+00	1	刺激	1	[{"added": {}}]	10	1
-2	2021-05-01 04:50:21.264504+00	2	遮断	1	[{"added": {}}]	10	1
-3	2021-05-01 04:50:53.007912+00	1	薬理学序論	1	[{"added": {}}]	9	1
-4	2021-05-01 04:51:03.153551+00	2	薬理学Ⅰ	1	[{"added": {}}]	9	1
-5	2021-05-01 04:51:12.963925+00	3	薬理学Ⅱ	1	[{"added": {}}]	9	1
-6	2021-05-01 04:51:22.138336+00	4	薬理学Ⅲ	1	[{"added": {}}]	9	1
-7	2021-05-01 04:51:30.85707+00	5	微生物学Ⅱ	1	[{"added": {}}]	9	1
-8	2021-05-01 04:51:49.872871+00	1	前期(春)	1	[{"added": {}}]	8	1
-9	2021-05-01 04:51:59.484639+00	2	後期(秋)	1	[{"added": {}}]	8	1
-10	2021-05-01 04:52:13.562391+00	1	2年生	1	[{"added": {}}]	7	1
-11	2021-05-01 04:52:19.585909+00	2	3年生	1	[{"added": {}}]	7	1
-12	2021-05-01 04:53:49.796523+00	1	抗ヒスタミン薬(薬理学序論)	1	[{"added": {}}]	11	1
-13	2021-05-01 04:54:59.344734+00	1	クロルフェニラミン	1	[{"added": {}}]	12	1
-14	2021-05-01 04:55:22.606837+00	1	クロルフェニラミン	2	[{"changed": {"fields": ["Structure"]}}]	12	1
-15	2021-05-01 04:55:27.293205+00	2	クロルフェニラミン	1	[{"added": {}}]	12	1
-16	2021-05-01 04:55:45.121261+00	2	クロルフェニラミン	2	[]	12	1
-17	2021-05-01 04:56:02.967371+00	2	ジフェンヒドラミン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d"]}}]	12	1
-18	2021-05-01 04:58:04.646576+00	3	ジメンヒドリナート	1	[{"added": {}}]	12	1
-19	2021-05-01 05:11:56.115937+00	4	エピナスチン	1	[{"added": {}}]	12	1
-20	2021-05-01 05:13:17.674842+00	5	メキタジン	1	[{"added": {}}]	12	1
-21	2021-05-01 05:14:56.638093+00	6	フェキソフェナジン	1	[{"added": {}}]	12	1
-22	2021-05-01 05:16:02.692041+00	7	ケトチフェン	1	[{"added": {}}]	12	1
-23	2021-05-01 05:16:48.398611+00	8	オキサトミド	1	[{"added": {}}]	12	1
-24	2021-05-01 05:18:20.554947+00	9	ナファゾリン	1	[{"added": {}}]	12	1
-25	2021-05-01 05:19:16.895873+00	2	交感神経関連薬(序論)	1	[{"added": {}}]	11	1
-26	2021-05-01 05:19:21.370099+00	9	ナファゾリン	2	[{"changed": {"fields": ["\\u5206\\u91ce(\\u79d1\\u76ee)\\u9078\\u629e"]}}]	12	1
-27	2021-05-01 05:20:10.58957+00	2	ジフェンヒドラミン	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9"]}}]	12	1
-28	2021-05-01 05:20:21.914542+00	1	クロルフェニラミン	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9"]}}]	12	1
-29	2021-05-01 05:20:29.503552+00	9	ナファゾリン	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9"]}}]	12	1
-30	2021-05-01 05:20:51.272228+00	9	ナファゾリン	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9"]}}]	12	1
-31	2021-05-01 05:24:15.083745+00	10	ミドドリン	1	[{"added": {}}]	12	1
-32	2021-05-01 05:25:29.156765+00	11	フェニレフリン	1	[{"added": {}}]	12	1
-33	2021-05-01 05:27:54.397959+00	12	ジピぺフリン	1	[{"added": {}}]	12	1
-34	2021-05-01 05:31:27.74643+00	3	吸引麻酔薬(薬理Ⅰ)	1	[{"added": {}}]	11	1
-35	2021-05-01 05:32:20.423768+00	3	不明	1	[{"added": {}}]	10	1
-36	2021-05-01 05:32:53.598307+00	13	セボフルラン	1	[{"added": {}}]	12	1
-67	2021-05-01 05:36:26.354123+00	46	セボフルラン	1	[{"added": {}}]	12	1
-68	2021-05-01 05:37:20.912137+00	13	セボフルラン	3		12	1
-69	2021-05-01 05:46:35.147076+00	5	微生物学Ⅱ	2	[{"changed": {"fields": ["\\u8b1b\\u7fa9\\u5185\\u5bb9\\u306e\\u7d39\\u4ecb"]}}]	9	1
-70	2021-05-01 05:47:26.380874+00	4	薬理学Ⅲ	2	[{"changed": {"fields": ["\\u8b1b\\u7fa9\\u5185\\u5bb9\\u306e\\u7d39\\u4ecb"]}}]	9	1
-71	2021-05-01 05:47:56.779897+00	3	薬理学Ⅱ	2	[{"changed": {"fields": ["\\u8b1b\\u7fa9\\u5185\\u5bb9\\u306e\\u7d39\\u4ecb"]}}]	9	1
-72	2021-05-01 05:48:25.999133+00	2	薬理学Ⅰ	2	[{"changed": {"fields": ["\\u8b1b\\u7fa9\\u5185\\u5bb9\\u306e\\u7d39\\u4ecb"]}}]	9	1
-73	2021-05-01 05:48:31.583419+00	2	薬理学Ⅰ	2	[]	9	1
-74	2021-05-01 05:50:16.870879+00	1	薬理学序論	2	[{"changed": {"fields": ["\\u8b1b\\u7fa9\\u5185\\u5bb9\\u306e\\u7d39\\u4ecb"]}}]	9	1
-75	2021-05-01 05:51:23.542359+00	36	ペニシリン系	1	[{"added": {}}]	11	1
-76	2021-05-01 05:52:13.379066+00	47	ペニシリンG	1	[{"added": {}}]	12	1
-77	2021-05-01 05:52:28.307018+00	36	酵素阻害	1	[{"added": {}}]	10	1
-78	2021-05-01 05:52:30.828505+00	47	ペニシリンG	2	[]	12	1
-79	2021-05-01 05:52:35.025746+00	47	ペニシリンG	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9"]}}]	12	1
-80	2021-05-02 04:09:45.326177+00	1	薬理学序論	2	[{"changed": {"fields": ["\\u8b1b\\u7fa9\\u5185\\u5bb9\\u306e\\u7d39\\u4ecb"]}}]	9	1
-81	2021-05-02 04:11:31.218172+00	3	薬理学Ⅱ	2	[]	9	1
-82	2021-05-02 04:13:36.156321+00	37	抗うつ薬(薬理Ⅰ)	1	[{"added": {}}]	11	1
-83	2021-05-02 04:16:50.03878+00	37	トランスポーター阻害	1	[{"added": {}}]	10	1
-84	2021-05-02 04:18:36.320426+00	48	イミプラミン	1	[{"added": {}}]	12	1
-85	2021-05-02 04:19:36.697589+00	48	イミプラミン	2	[]	12	1
-86	2021-05-02 04:21:39.639284+00	38	吸収性制酸薬(薬理Ⅱ)	1	[{"added": {}}]	11	1
-87	2021-05-02 04:22:25.833172+00	38	その他	1	[{"added": {}}]	10	1
-88	2021-05-02 04:23:22.52155+00	49	炭酸水素ナトリウム	1	[{"added": {}}]	12	1
-89	2021-05-02 04:25:28.7679+00	39	心不全治療薬(薬理Ⅲ)	1	[{"added": {}}]	11	1
-90	2021-05-02 04:26:01.064694+00	39	酵素活性化	1	[{"added": {}}]	10	1
-91	2021-05-02 04:28:25.770808+00	50	コルホルシンダロパート	1	[{"added": {}}]	12	1
-92	2021-05-02 04:28:59.312737+00	36	ペニシリン系(微生Ⅱ)	2	[{"changed": {"fields": ["\\u5206\\u91ce\\u540d(\\u79d1\\u76ee)\\u3000\\u4f8b\\uff1a\\u4e2d\\u67a2\\u795e\\u7d4c(\\u85ac\\u7406\\u2160)\\u3000"]}}]	11	1
-93	2021-05-02 04:31:12.240223+00	51	ニトログリセリン	1	[{"added": {}}]	12	1
+1	2021-05-04 09:39:00.300292+00	1	薬理学序論	1	[{"added": {}}]	9	1
+2	2021-05-04 09:39:19.822082+00	2	薬理学Ⅰ	1	[{"added": {}}]	9	1
+3	2021-05-04 09:39:57.327457+00	3	薬理学Ⅱ	1	[{"added": {}}]	9	1
+4	2021-05-04 09:40:35.877825+00	4	薬理学Ⅲ	1	[{"added": {}}]	9	1
+5	2021-05-04 09:40:55.196519+00	5	微生物学Ⅱ	1	[{"added": {}}]	9	1
+6	2021-05-04 09:43:52.298667+00	1	2年生	1	[{"added": {}}]	7	1
+7	2021-05-04 09:43:57.355411+00	2	3年生	1	[{"added": {}}]	7	1
+8	2021-05-04 09:44:19.14112+00	1	刺激	1	[{"added": {}}]	11	1
+9	2021-05-04 09:44:25.018212+00	2	遮断	1	[{"added": {}}]	11	1
+10	2021-05-04 09:44:25.120923+00	3	遮断	1	[{"added": {}}]	11	1
+11	2021-05-04 09:44:40.225113+00	3	酵素阻害	2	[{"changed": {"fields": ["\\u523a\\u6fc0\\u30fb\\u906e\\u65ad\\u30fb\\u9175\\u7d20\\u963b\\u5bb3\\u7b49"]}}]	11	1
+12	2021-05-04 09:45:40.771977+00	4	酵素活性化	1	[{"added": {}}]	11	1
+13	2021-05-04 09:46:36.78287+00	1	抗ヒスタミン薬(薬理学序論)	1	[{"added": {}}]	12	1
+14	2021-05-04 09:47:18.931109+00	1	春学期	1	[{"added": {}}]	8	1
+15	2021-05-04 09:47:26.290944+00	2	秋学期	1	[{"added": {}}]	8	1
+16	2021-05-04 09:47:49.347234+00	1	ヒスタミンH1受容体	1	[{"added": {}}]	10	1
+17	2021-05-04 09:48:16.821217+00	1	クロルフェニラミン	1	[{"added": {}}]	13	1
+18	2021-05-04 09:48:40.34631+00	2	ジフェンヒドラミン	1	[{"added": {}}]	13	1
+19	2021-05-04 09:49:09.734794+00	3	ジメンヒドリナート	1	[{"added": {}}]	13	1
+20	2021-05-04 09:55:38.619737+00	4	エピナスチン	1	[{"added": {}}]	13	1
+21	2021-05-04 09:55:48.091479+00	5	メキタジン	1	[{"added": {}}]	13	1
+22	2021-05-04 09:55:57.177901+00	6	フェキソフェナジン	1	[{"added": {}}]	13	1
+23	2021-05-04 10:05:14.477493+00	7	ケトチフェン	1	[{"added": {}}]	13	1
+24	2021-05-04 10:05:54.347007+00	7	アゼラスチン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d"]}}]	13	1
+25	2021-05-04 10:06:08.30792+00	7	オキサトミド	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d"]}}]	13	1
+26	2021-05-04 10:06:29.117733+00	2	ヒスタミンH2受容体	1	[{"added": {}}]	10	1
+27	2021-05-04 10:07:08.841733+00	7	シメチジン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+28	2021-05-04 10:10:09.972743+00	7	シメチジン	2	[{"changed": {"fields": ["\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af"]}}]	13	1
+29	2021-05-04 10:10:33.554528+00	8	ファモチジン	1	[{"added": {}}]	13	1
+30	2021-05-04 10:12:11.336993+00	2	交感神経関連薬(序論)	1	[{"added": {}}]	12	1
+31	2021-05-04 10:12:32.794032+00	3	アドレナリンα受容体	1	[{"added": {}}]	10	1
+32	2021-05-04 10:12:50.064662+00	8	ナファゾリン	2	[{"changed": {"fields": ["\\u5206\\u91ce(\\u79d1\\u76ee)\\u9078\\u629e", "\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+33	2021-05-04 10:13:20.509847+00	4	アドレナリンα１受容体	1	[{"added": {}}]	10	1
+34	2021-05-04 10:14:00.875107+00	8	ミドドリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af"]}}]	13	1
+35	2021-05-04 10:15:09.435714+00	8	フェニレフリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+36	2021-05-04 10:15:47.124001+00	8	ジピぺフリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+37	2021-05-04 10:16:39.924674+00	5	アドレナリンα2受容体	1	[{"added": {}}]	10	1
+38	2021-05-04 10:17:23.953219+00	8	クロニジン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+39	2021-05-04 10:18:05.889623+00	8	αメチルドパ	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+40	2021-05-04 10:18:52.567882+00	8	αメチルドパ	2	[]	13	1
+41	2021-05-04 10:19:15.023597+00	9	クロニジン	1	[{"added": {}}]	13	1
+42	2021-05-04 10:20:36.32434+00	10	ナファゾリン	1	[{"added": {}}]	13	1
+43	2021-05-04 10:24:46.85707+00	10	フェニレフリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+44	2021-05-04 10:25:25.361706+00	10	フェニレフリン	2	[]	13	1
+45	2021-05-04 10:26:01.278833+00	11	ナファゾリン	1	[{"added": {}}]	13	1
+46	2021-05-04 10:28:13.125944+00	3	ペニシリン系(微生物Ⅱ)	1	[{"added": {}}]	12	1
+47	2021-05-04 10:28:36.248596+00	6	PBP(ペニシリン結合タンパク)	1	[{"added": {}}]	10	1
+48	2021-05-04 10:29:04.768561+00	11	ペニシリンG	2	[{"changed": {"fields": ["\\u5206\\u91ce(\\u79d1\\u76ee)\\u9078\\u629e", "\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e", "\\u5b66\\u671f"]}}]	13	1
+49	2021-05-04 10:29:46.674116+00	11	メキシチリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+50	2021-05-04 10:30:24.578793+00	11	クロキサシリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d"]}}]	13	1
+51	2021-05-04 10:31:07.046036+00	11	クロキサシリン	2	[]	13	1
+52	2021-05-04 10:31:54.619104+00	12	ペニシリンG	1	[{"added": {}}]	13	1
+85	2021-05-04 10:35:04.789375+00	45	メチシリン	1	[{"added": {}}]	13	1
+86	2021-05-04 10:35:49.774985+00	46	アンピシリン	1	[{"added": {}}]	13	1
+87	2021-05-04 10:36:19.080235+00	45	メチシリン	2	[{"changed": {"fields": ["\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+88	2021-05-04 10:36:32.213832+00	45	メチシリン	2	[]	13	1
+89	2021-05-04 10:36:45.415399+00	11	クロキサシリン	2	[{"changed": {"fields": ["\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
 \.
 
 
@@ -1000,9 +1149,10 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 7	yakuri	grade
 8	yakuri	season
 9	yakuri	subject
-10	yakuri	work
-11	yakuri	fields
-12	yakuri	detail
+10	yakuri	target
+11	yakuri	work
+12	yakuri	fields
+13	yakuri	detail
 \.
 
 
@@ -1011,25 +1161,25 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2021-05-01 03:55:51.795159+00
-2	auth	0001_initial	2021-05-01 03:55:51.874589+00
-3	admin	0001_initial	2021-05-01 03:55:51.990056+00
-4	admin	0002_logentry_remove_auto_add	2021-05-01 03:55:52.020847+00
-5	admin	0003_logentry_add_action_flag_choices	2021-05-01 03:55:52.039214+00
-6	contenttypes	0002_remove_content_type_name	2021-05-01 03:55:52.079078+00
-7	auth	0002_alter_permission_name_max_length	2021-05-01 03:55:52.092017+00
-8	auth	0003_alter_user_email_max_length	2021-05-01 03:55:52.112219+00
-9	auth	0004_alter_user_username_opts	2021-05-01 03:55:52.132116+00
-10	auth	0005_alter_user_last_login_null	2021-05-01 03:55:52.149727+00
-11	auth	0006_require_contenttypes_0002	2021-05-01 03:55:52.155412+00
-12	auth	0007_alter_validators_add_error_messages	2021-05-01 03:55:52.175859+00
-13	auth	0008_alter_user_username_max_length	2021-05-01 03:55:52.201823+00
-14	auth	0009_alter_user_last_name_max_length	2021-05-01 03:55:52.222374+00
-15	auth	0010_alter_group_name_max_length	2021-05-01 03:55:52.238274+00
-16	auth	0011_update_proxy_permissions	2021-05-01 03:55:52.257129+00
-17	sessions	0001_initial	2021-05-01 03:55:52.274665+00
-18	yakuri	0001_initial	2021-05-01 03:55:52.384997+00
-19	yakuri	0002_auto_20210501_1444	2021-05-01 05:44:14.261836+00
+1	contenttypes	0001_initial	2021-05-04 09:36:50.540135+00
+2	auth	0001_initial	2021-05-04 09:36:50.615707+00
+3	admin	0001_initial	2021-05-04 09:36:50.704979+00
+4	admin	0002_logentry_remove_auto_add	2021-05-04 09:36:50.727747+00
+5	admin	0003_logentry_add_action_flag_choices	2021-05-04 09:36:50.738184+00
+6	contenttypes	0002_remove_content_type_name	2021-05-04 09:36:50.762053+00
+7	auth	0002_alter_permission_name_max_length	2021-05-04 09:36:50.770042+00
+8	auth	0003_alter_user_email_max_length	2021-05-04 09:36:50.781564+00
+9	auth	0004_alter_user_username_opts	2021-05-04 09:36:50.793628+00
+10	auth	0005_alter_user_last_login_null	2021-05-04 09:36:50.803628+00
+11	auth	0006_require_contenttypes_0002	2021-05-04 09:36:50.809916+00
+12	auth	0007_alter_validators_add_error_messages	2021-05-04 09:36:50.825939+00
+13	auth	0008_alter_user_username_max_length	2021-05-04 09:36:50.849517+00
+14	auth	0009_alter_user_last_name_max_length	2021-05-04 09:36:50.867843+00
+15	auth	0010_alter_group_name_max_length	2021-05-04 09:36:50.883098+00
+16	auth	0011_update_proxy_permissions	2021-05-04 09:36:50.899368+00
+17	sessions	0001_initial	2021-05-04 09:36:50.916681+00
+18	yakuri	0001_initial	2021-05-04 09:36:51.073058+00
+19	yakuri	0002_auto_20210504_1843	2021-05-04 09:43:24.144354+00
 \.
 
 
@@ -1038,8 +1188,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
-k488esuhu2ncp6l9b4cwbv7lc7310bmo	YWVmMWI0NTA4YWVmZTMwMWY0OWE2OTUzOTEwN2ZjYTM4NGI3NTg3ODp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI2Njc5YTQ2YTcyNThlMTU4NmNkOTI4ZGY4MGI4NjExMjkzNDZmYmVmIn0=	2021-05-15 04:49:56.071992+00
-ypx1bzu57lx606oib4orjahghz9lrlsf	YWVmMWI0NTA4YWVmZTMwMWY0OWE2OTUzOTEwN2ZjYTM4NGI3NTg3ODp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI2Njc5YTQ2YTcyNThlMTU4NmNkOTI4ZGY4MGI4NjExMjkzNDZmYmVmIn0=	2021-05-16 04:09:18.26717+00
+w3kwrvhgdyy3bw79muwshfgdfpldfcil	OWNmYmJmNDBlZjZmZDljOTUyZjYyYTAzMWVlNjU3N2VhY2U5N2QzNzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5MzliMzFlYjkyNmI1M2ZlNDJkMjRmY2M5MjkyNGZhNTllYWVjYzkxIn0=	2021-05-18 09:38:04.1898+00
 \.
 
 
@@ -1047,25 +1196,43 @@ ypx1bzu57lx606oib4orjahghz9lrlsf	YWVmMWI0NTA4YWVmZTMwMWY0OWE2OTUzOTEwN2ZjYTM4NGI
 -- Data for Name: yakuri_detail; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.yakuri_detail (id, name, target, detail, structure, field_id, grade_id, season_id, work_id) FROM stdin;
-3	ジメンヒドリナート	ヒスタミンH1受容体	ジフェンヒドラミンと8-クロルテオフィリンの塩		1	1	1	2
-4	エピナスチン	ヒスタミンH1受容体	BBB通過しにくい\r\nケミカルメディエーター遊離阻害作用		1	1	1	2
-5	メキタジン	ヒスタミンH1受容体	BBB通過しにくい\r\nケミカルメディエーター遊離阻害作用		1	1	1	2
-6	フェキソフェナジン	ヒスタミンH1受容体	BBB通過しにくい ケミカルメディエーター遊離阻害作用		1	1	1	2
-7	ケトチフェン	ヒスタミンH1受容体	中枢作用あり、ケミカルメディエーター遊離阻害		1	1	1	2
-8	オキサトミド	ヒスタミンH1受容体	BBB通過しにくい ケミカルメディエーター遊離阻害作用		1	1	1	2
-2	ジフェンヒドラミン	ヒスタミンH1受容体	抗コリン作用あり		1	1	1	2
-1	クロルフェニラミン	ヒスタミンH1受容体	抗コリン作用あり		1	1	1	2
-9	ナファゾリン	アドレナリンα受容体	α非選択的刺激		2	1	1	1
-10	ミドドリン	アドレナリンα1受容体			2	1	1	1
-11	フェニレフリン	アドレナリンα1受容体	麻酔との併用\r\n点鼻血管収縮剤		2	1	1	1
-12	ジピぺフリン	アドレナリンα1受容体	毛様体動脈収縮\r\n→眼房水産生抑制		2	1	1	1
-46	セボフルラン	作用機序不明	亜酸化窒素と併用		3	1	1	3
-47	ペニシリンG	PBP(微生物)	梅毒トレポネーマの第一選択		36	1	2	36
-48	イミプラミン	5-HTトランスポーター・NAトランスポーター	抗鬱作用、効果を示すまで2~4週間\r\n副作用：悪性症候群\r\n・抗コリン由来：心悸亢進・頻脈、尿閉、便秘、口渇、\r\n・抗ヒスタミン由来：眠気・鎮静\r\n\r\n抗コリン作用の為、尿閉・緑内障患者に禁忌		37	1	2	37
-49	炭酸水素ナトリウム	胃酸中和	胃酸を急速に中和するが持続は短い\r\n大量に用いた場合は代謝性アルカローシスを引き起こしやすい		38	2	1	38
-50	コルホルシンダロパート	アデニル酸シクラーゼ	※心筋のｃAMPを上昇させる\r\n\r\n適応：他剤で効果不十分な時の急性心不全\r\n\r\n副作用：頻脈・不整脈\r\n\r\n適応：急性循環器不全(静注)\r\n　　　床ずれ(外用)		39	2	2	39
-51	ニトログリセリン	グアニル酸シクラーゼ	cGMPで血管拡張\r\n\r\n前負荷と後負荷を軽減する		39	2	2	39
+COPY public.yakuri_detail (id, name, detail, structure, field_id, grade_id, season_id, work_id) FROM stdin;
+1	クロルフェニラミン	抗コリン作用あり		1	1	1	2
+2	ジフェンヒドラミン	抗コリン作用あり		1	1	1	2
+3	ジメンヒドリナート	ジフェンヒドラミンと\r\n8-クロルテオフィリンの塩		1	1	1	2
+4	エピナスチン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		1	1	1	2
+5	メキタジン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		1	1	1	2
+6	フェキソフェナジン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		1	1	1	2
+7	シメチジン	胃潰瘍治療薬		1	1	1	2
+8	αメチルドパ	抹消への交感神経出力減少\r\n→血圧降下\r\nプロドラッグ		2	1	1	1
+9	クロニジン	抹消への交感神経出力減少\r\n→血圧降下		2	1	1	1
+10	フェニレフリン			2	1	1	1
+12	ペニシリンG	梅毒トレポネーマ第一選択		3	1	2	3
+46	アンピシリン	大腸菌・赤痢菌・腸チフスに有効		3	1	2	3
+45	メチシリン	ペニシリナーゼ非分解		3	1	2	3
+11	クロキサシリン	ペニシリナーゼ非分解		3	1	2	3
+\.
+
+
+--
+-- Data for Name: yakuri_detail_target; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.yakuri_detail_target (id, detail_id, target_id) FROM stdin;
+1	1	1
+2	2	1
+3	3	1
+4	4	1
+5	5	1
+6	6	1
+8	7	2
+12	8	5
+13	9	5
+15	10	4
+17	11	6
+18	12	6
+51	45	6
+52	46	6
 \.
 
 
@@ -1073,14 +1240,18 @@ COPY public.yakuri_detail (id, name, target, detail, structure, field_id, grade_
 -- Data for Name: yakuri_fields; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.yakuri_fields (id, fields, subject_id) FROM stdin;
-1	抗ヒスタミン薬(薬理学序論)	1
-2	交感神経関連薬(序論)	1
-3	吸引麻酔薬(薬理Ⅰ)	2
-37	抗うつ薬(薬理Ⅰ)	2
-38	吸収性制酸薬(薬理Ⅱ)	3
-39	心不全治療薬(薬理Ⅲ)	4
-36	ペニシリン系(微生Ⅱ)	5
+COPY public.yakuri_fields (id, fields, descriptione, subject_id) FROM stdin;
+1	抗ヒスタミン薬(薬理学序論)		1
+2	交感神経関連薬(序論)		1
+3	ペニシリン系(微生物Ⅱ)	グラム陽性菌、グラム陰性球菌、スピロヘータに有効。\r\nアナフィラキシーショックに注意。	5
+\.
+
+
+--
+-- Data for Name: yakuri_fields_reltarget; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.yakuri_fields_reltarget (id, fields_id, target_id) FROM stdin;
 \.
 
 
@@ -1099,8 +1270,8 @@ COPY public.yakuri_grade (id, grades) FROM stdin;
 --
 
 COPY public.yakuri_season (id, seasons) FROM stdin;
-1	前期(春)
-2	後期(秋)
+1	春学期
+2	秋学期
 \.
 
 
@@ -1109,11 +1280,25 @@ COPY public.yakuri_season (id, seasons) FROM stdin;
 --
 
 COPY public.yakuri_subject (id, subjects, subinfo) FROM stdin;
-5	微生物学Ⅱ	感染症治療の基本となる抗菌薬・抗ウイルス薬について学びます\r\n作用機序・抗菌スペクトルの特徴を整理していきましょう
-4	薬理学Ⅲ	循環器系・血液系・免疫系に作用する薬を中心に学んで行きます。
-2	薬理学Ⅰ	中枢神経系・内分泌系の薬物について学んで行きます
-1	薬理学序論	自律神経・アレルギーの医薬品について学んで行きます
-3	薬理学Ⅱ	消化器系・代謝系の薬物について学んで行きます
+1	薬理学序論	自律神経・アレルギー・内分泌(1)
+2	薬理学Ⅰ	中枢神経・内分泌2
+3	薬理学Ⅱ	消化器系・代謝系
+4	薬理学Ⅲ	循環器・自己免疫
+5	微生物学Ⅱ	感染症治療
+\.
+
+
+--
+-- Data for Name: yakuri_target; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.yakuri_target (id, targets) FROM stdin;
+1	ヒスタミンH1受容体
+2	ヒスタミンH2受容体
+3	アドレナリンα受容体
+4	アドレナリンα１受容体
+5	アドレナリンα2受容体
+6	PBP(ペニシリン結合タンパク)
 \.
 
 
@@ -1124,11 +1309,8 @@ COPY public.yakuri_subject (id, subjects, subinfo) FROM stdin;
 COPY public.yakuri_work (id, works) FROM stdin;
 1	刺激
 2	遮断
-3	不明
-36	酵素阻害
-37	トランスポーター阻害
-38	その他
-39	酵素活性化
+3	酵素阻害
+4	酵素活性化
 \.
 
 
@@ -1150,7 +1332,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 48, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 52, true);
 
 
 --
@@ -1178,14 +1360,14 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 93, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 89, true);
 
 
 --
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 13, true);
 
 
 --
@@ -1199,14 +1381,28 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 19, true);
 -- Name: yakuri_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 51, true);
+SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 46, true);
+
+
+--
+-- Name: yakuri_detail_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 52, true);
 
 
 --
 -- Name: yakuri_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_fields_id_seq', 39, true);
+SELECT pg_catalog.setval('public.yakuri_fields_id_seq', 3, true);
+
+
+--
+-- Name: yakuri_fields_reltarget_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.yakuri_fields_reltarget_id_seq', 1, false);
 
 
 --
@@ -1231,10 +1427,17 @@ SELECT pg_catalog.setval('public.yakuri_subject_id_seq', 5, true);
 
 
 --
+-- Name: yakuri_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.yakuri_target_id_seq', 6, true);
+
+
+--
 -- Name: yakuri_work_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_work_id_seq', 39, true);
+SELECT pg_catalog.setval('public.yakuri_work_id_seq', 4, true);
 
 
 --
@@ -1398,6 +1601,22 @@ ALTER TABLE ONLY public.yakuri_detail
 
 
 --
+-- Name: yakuri_detail_target yakuri_detail_target_detail_id_target_id_50a41c40_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_detail_target
+    ADD CONSTRAINT yakuri_detail_target_detail_id_target_id_50a41c40_uniq UNIQUE (detail_id, target_id);
+
+
+--
+-- Name: yakuri_detail_target yakuri_detail_target_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_detail_target
+    ADD CONSTRAINT yakuri_detail_target_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: yakuri_fields yakuri_fields_fields_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1411,6 +1630,22 @@ ALTER TABLE ONLY public.yakuri_fields
 
 ALTER TABLE ONLY public.yakuri_fields
     ADD CONSTRAINT yakuri_fields_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: yakuri_fields_reltarget yakuri_fields_reltarget_fields_id_target_id_cabaa8d8_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_fields_reltarget
+    ADD CONSTRAINT yakuri_fields_reltarget_fields_id_target_id_cabaa8d8_uniq UNIQUE (fields_id, target_id);
+
+
+--
+-- Name: yakuri_fields_reltarget yakuri_fields_reltarget_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_fields_reltarget
+    ADD CONSTRAINT yakuri_fields_reltarget_pkey PRIMARY KEY (id);
 
 
 --
@@ -1435,6 +1670,30 @@ ALTER TABLE ONLY public.yakuri_season
 
 ALTER TABLE ONLY public.yakuri_subject
     ADD CONSTRAINT yakuri_subject_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: yakuri_subject yakuri_subject_subjects_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_subject
+    ADD CONSTRAINT yakuri_subject_subjects_key UNIQUE (subjects);
+
+
+--
+-- Name: yakuri_target yakuri_target_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_target
+    ADD CONSTRAINT yakuri_target_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: yakuri_target yakuri_target_targets_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_target
+    ADD CONSTRAINT yakuri_target_targets_key UNIQUE (targets);
 
 
 --
@@ -1558,6 +1817,20 @@ CREATE INDEX yakuri_detail_season_id_cd913b36 ON public.yakuri_detail USING btre
 
 
 --
+-- Name: yakuri_detail_target_detail_id_28ffde3f; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX yakuri_detail_target_detail_id_28ffde3f ON public.yakuri_detail_target USING btree (detail_id);
+
+
+--
+-- Name: yakuri_detail_target_target_id_a4817269; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX yakuri_detail_target_target_id_a4817269 ON public.yakuri_detail_target USING btree (target_id);
+
+
+--
 -- Name: yakuri_detail_work_id_090c5360; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1572,10 +1845,38 @@ CREATE INDEX yakuri_fields_fields_f53c1d3b_like ON public.yakuri_fields USING bt
 
 
 --
+-- Name: yakuri_fields_reltarget_fields_id_1c3c8b75; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX yakuri_fields_reltarget_fields_id_1c3c8b75 ON public.yakuri_fields_reltarget USING btree (fields_id);
+
+
+--
+-- Name: yakuri_fields_reltarget_target_id_a13a1585; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX yakuri_fields_reltarget_target_id_a13a1585 ON public.yakuri_fields_reltarget USING btree (target_id);
+
+
+--
 -- Name: yakuri_fields_subject_id_6eaa592b; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX yakuri_fields_subject_id_6eaa592b ON public.yakuri_fields USING btree (subject_id);
+
+
+--
+-- Name: yakuri_subject_subjects_060d6f16_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX yakuri_subject_subjects_060d6f16_like ON public.yakuri_subject USING btree (subjects varchar_pattern_ops);
+
+
+--
+-- Name: yakuri_target_targets_dfa93e81_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX yakuri_target_targets_dfa93e81_like ON public.yakuri_target USING btree (targets varchar_pattern_ops);
 
 
 --
@@ -1675,11 +1976,43 @@ ALTER TABLE ONLY public.yakuri_detail
 
 
 --
+-- Name: yakuri_detail_target yakuri_detail_target_detail_id_28ffde3f_fk_yakuri_detail_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_detail_target
+    ADD CONSTRAINT yakuri_detail_target_detail_id_28ffde3f_fk_yakuri_detail_id FOREIGN KEY (detail_id) REFERENCES public.yakuri_detail(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: yakuri_detail_target yakuri_detail_target_target_id_a4817269_fk_yakuri_target_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_detail_target
+    ADD CONSTRAINT yakuri_detail_target_target_id_a4817269_fk_yakuri_target_id FOREIGN KEY (target_id) REFERENCES public.yakuri_target(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: yakuri_detail yakuri_detail_work_id_090c5360_fk_yakuri_work_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.yakuri_detail
     ADD CONSTRAINT yakuri_detail_work_id_090c5360_fk_yakuri_work_id FOREIGN KEY (work_id) REFERENCES public.yakuri_work(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: yakuri_fields_reltarget yakuri_fields_reltarget_fields_id_1c3c8b75_fk_yakuri_fields_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_fields_reltarget
+    ADD CONSTRAINT yakuri_fields_reltarget_fields_id_1c3c8b75_fk_yakuri_fields_id FOREIGN KEY (fields_id) REFERENCES public.yakuri_fields(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: yakuri_fields_reltarget yakuri_fields_reltarget_target_id_a13a1585_fk_yakuri_target_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.yakuri_fields_reltarget
+    ADD CONSTRAINT yakuri_fields_reltarget_target_id_a13a1585_fk_yakuri_target_id FOREIGN KEY (target_id) REFERENCES public.yakuri_target(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

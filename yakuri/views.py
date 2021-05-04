@@ -15,7 +15,7 @@ class PharmList(ListView):
         #Subjectモデルのidをベースに絞り込み
         titlekey=self.kwargs['id']
         context['title']=Subject.objects.filter(id=titlekey).first()
-        context['medicines']=Detail.objects.filter(field__subject__id=titlekey).order_by('-target','-work','-detail')
+        context['medicines']=Detail.objects.filter(field__subject__id=titlekey).order_by('target','-work','-detail')
         
         #分野名のみを取得
         context['fields']=Detail.objects.filter(field__subject__id=titlekey).order_by('field').distinct().values('field__fields')

@@ -33,7 +33,13 @@
             {% if medicine.field.fields in field.field__fields  %}
             <tr>
                 <td>□<span class=addname>{{medicine.name}}</span></td>
-                <td><div>{{medicine.target}}</div></td>
+                <td>
+                
+                {% for target in medicine.target.all %}
+                 <div>{{target}}</div>
+                {% endfor %}
+                
+                </td>
                 <td><div>{{medicine.work.works}}</div></td>
                 <td><div>{{medicine.detail|linebreaksbr}}</div></td>
             </tr>
