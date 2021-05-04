@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView,ListView
-from .models import Detail,Subject
+from .models import Detail,Subject,Fields
 # Create your views here.
 
 class HomeView(TemplateView):
@@ -23,4 +23,8 @@ class PharmList(ListView):
         return context
         
   
+class PharmIndex(ListView):
+    template_name='index.html'
+    model=Fields
+    
     

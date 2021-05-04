@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="{% static 'design/list.css' %}">
 
 
+<a href="{% url 'yakuri:index' %}"><button type="button" class="btn btn-primary btn-lg btn-block">目次へ</button></a>
 {% for field in fields %}
 <div class="card">
     <div class="card-header">
