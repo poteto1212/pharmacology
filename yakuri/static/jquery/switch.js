@@ -6,3 +6,6 @@ $('.show').click(function(){
         $('.addname').css('opacity',1);
 });
 });
+
+
+ 
