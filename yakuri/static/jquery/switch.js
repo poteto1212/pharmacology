@@ -1,8 +1,8 @@
 $(function(){
 $('.hide').click(function(){
-        $('.addname').hide();
+        $('.addname').css('opacity',0);
 });
 $('.show').click(function(){
-        $('.addname').show();
+        $('.addname').css('opacity',1);
 });
 });

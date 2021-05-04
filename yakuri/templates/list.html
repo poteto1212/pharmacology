@@ -12,30 +12,36 @@
 <script type="text/javascript" src="{% static 'jquery/switch.js' %}"></script>
 <link rel="stylesheet" href="{% static 'design/list.css' %}">
 
-<button class="hide">医薬品名を非表示にする</button>
-<button class="show">医薬品名を表示する</button>
 
 {% for field in fields %}
-    <h2>{{field.field__fields}}</h2>
-            <table border=3 class="mitabla" style="width:80%;">
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">{{field.field__fields}}</h4>
+        <button class="hide">医薬品名を非表示にする</button>
+        <button class="show">医薬品名を表示する</button>
+    </div>
+    <div class="card-body">
+            <table border=3 class="mitabla" style="width:90%;">
             <tr>
-                <th style="width:20%;">薬物名</th>
+                <th style="width:30%;">薬物名</th>
                 <th style="width:20%;">作用部位</th>
-                <th style="width:10%">作用の仕方</th>
+                <th style="width:10%;">作用の仕方</th>
                 <th>特徴</th>
             </tr>
             
             {% for medicine in medicines %}
             {% if medicine.field.fields in field.field__fields  %}
             <tr>
-                <td><div class=addname>{{medicine.name}}</div></td>
-                <td>{{medicine.target}}</td>
-                <td>{{medicine.work.works}}</td>
-                <td>{{medicine.detail|linebreaksbr}}</td>
+                <td>□<span class=addname>{{medicine.name}}</span></td>
+                <td><div>{{medicine.target}}</div></td>
+                <td><div>{{medicine.work.works}}</div></td>
+                <td><div>{{medicine.detail|linebreaksbr}}</div></td>
             </tr>
                 {% endif %}
             {% endfor %}
             </table>
+    </div>
+</div>
 
 
 {% endfor %}
