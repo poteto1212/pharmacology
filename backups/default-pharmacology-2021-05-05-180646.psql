@@ -535,6 +535,7 @@ CREATE TABLE public.yakuri_detail (
     name character varying(25) NOT NULL,
     detail text,
     structure character varying(100),
+    studynum integer,
     field_id integer NOT NULL,
     grade_id integer NOT NULL,
     season_id integer NOT NULL,
@@ -1050,7 +1051,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$180000$ItMITsIAwKau$Hue89INe3WQ4xP4GrmAG6QbiROkCarWZNZZLKVoemKE=	2021-05-04 09:38:04.1877+00	t	poteto1212			test@gmail.com	t	t	2021-05-04 09:37:48.621147+00
+1	pbkdf2_sha256$180000$mboKrjvRDViz$rkH10rd+oMZ6w5KBggraV1uBF0LphTu6xcqGkcIEzqI=	2021-05-05 08:17:48.267282+00	t	poteto1212			test@gmail.com	t	t	2021-05-05 08:17:23.138121+00
 \.
 
 
@@ -1075,63 +1076,78 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
-1	2021-05-04 09:39:00.300292+00	1	薬理学序論	1	[{"added": {}}]	9	1
-2	2021-05-04 09:39:19.822082+00	2	薬理学Ⅰ	1	[{"added": {}}]	9	1
-3	2021-05-04 09:39:57.327457+00	3	薬理学Ⅱ	1	[{"added": {}}]	9	1
-4	2021-05-04 09:40:35.877825+00	4	薬理学Ⅲ	1	[{"added": {}}]	9	1
-5	2021-05-04 09:40:55.196519+00	5	微生物学Ⅱ	1	[{"added": {}}]	9	1
-6	2021-05-04 09:43:52.298667+00	1	2年生	1	[{"added": {}}]	7	1
-7	2021-05-04 09:43:57.355411+00	2	3年生	1	[{"added": {}}]	7	1
-8	2021-05-04 09:44:19.14112+00	1	刺激	1	[{"added": {}}]	11	1
-9	2021-05-04 09:44:25.018212+00	2	遮断	1	[{"added": {}}]	11	1
-10	2021-05-04 09:44:25.120923+00	3	遮断	1	[{"added": {}}]	11	1
-11	2021-05-04 09:44:40.225113+00	3	酵素阻害	2	[{"changed": {"fields": ["\\u523a\\u6fc0\\u30fb\\u906e\\u65ad\\u30fb\\u9175\\u7d20\\u963b\\u5bb3\\u7b49"]}}]	11	1
-12	2021-05-04 09:45:40.771977+00	4	酵素活性化	1	[{"added": {}}]	11	1
-13	2021-05-04 09:46:36.78287+00	1	抗ヒスタミン薬(薬理学序論)	1	[{"added": {}}]	12	1
-14	2021-05-04 09:47:18.931109+00	1	春学期	1	[{"added": {}}]	8	1
-15	2021-05-04 09:47:26.290944+00	2	秋学期	1	[{"added": {}}]	8	1
-16	2021-05-04 09:47:49.347234+00	1	ヒスタミンH1受容体	1	[{"added": {}}]	10	1
-17	2021-05-04 09:48:16.821217+00	1	クロルフェニラミン	1	[{"added": {}}]	13	1
-18	2021-05-04 09:48:40.34631+00	2	ジフェンヒドラミン	1	[{"added": {}}]	13	1
-19	2021-05-04 09:49:09.734794+00	3	ジメンヒドリナート	1	[{"added": {}}]	13	1
-20	2021-05-04 09:55:38.619737+00	4	エピナスチン	1	[{"added": {}}]	13	1
-21	2021-05-04 09:55:48.091479+00	5	メキタジン	1	[{"added": {}}]	13	1
-22	2021-05-04 09:55:57.177901+00	6	フェキソフェナジン	1	[{"added": {}}]	13	1
-23	2021-05-04 10:05:14.477493+00	7	ケトチフェン	1	[{"added": {}}]	13	1
-24	2021-05-04 10:05:54.347007+00	7	アゼラスチン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d"]}}]	13	1
-25	2021-05-04 10:06:08.30792+00	7	オキサトミド	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d"]}}]	13	1
-26	2021-05-04 10:06:29.117733+00	2	ヒスタミンH2受容体	1	[{"added": {}}]	10	1
-27	2021-05-04 10:07:08.841733+00	7	シメチジン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-28	2021-05-04 10:10:09.972743+00	7	シメチジン	2	[{"changed": {"fields": ["\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af"]}}]	13	1
-29	2021-05-04 10:10:33.554528+00	8	ファモチジン	1	[{"added": {}}]	13	1
-30	2021-05-04 10:12:11.336993+00	2	交感神経関連薬(序論)	1	[{"added": {}}]	12	1
-31	2021-05-04 10:12:32.794032+00	3	アドレナリンα受容体	1	[{"added": {}}]	10	1
-32	2021-05-04 10:12:50.064662+00	8	ナファゾリン	2	[{"changed": {"fields": ["\\u5206\\u91ce(\\u79d1\\u76ee)\\u9078\\u629e", "\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-33	2021-05-04 10:13:20.509847+00	4	アドレナリンα１受容体	1	[{"added": {}}]	10	1
-34	2021-05-04 10:14:00.875107+00	8	ミドドリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af"]}}]	13	1
-35	2021-05-04 10:15:09.435714+00	8	フェニレフリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-36	2021-05-04 10:15:47.124001+00	8	ジピぺフリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-37	2021-05-04 10:16:39.924674+00	5	アドレナリンα2受容体	1	[{"added": {}}]	10	1
-38	2021-05-04 10:17:23.953219+00	8	クロニジン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-39	2021-05-04 10:18:05.889623+00	8	αメチルドパ	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-40	2021-05-04 10:18:52.567882+00	8	αメチルドパ	2	[]	13	1
-41	2021-05-04 10:19:15.023597+00	9	クロニジン	1	[{"added": {}}]	13	1
-42	2021-05-04 10:20:36.32434+00	10	ナファゾリン	1	[{"added": {}}]	13	1
-43	2021-05-04 10:24:46.85707+00	10	フェニレフリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-44	2021-05-04 10:25:25.361706+00	10	フェニレフリン	2	[]	13	1
-45	2021-05-04 10:26:01.278833+00	11	ナファゾリン	1	[{"added": {}}]	13	1
-46	2021-05-04 10:28:13.125944+00	3	ペニシリン系(微生物Ⅱ)	1	[{"added": {}}]	12	1
-47	2021-05-04 10:28:36.248596+00	6	PBP(ペニシリン結合タンパク)	1	[{"added": {}}]	10	1
-48	2021-05-04 10:29:04.768561+00	11	ペニシリンG	2	[{"changed": {"fields": ["\\u5206\\u91ce(\\u79d1\\u76ee)\\u9078\\u629e", "\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e", "\\u5b66\\u671f"]}}]	13	1
-49	2021-05-04 10:29:46.674116+00	11	メキシチリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-50	2021-05-04 10:30:24.578793+00	11	クロキサシリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d"]}}]	13	1
-51	2021-05-04 10:31:07.046036+00	11	クロキサシリン	2	[]	13	1
-52	2021-05-04 10:31:54.619104+00	12	ペニシリンG	1	[{"added": {}}]	13	1
-85	2021-05-04 10:35:04.789375+00	45	メチシリン	1	[{"added": {}}]	13	1
-86	2021-05-04 10:35:49.774985+00	46	アンピシリン	1	[{"added": {}}]	13	1
-87	2021-05-04 10:36:19.080235+00	45	メチシリン	2	[{"changed": {"fields": ["\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
-88	2021-05-04 10:36:32.213832+00	45	メチシリン	2	[]	13	1
-89	2021-05-04 10:36:45.415399+00	11	クロキサシリン	2	[{"changed": {"fields": ["\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+1	2021-05-05 08:18:35.514685+00	1	薬理学Ⅰ	1	[{"added": {}}]	9	1
+2	2021-05-05 08:18:50.475322+00	1	薬理学序論	2	[{"changed": {"fields": ["\\u8b1b\\u7fa9\\u540d"]}}]	9	1
+3	2021-05-05 08:19:21.914349+00	2	薬理学Ⅰ	1	[{"added": {}}]	9	1
+4	2021-05-05 08:19:45.082205+00	3	薬理学Ⅱ	1	[{"added": {}}]	9	1
+5	2021-05-05 08:19:58.51539+00	4	薬理学Ⅲ	1	[{"added": {}}]	9	1
+6	2021-05-05 08:20:03.280057+00	4	薬理学Ⅲ	2	[]	9	1
+7	2021-05-05 08:20:51.539316+00	5	微生物学Ⅱ	1	[{"added": {}}]	9	1
+8	2021-05-05 08:21:59.388134+00	1	2年生	1	[{"added": {}}]	7	1
+9	2021-05-05 08:22:01.998643+00	1	2年生	2	[]	7	1
+10	2021-05-05 08:22:08.937106+00	2	3年生	1	[{"added": {}}]	7	1
+11	2021-05-05 08:22:23.487661+00	1	刺激	1	[{"added": {}}]	11	1
+12	2021-05-05 08:22:30.028917+00	2	遮断	1	[{"added": {}}]	11	1
+13	2021-05-05 08:22:36.666695+00	3	酵素活性化	1	[{"added": {}}]	11	1
+14	2021-05-05 08:22:43.357074+00	4	酵素阻害	1	[{"added": {}}]	11	1
+15	2021-05-05 08:23:06.779352+00	5	なし	1	[{"added": {}}]	11	1
+16	2021-05-05 08:23:37.32127+00	1	前期(春)	1	[{"added": {}}]	8	1
+17	2021-05-05 08:23:44.645212+00	2	後期(秋)	1	[{"added": {}}]	8	1
+18	2021-05-05 08:24:18.857555+00	1	抗ヒスタミン薬(薬理学序論)	1	[{"added": {}}]	12	1
+19	2021-05-05 08:26:13.819238+00	1	ヒスタミンH1受容体	1	[{"added": {}}]	10	1
+20	2021-05-05 08:26:47.28741+00	1	クロルフェニラミン	1	[{"added": {}}]	13	1
+21	2021-05-05 08:27:12.777898+00	2	ジフェンヒドラミン	1	[{"added": {}}]	13	1
+22	2021-05-05 08:27:51.167431+00	3	ジメンヒドリナート	1	[{"added": {}}]	13	1
+23	2021-05-05 08:28:31.647356+00	4	メキタジン	1	[{"added": {}}]	13	1
+24	2021-05-05 08:28:44.080099+00	5	エピナスチン	1	[{"added": {}}]	13	1
+25	2021-05-05 08:28:57.083739+00	6	フェキソフェナジン	1	[{"added": {}}]	13	1
+26	2021-05-05 08:31:34.010514+00	7	ケトチフェン	1	[{"added": {}}]	13	1
+27	2021-05-05 08:31:45.880933+00	8	アゼラスチン	1	[{"added": {}}]	13	1
+28	2021-05-05 08:31:55.378887+00	9	オキサトミド	1	[{"added": {}}]	13	1
+29	2021-05-05 08:32:18.465961+00	2	ヒスタミンH2受容体	1	[{"added": {}}]	10	1
+30	2021-05-05 08:32:30.075269+00	10	シメチジン	1	[{"added": {}}]	13	1
+31	2021-05-05 08:32:38.905063+00	11	ファモチジン	1	[{"added": {}}]	13	1
+32	2021-05-05 08:32:58.329892+00	2	交感神経関連薬(序論)	1	[{"added": {}}]	12	1
+33	2021-05-05 08:33:26.856079+00	3	アドレナリンα受容体(非選択的)	1	[{"added": {}}]	10	1
+34	2021-05-05 08:33:56.61815+00	12	ナファゾリン	1	[{"added": {}}]	13	1
+35	2021-05-05 08:34:20.158337+00	4	アドレナリンα１受容体	1	[{"added": {}}]	10	1
+36	2021-05-05 08:34:45.240953+00	13	ミドドリン	1	[{"added": {}}]	13	1
+60	2021-05-05 08:36:47.986342+00	41	フェニレフリン	1	[{"added": {}}]	13	1
+61	2021-05-05 08:37:16.357086+00	41	ジピぺフリン	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e"]}}]	13	1
+62	2021-05-05 08:37:54.90554+00	42	フェニレフリン	1	[{"added": {}}]	13	1
+63	2021-05-05 08:38:11.733008+00	12	ナファゾリン	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9"]}}]	13	1
+64	2021-05-05 08:46:42.53244+00	42	フェニレフリン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+65	2021-05-05 08:46:42.538912+00	41	ジピぺフリン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+66	2021-05-05 08:49:26.756857+00	3	ジメンヒドリナート	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+67	2021-05-05 08:49:40.497295+00	5	エピナスチン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+68	2021-05-05 08:49:52.292678+00	4	メキタジン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+69	2021-05-05 08:50:05.247788+00	6	フェキソフェナジン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+70	2021-05-05 08:50:21.764661+00	7	ケトチフェン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+71	2021-05-05 08:50:31.984192+00	8	アゼラスチン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+72	2021-05-05 08:50:43.417691+00	9	オキサトミド	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+73	2021-05-05 08:51:16.402545+00	11	ファモチジン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+74	2021-05-05 08:51:16.412565+00	10	シメチジン	2	[{"changed": {"fields": ["\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+75	2021-05-05 08:53:44.165634+00	35	吸引麻酔薬(薬理Ⅰ)	1	[{"added": {}}]	12	1
+76	2021-05-05 08:54:02.343192+00	35	作用機序不明	1	[{"added": {}}]	10	1
+77	2021-05-05 08:54:24.401697+00	43	セボフルラン	1	[{"added": {}}]	13	1
+78	2021-05-05 08:55:04.025764+00	43	亜酸化窒素	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e", "\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+79	2021-05-05 08:55:30.49033+00	36	静脈麻酔薬(薬理Ⅰ)	1	[{"added": {}}]	12	1
+80	2021-05-05 08:56:02.382558+00	36	GABAa受容体	1	[{"added": {}}]	10	1
+81	2021-05-05 08:56:26.485826+00	37	Cl⁻チャネル 複合体のバビルツレート 結合部位	1	[{"added": {}}]	10	1
+82	2021-05-05 08:57:11.922759+00	44	チオペンタール	1	[{"added": {}}]	13	1
+83	2021-05-05 08:57:35.454334+00	45	チアミラール	1	[{"added": {}}]	13	1
+84	2021-05-05 08:57:55.803146+00	38	Cl-チャネル 複合体のβサブユニット	1	[{"added": {}}]	10	1
+85	2021-05-05 08:58:09.035178+00	46	プロポフォール	1	[{"added": {}}]	13	1
+86	2021-05-05 08:59:40.141273+00	39	オピオイドμ受容体	1	[{"added": {}}]	10	1
+87	2021-05-05 09:00:36.859675+00	40	ドパミンD2受容体	1	[{"added": {}}]	10	1
+88	2021-05-05 09:00:59.846185+00	6	複数成分	1	[{"added": {}}]	11	1
+89	2021-05-05 09:01:08.341437+00	46	フェンタニル・ドロペリドール	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e", "\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+90	2021-05-05 09:01:30.908387+00	46	フェンタニル・ドロペリドール	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u306e\\u4ed5\\u65b9"]}}]	13	1
+91	2021-05-05 09:02:22.326339+00	47	プロポフォール	1	[{"added": {}}]	13	1
+92	2021-05-05 09:03:06.524249+00	41	グルタミン酸NMDA受容体	1	[{"added": {}}]	10	1
+93	2021-05-05 09:03:21.608574+00	7	非競合的拮抗	1	[{"added": {}}]	11	1
+94	2021-05-05 09:03:50.929121+00	48	ケタミン	1	[{"added": {}}]	13	1
+95	2021-05-05 09:04:31.637391+00	48	ケタミン	2	[{"changed": {"fields": ["\\u5206\\u91ce(\\u79d1\\u76ee)\\u9078\\u629e"]}}]	13	1
 \.
 
 
@@ -1161,25 +1177,24 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 --
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
-1	contenttypes	0001_initial	2021-05-04 09:36:50.540135+00
-2	auth	0001_initial	2021-05-04 09:36:50.615707+00
-3	admin	0001_initial	2021-05-04 09:36:50.704979+00
-4	admin	0002_logentry_remove_auto_add	2021-05-04 09:36:50.727747+00
-5	admin	0003_logentry_add_action_flag_choices	2021-05-04 09:36:50.738184+00
-6	contenttypes	0002_remove_content_type_name	2021-05-04 09:36:50.762053+00
-7	auth	0002_alter_permission_name_max_length	2021-05-04 09:36:50.770042+00
-8	auth	0003_alter_user_email_max_length	2021-05-04 09:36:50.781564+00
-9	auth	0004_alter_user_username_opts	2021-05-04 09:36:50.793628+00
-10	auth	0005_alter_user_last_login_null	2021-05-04 09:36:50.803628+00
-11	auth	0006_require_contenttypes_0002	2021-05-04 09:36:50.809916+00
-12	auth	0007_alter_validators_add_error_messages	2021-05-04 09:36:50.825939+00
-13	auth	0008_alter_user_username_max_length	2021-05-04 09:36:50.849517+00
-14	auth	0009_alter_user_last_name_max_length	2021-05-04 09:36:50.867843+00
-15	auth	0010_alter_group_name_max_length	2021-05-04 09:36:50.883098+00
-16	auth	0011_update_proxy_permissions	2021-05-04 09:36:50.899368+00
-17	sessions	0001_initial	2021-05-04 09:36:50.916681+00
-18	yakuri	0001_initial	2021-05-04 09:36:51.073058+00
-19	yakuri	0002_auto_20210504_1843	2021-05-04 09:43:24.144354+00
+1	contenttypes	0001_initial	2021-05-05 08:16:49.618758+00
+2	auth	0001_initial	2021-05-05 08:16:49.683336+00
+3	admin	0001_initial	2021-05-05 08:16:49.741347+00
+4	admin	0002_logentry_remove_auto_add	2021-05-05 08:16:49.77184+00
+5	admin	0003_logentry_add_action_flag_choices	2021-05-05 08:16:49.791709+00
+6	contenttypes	0002_remove_content_type_name	2021-05-05 08:16:49.83179+00
+7	auth	0002_alter_permission_name_max_length	2021-05-05 08:16:49.848181+00
+8	auth	0003_alter_user_email_max_length	2021-05-05 08:16:49.876181+00
+9	auth	0004_alter_user_username_opts	2021-05-05 08:16:49.895877+00
+10	auth	0005_alter_user_last_login_null	2021-05-05 08:16:49.916244+00
+11	auth	0006_require_contenttypes_0002	2021-05-05 08:16:49.919137+00
+12	auth	0007_alter_validators_add_error_messages	2021-05-05 08:16:49.935791+00
+13	auth	0008_alter_user_username_max_length	2021-05-05 08:16:49.959652+00
+14	auth	0009_alter_user_last_name_max_length	2021-05-05 08:16:49.979677+00
+15	auth	0010_alter_group_name_max_length	2021-05-05 08:16:49.995682+00
+16	auth	0011_update_proxy_permissions	2021-05-05 08:16:50.015729+00
+17	sessions	0001_initial	2021-05-05 08:16:50.027928+00
+18	yakuri	0001_initial	2021-05-05 08:16:50.114135+00
 \.
 
 
@@ -1188,7 +1203,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 --
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
-w3kwrvhgdyy3bw79muwshfgdfpldfcil	OWNmYmJmNDBlZjZmZDljOTUyZjYyYTAzMWVlNjU3N2VhY2U5N2QzNzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5MzliMzFlYjkyNmI1M2ZlNDJkMjRmY2M5MjkyNGZhNTllYWVjYzkxIn0=	2021-05-18 09:38:04.1898+00
+d7xl0s2ynsgtiavp8m40y8hqts5usrkt	OTI4ZTEzMDQyMThiM2I3Zjc3OGU4YmFlZmI5NjVjZmFmYWFmMjdkMzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxMTMxZDM3YTAxNjVhZjQxOTdmN2JlY2U5ZTUxYzRhNTViZGZhYzEyIn0=	2021-05-19 08:17:48.279671+00
 \.
 
 
@@ -1196,21 +1211,28 @@ w3kwrvhgdyy3bw79muwshfgdfpldfcil	OWNmYmJmNDBlZjZmZDljOTUyZjYyYTAzMWVlNjU3N2VhY2U
 -- Data for Name: yakuri_detail; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.yakuri_detail (id, name, detail, structure, field_id, grade_id, season_id, work_id) FROM stdin;
-1	クロルフェニラミン	抗コリン作用あり		1	1	1	2
-2	ジフェンヒドラミン	抗コリン作用あり		1	1	1	2
-3	ジメンヒドリナート	ジフェンヒドラミンと\r\n8-クロルテオフィリンの塩		1	1	1	2
-4	エピナスチン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		1	1	1	2
-5	メキタジン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		1	1	1	2
-6	フェキソフェナジン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		1	1	1	2
-7	シメチジン	胃潰瘍治療薬		1	1	1	2
-8	αメチルドパ	抹消への交感神経出力減少\r\n→血圧降下\r\nプロドラッグ		2	1	1	1
-9	クロニジン	抹消への交感神経出力減少\r\n→血圧降下		2	1	1	1
-10	フェニレフリン			2	1	1	1
-12	ペニシリンG	梅毒トレポネーマ第一選択		3	1	2	3
-46	アンピシリン	大腸菌・赤痢菌・腸チフスに有効		3	1	2	3
-45	メチシリン	ペニシリナーゼ非分解		3	1	2	3
-11	クロキサシリン	ペニシリナーゼ非分解		3	1	2	3
+COPY public.yakuri_detail (id, name, detail, structure, studynum, field_id, grade_id, season_id, work_id) FROM stdin;
+1	クロルフェニラミン	抗コリン作用あり		1	1	1	1	2
+2	ジフェンヒドラミン	抗コリン作用あり		1	1	1	1	2
+13	ミドドリン			2	2	1	1	1
+12	ナファゾリン			1	2	1	1	1
+42	フェニレフリン	麻酔との併用（血管収縮）		3	2	1	1	1
+41	ジピぺフリン	毛様体動脈収縮\r\n→眼房水産生抑制		4	2	1	1	1
+3	ジメンヒドリナート	ジフェンヒドラミンと\r\n8-クロルフェニラミンの塩		3	1	1	1	2
+5	エピナスチン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		4	1	1	1	2
+4	メキタジン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		5	1	1	1	2
+6	フェキソフェナジン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		6	1	1	1	2
+7	ケトチフェン	中枢作用あり\r\nケミカルメディエーター遊離阻害		7	1	1	1	2
+8	アゼラスチン	中枢作用あり\r\nケミカルメディエーター遊離阻害		8	1	1	1	2
+9	オキサトミド	中枢作用あり\r\nケミカルメディエーター遊離阻害		9	1	1	1	2
+11	ファモチジン	中枢作用あり\r\nケミカルメディエーター遊離阻害		11	1	1	1	2
+10	シメチジン	中枢作用あり\r\nケミカルメディエーター遊離阻害		10	1	1	1	2
+43	亜酸化窒素	鎮痛作用が強力\r\nセボフルランと併用		2	35	1	2	5
+44	チオペンタール	基礎麻酔薬として補助的に使われる。		1	36	1	2	1
+45	チアミラール	基礎麻酔薬として補助的に使われる。		2	36	1	2	1
+46	フェンタニル・ドロペリドール	麻薬系鎮痛薬+神経遮断薬 神経遮断性麻酔\r\n\r\n意識消失なしに外科手術が可能		4	36	1	2	6
+47	プロポフォール			3	36	1	2	1
+48	ケタミン	鎮痛と意識の解離。解離性麻酔。\r\n麻薬。神経障害性疼痛に用いる。		5	36	1	2	7
 \.
 
 
@@ -1225,14 +1247,25 @@ COPY public.yakuri_detail_target (id, detail_id, target_id) FROM stdin;
 4	4	1
 5	5	1
 6	6	1
-8	7	2
-12	8	5
-13	9	5
-15	10	4
-17	11	6
-18	12	6
-51	45	6
-52	46	6
+7	7	1
+8	8	1
+9	9	1
+10	10	2
+11	11	2
+12	12	3
+13	13	4
+41	41	4
+42	42	4
+43	43	35
+44	44	36
+45	44	37
+46	45	36
+47	45	37
+50	46	40
+51	46	39
+52	47	36
+53	47	38
+54	48	41
 \.
 
 
@@ -1243,7 +1276,8 @@ COPY public.yakuri_detail_target (id, detail_id, target_id) FROM stdin;
 COPY public.yakuri_fields (id, fields, descriptione, subject_id) FROM stdin;
 1	抗ヒスタミン薬(薬理学序論)		1
 2	交感神経関連薬(序論)		1
-3	ペニシリン系(微生物Ⅱ)	グラム陽性菌、グラム陰性球菌、スピロヘータに有効。\r\nアナフィラキシーショックに注意。	5
+35	吸引麻酔薬(薬理Ⅰ)		2
+36	静脈麻酔薬(薬理Ⅰ)		2
 \.
 
 
@@ -1270,8 +1304,8 @@ COPY public.yakuri_grade (id, grades) FROM stdin;
 --
 
 COPY public.yakuri_season (id, seasons) FROM stdin;
-1	春学期
-2	秋学期
+1	前期(春)
+2	後期(秋)
 \.
 
 
@@ -1280,11 +1314,11 @@ COPY public.yakuri_season (id, seasons) FROM stdin;
 --
 
 COPY public.yakuri_subject (id, subjects, subinfo) FROM stdin;
-1	薬理学序論	自律神経・アレルギー・内分泌(1)
-2	薬理学Ⅰ	中枢神経・内分泌2
+1	薬理学序論	自律神経・内分泌系Ⅰ
+2	薬理学Ⅰ	中枢神経・内分泌系Ⅱ
 3	薬理学Ⅱ	消化器系・代謝系
-4	薬理学Ⅲ	循環器・自己免疫
-5	微生物学Ⅱ	感染症治療
+4	薬理学Ⅲ	循環器系・自己免疫
+5	微生物学Ⅱ	細菌感染・ウイルス感染症
 \.
 
 
@@ -1295,10 +1329,15 @@ COPY public.yakuri_subject (id, subjects, subinfo) FROM stdin;
 COPY public.yakuri_target (id, targets) FROM stdin;
 1	ヒスタミンH1受容体
 2	ヒスタミンH2受容体
-3	アドレナリンα受容体
+3	アドレナリンα受容体(非選択的)
 4	アドレナリンα１受容体
-5	アドレナリンα2受容体
-6	PBP(ペニシリン結合タンパク)
+35	作用機序不明
+36	GABAa受容体
+37	Cl⁻チャネル 複合体のバビルツレート 結合部位
+38	Cl-チャネル 複合体のβサブユニット
+39	オピオイドμ受容体
+40	ドパミンD2受容体
+41	グルタミン酸NMDA受容体
 \.
 
 
@@ -1309,8 +1348,11 @@ COPY public.yakuri_target (id, targets) FROM stdin;
 COPY public.yakuri_work (id, works) FROM stdin;
 1	刺激
 2	遮断
-3	酵素阻害
-4	酵素活性化
+3	酵素活性化
+4	酵素阻害
+5	なし
+6	複数成分
+7	非競合的拮抗
 \.
 
 
@@ -1360,7 +1402,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 89, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 95, true);
 
 
 --
@@ -1374,28 +1416,28 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 13, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 19, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 18, true);
 
 
 --
 -- Name: yakuri_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 46, true);
+SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 48, true);
 
 
 --
 -- Name: yakuri_detail_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 52, true);
+SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 54, true);
 
 
 --
 -- Name: yakuri_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_fields_id_seq', 3, true);
+SELECT pg_catalog.setval('public.yakuri_fields_id_seq', 36, true);
 
 
 --
@@ -1430,14 +1472,14 @@ SELECT pg_catalog.setval('public.yakuri_subject_id_seq', 5, true);
 -- Name: yakuri_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_target_id_seq', 6, true);
+SELECT pg_catalog.setval('public.yakuri_target_id_seq', 41, true);
 
 
 --
 -- Name: yakuri_work_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_work_id_seq', 4, true);
+SELECT pg_catalog.setval('public.yakuri_work_id_seq', 7, true);
 
 
 --

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 #講義名
 class Subject(models.Model):
@@ -49,6 +50,14 @@ class Fields(models.Model):
     fields=models.CharField(verbose_name='分野名(科目)　例：中枢神経(薬理Ⅰ)　',max_length=25,unique=True,)
     descriptione=models.TextField(verbose_name="分野の紹介",blank=True,null=True)
     reltarget=models.ManyToManyField('Target',verbose_name='関連薬の主な作用点',blank=True,null=True)
+    fieldsnum=models.IntegerField(
+        verbose_name="目次の順番",
+        default=1,
+        blank=True,
+        null=True,
+        unique=False,
+        validators=[MinValueValidator(1), MaxValueValidator(35)]
+        )
     
             
     def __str__(self):
@@ -68,6 +77,8 @@ class Fields(models.Model):
 
 class Target(models.Model):
     targets=models.CharField(verbose_name="作用点",max_length=35,unique=True)
+    phsiologic.models.TextField(verbose_name="受容体の生理機能")
+    
     
     def __str__(self):
         return self.targets
@@ -88,8 +99,14 @@ class Detail(models.Model):
     #構造式の投稿(imageファイルへのアップロード)
     structure=models.ImageField(upload_to='image',blank=True,null=True)
     
-    NUMBER_LIST=tuple(range(35))  
-    studynum=models.InIntegerField('学習順序', choices=NUMBER_LIST)
+    #任意ソート用に数値登録
+    studynum=models.IntegerField('表示順序',
+            default=1,
+            blank=True,
+            null=True,
+            unique=False,
+            validators=[MinValueValidator(1), MaxValueValidator(35)]
+            )
     
     
     def __str__(self):
@@ -103,10 +120,6 @@ class Detail(models.Model):
                 fields=['field','name'],#分野と医薬品名の重複予防
                 name="field_name"
                 ),
-            models.UniqueConstraint(
-                fields=['field','studynum'],#同じ分野内での学習順序重複予防
-                name="field_studynum"
-                )
             ]
     
 #医薬品の学習順序カラム(ManyToMany)の影響を受けずに医薬品の並べ替えを実装

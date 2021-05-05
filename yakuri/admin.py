@@ -22,7 +22,17 @@ class DetailAdmin(admin.ModelAdmin):
         '_target',
         'work',
         'detail',
+        'studynum',
         )
+     #一覧画面での編集
+
+    list_editable=(
+        'work',
+        'studynum',
+        )
+        
+    #デフォルト並び順
+    ordering=('studynum',)
     
     fields=[
         'field',
@@ -33,6 +43,7 @@ class DetailAdmin(admin.ModelAdmin):
         'structure',
         'grade',
         'season',
+        'studynum',
         ]
     
     #外部キーフィルター
