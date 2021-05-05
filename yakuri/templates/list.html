@@ -13,11 +13,15 @@
 <link rel="stylesheet" href="{% static 'design/list.css' %}">
 
 
-<a href="{% url 'yakuri:index' %}"><button style="width:60%;" type="button" class="btn btn-primary btn-lg btn-block">目次へ</button></a>
+<a href="{% url 'yakuri:index' title.id　%}">
+    <button style="width:60%;" type="button" class="btn btn-primary btn-lg btn-block">
+    {{title.subjects}}で学んだ医薬品一覧へ
+    </button>
+</a>
 {% for field in fields %}
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">{{field.field__fields}}</h4>
+        <h4 class="card-title">{{field.fields}}</h4>
         <button class="hide">医薬品名を非表示にする</button>
         <button class="show">医薬品名を表示する</button>
     </div>
@@ -31,7 +35,7 @@
             </tr>
             
             {% for medicine in medicines %}
-            {% if medicine.field.fields in field.field__fields  %}
+            {% if medicine.field.fields in field.fields  %}
             <tr>
                 <td>□<span class=addname>{{medicine.name}}</span></td>
                 <td>
