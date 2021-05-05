@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView,ListView
-from .models import Detail,Subject,Fields
+from .models import Detail,Subject,Fields,Target
 # Create your views here.
 
 class HomeView(TemplateView):
@@ -32,10 +32,23 @@ class PharmIndex(ListView):
         context=super().get_context_data(**kwargs)
         
         key=self.kwargs['id']
+        context['title']=Subject.objects.filter(id=key).first()
         context['field_list']=Fields.objects.filter(subject__id=key).order_by('id')
         return context
 
 
 
 
-#科目別一覧目次画面を作成するクラス
+#作用機序別に薬物を絞り込むクラス
+class TargetList(ListView):
+    template_name="receptor.html"
+    model=Detail
+    
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        
+        targetkey=self.kwargs['id']
+        #作用点をベースに絞り込み
+        context['medicines']=Detail.objects.filter(target__targets=targetkey).distinct().order_by('studynum','-work','-detail')
+        context['targets']=Target.objects.get(id=targetkey)
+        return context
