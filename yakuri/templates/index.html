@@ -4,13 +4,12 @@
 <p>ここで学んだ医薬品の目次を作成する</p>
 
 {% for fields in field_list %}
-<div>
- {{fields.fields}}
-    <div>
-    {{fields.descriptione}}
-    
-    </div>
-</div>
+<h4>{{fields.fields}}</h4>
+<ul>
+    {% for rel in fields.reltarget.all %}
+    <li><p>{{rel}} 　　対応ID：<strong>{{rel.id}}</strong></p></li>
+    {% endfor %}
+</ul>
 {% endfor %}
 
 {% endblock content %}

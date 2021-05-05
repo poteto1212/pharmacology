@@ -33,8 +33,9 @@ class PharmIndex(ListView):
         
         key=self.kwargs['id']
         context['field_list']=Fields.objects.filter(subject__id=key).order_by('id')
-        
         return context
-    
-    
+
+
+
+
 #科目別一覧目次画面を作成するクラス
