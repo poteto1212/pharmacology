@@ -5,13 +5,15 @@ from .models import Subject,Grade,Season,Work,Fields,Detail,Target
 
 
 class FieldsAdmin(admin.ModelAdmin):
-    list_display=('subject','fields','_reltarget')
+    list_display=('subject','fields','_reltarget','fieldsnum')
+    list_editable=('fieldsnum',)
+    ordering=('fieldsnum',)
     list_filter=('subject__subjects',)
     season_field=('fields')#分野名から検索
     filter_horizontal=('reltarget',)
     
     def _reltarget(self,row):
-        return '\n'.join([X.targets for X in row.reltargets.all()])
+        return '\n'.join([X.targets for X in row.reltarget.all()])
     
 
 #医薬品登録(管理画面カスタマイズ)    

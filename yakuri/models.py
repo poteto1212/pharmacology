@@ -77,7 +77,7 @@ class Fields(models.Model):
 
 class Target(models.Model):
     targets=models.CharField(verbose_name="作用点",max_length=35,unique=True)
-    phsiologic.models.TextField(verbose_name="受容体の生理機能")
+    phsiologic=models.TextField(verbose_name="受容体の生理機能",blank=True,null=True)
     
     
     def __str__(self):
