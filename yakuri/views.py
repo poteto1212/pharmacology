@@ -32,7 +32,8 @@ class PharmIndex(ListView):
         context=super().get_context_data(**kwargs)
         
         key=self.kwargs['id']
-        context['target_list']=Fields.objects.filter(subject__id=key).order_by('id')
+        context['field_list']=Fields.objects.filter(subject__id=key).order_by('id')
+        
         return context
     
     

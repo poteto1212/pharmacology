@@ -2,5 +2,15 @@
 {% load static %}
 {% block content %}
 <p>ここで学んだ医薬品の目次を作成する</p>
-{{target_list}}
+
+{% for fields in field_list %}
+<div>
+ {{fields.fields}}
+    <div>
+    {{fields.descriptione}}
+    
+    </div>
+</div>
+{% endfor %}
+
 {% endblock content %}

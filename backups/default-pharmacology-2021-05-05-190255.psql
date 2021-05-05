@@ -610,7 +610,8 @@ CREATE TABLE public.yakuri_fields (
     id integer NOT NULL,
     fields character varying(25) NOT NULL,
     descriptione text,
-    subject_id integer NOT NULL
+    subject_id integer NOT NULL,
+    fieldsnum integer
 );
 
 
@@ -782,7 +783,8 @@ ALTER SEQUENCE public.yakuri_subject_id_seq OWNED BY public.yakuri_subject.id;
 
 CREATE TABLE public.yakuri_target (
     id integer NOT NULL,
-    targets character varying(35) NOT NULL
+    targets character varying(35) NOT NULL,
+    phsiologic text
 );
 
 
@@ -1148,6 +1150,39 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 93	2021-05-05 09:03:21.608574+00	7	非競合的拮抗	1	[{"added": {}}]	11	1
 94	2021-05-05 09:03:50.929121+00	48	ケタミン	1	[{"added": {}}]	13	1
 95	2021-05-05 09:04:31.637391+00	48	ケタミン	2	[{"changed": {"fields": ["\\u5206\\u91ce(\\u79d1\\u76ee)\\u9078\\u629e"]}}]	13	1
+96	2021-05-05 09:22:58.100702+00	2	交感神経関連薬(序論)	2	[{"changed": {"fields": ["\\u76ee\\u6b21\\u306e\\u9806\\u756a"]}}]	12	1
+97	2021-05-05 09:25:27.578609+00	37	脳作用型中枢興奮薬	1	[{"added": {}}]	12	1
+98	2021-05-05 09:25:43.38283+00	37	脳作用型中枢興奮薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u5206\\u91ce\\u540d(\\u79d1\\u76ee)\\u3000\\u4f8b\\uff1a\\u4e2d\\u67a2\\u795e\\u7d4c(\\u85ac\\u7406\\u2160)\\u3000"]}}]	12	1
+99	2021-05-05 09:26:29.955924+00	42	中枢神経のDA・NAトランスポーター	1	[{"added": {}}]	10	1
+100	2021-05-05 09:27:07.454655+00	49	メタンフェタミン	1	[{"added": {}}]	13	1
+101	2021-05-05 09:27:56.854+00	50	メチルフェニデート	1	[{"added": {}}]	13	1
+102	2021-05-05 09:29:13.14585+00	38	ペニシリン系薬(微生物Ⅱ)	1	[{"added": {}}]	12	1
+103	2021-05-05 09:30:15.646135+00	43	PBP(ペニシリン結合タンパク)	1	[{"added": {}}]	10	1
+104	2021-05-05 09:30:47.879746+00	51	ペニシリンG	1	[{"added": {}}]	13	1
+105	2021-05-05 09:31:19.177659+00	52	メシチリン	1	[{"added": {}}]	13	1
+106	2021-05-05 09:31:30.95493+00	53	クロキサシリン	1	[{"added": {}}]	13	1
+107	2021-05-05 09:31:56.194314+00	54	アンピシリン	1	[{"added": {}}]	13	1
+108	2021-05-05 09:32:06.107574+00	55	アモキシシリン	1	[{"added": {}}]	13	1
+109	2021-05-05 09:32:48.502854+00	56	バカンピシリン	1	[{"added": {}}]	13	1
+110	2021-05-05 09:33:21.924695+00	57	メシリナム	1	[{"added": {}}]	13	1
+111	2021-05-05 09:33:44.810693+00	58	ビブメシリナム	1	[{"added": {}}]	13	1
+112	2021-05-05 09:34:49.613179+00	39	ペネム系(微生物Ⅱ)	1	[{"added": {}}]	12	1
+113	2021-05-05 09:35:08.119902+00	59	ファロペネム	1	[{"added": {}}]	13	1
+114	2021-05-05 09:35:41.312655+00	40	カルバペネム系(微生物Ⅱ)	1	[{"added": {}}]	12	1
+115	2021-05-05 09:36:18.243026+00	60	イミペネム	1	[{"added": {}}]	13	1
+116	2021-05-05 09:36:43.272134+00	61	バニペネム	1	[{"added": {}}]	13	1
+117	2021-05-05 09:37:07.4233+00	62	メロペネム	1	[{"added": {}}]	13	1
+118	2021-05-05 09:37:19.31837+00	63	ビアペネム	1	[{"added": {}}]	13	1
+119	2021-05-05 09:59:54.356574+00	1	抗ヒスタミン薬(薬理学序論)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+120	2021-05-05 10:00:07.294159+00	2	交感神経関連薬(序論)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+121	2021-05-05 10:00:21.920886+00	38	ペニシリン系薬(微生物Ⅱ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+122	2021-05-05 10:00:31.084395+00	39	ペネム系(微生物Ⅱ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+123	2021-05-05 10:00:37.724433+00	40	カルバペネム系(微生物Ⅱ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+124	2021-05-05 10:00:59.824029+00	36	静脈麻酔薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+125	2021-05-05 10:01:29.949808+00	35	吸引麻酔薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+126	2021-05-05 10:01:39.738212+00	36	静脈麻酔薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u76ee\\u6b21\\u306e\\u9806\\u756a"]}}]	12	1
+127	2021-05-05 10:02:04.308219+00	36	静脈麻酔薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+128	2021-05-05 10:02:18.184057+00	37	脳作用型中枢興奮薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
 \.
 
 
@@ -1195,6 +1230,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 16	auth	0011_update_proxy_permissions	2021-05-05 08:16:50.015729+00
 17	sessions	0001_initial	2021-05-05 08:16:50.027928+00
 18	yakuri	0001_initial	2021-05-05 08:16:50.114135+00
+19	yakuri	0002_auto_20210505_1815	2021-05-05 09:15:49.754689+00
 \.
 
 
@@ -1233,6 +1269,21 @@ COPY public.yakuri_detail (id, name, detail, structure, studynum, field_id, grad
 46	フェンタニル・ドロペリドール	麻薬系鎮痛薬+神経遮断薬 神経遮断性麻酔\r\n\r\n意識消失なしに外科手術が可能		4	36	1	2	6
 47	プロポフォール			3	36	1	2	1
 48	ケタミン	鎮痛と意識の解離。解離性麻酔。\r\n麻薬。神経障害性疼痛に用いる。		5	36	1	2	7
+49	メタンフェタミン	中枢興奮作用（不眠、気分高揚、疲労感減少、食欲\r\n抑制、多幸感）\r\nうつ病、ナルコレプシーなどに用いられる。\r\n精神依存性がある		1	37	1	2	2
+50	メチルフェニデート	ナルコレプシー、小児期の注意欠陥多動性障害(ADHD)に適用		2	37	1	2	2
+51	ペニシリンG	梅毒トレポネーマの第一選択薬。		1	38	1	2	4
+52	メシチリン	ペニシリナーゼ非分解。		2	38	1	2	4
+53	クロキサシリン	ペニシリナーゼ非分解。		3	38	1	2	4
+54	アンピシリン	加えて大腸菌、赤痢菌、腸チフス菌な\r\nどに有効。		4	38	1	2	4
+55	アモキシシリン	加えて大腸菌、赤痢菌、腸チフス菌な\r\nどに有効。		5	38	1	2	4
+56	バカンピシリン	アンピシリンのプロドラッグ。		6	38	1	2	4
+57	メシリナム	グラム陽性菌に弱い抗菌活性。\r\nグラム陰性菌（とくに大腸菌、\r\n肺炎桿菌）に強い抗菌力。		7	38	1	2	4
+58	ビブメシリナム	メシリナムのプロドラッグ		8	38	1	2	4
+59	ファロペネム			1	39	1	2	4
+60	イミペネム	DHP-1阻害薬シラスタチンと併用		1	40	1	2	4
+61	バニペネム	腎臓移行抑制薬ベタミプロンと併用。		2	40	1	2	4
+62	メロペネム	DHP-1抵抗性。		3	40	1	2	4
+63	ビアペネム	DHP-1抵抗性。		4	40	1	2	4
 \.
 
 
@@ -1266,6 +1317,21 @@ COPY public.yakuri_detail_target (id, detail_id, target_id) FROM stdin;
 52	47	36
 53	47	38
 54	48	41
+55	49	42
+56	50	42
+57	51	43
+58	52	43
+59	53	43
+60	54	43
+61	55	43
+62	56	43
+63	57	43
+64	58	43
+65	59	43
+66	60	43
+67	61	43
+68	62	43
+69	63	43
 \.
 
 
@@ -1273,11 +1339,15 @@ COPY public.yakuri_detail_target (id, detail_id, target_id) FROM stdin;
 -- Data for Name: yakuri_fields; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.yakuri_fields (id, fields, descriptione, subject_id) FROM stdin;
-1	抗ヒスタミン薬(薬理学序論)		1
-2	交感神経関連薬(序論)		1
-35	吸引麻酔薬(薬理Ⅰ)		2
-36	静脈麻酔薬(薬理Ⅰ)		2
+COPY public.yakuri_fields (id, fields, descriptione, subject_id, fieldsnum) FROM stdin;
+1	抗ヒスタミン薬(薬理学序論)		1	1
+2	交感神経関連薬(序論)		1	2
+38	ペニシリン系薬(微生物Ⅱ)	グラム陽性菌、グラム陰性球菌、スピロヘータに有効。\r\nアナフィラキシーショックに注意。	5	1
+39	ペネム系(微生物Ⅱ)	嫌気性のグラム陽性・陰性菌に有効。\r\n緑膿菌、セラチアに無効。	5	2
+40	カルバペネム系(微生物Ⅱ)	抗菌スペクトルが広く、各種β-ラクタマーゼに安定。\r\n主に院内感染の緑膿菌などに用いられる。	5	3
+35	吸引麻酔薬(薬理Ⅰ)		2	1
+36	静脈麻酔薬(薬理Ⅰ)		2	2
+37	脳作用型中枢興奮薬(薬理Ⅰ)		2	3
 \.
 
 
@@ -1286,6 +1356,21 @@ COPY public.yakuri_fields (id, fields, descriptione, subject_id) FROM stdin;
 --
 
 COPY public.yakuri_fields_reltarget (id, fields_id, target_id) FROM stdin;
+1	1	1
+2	1	2
+3	2	3
+4	2	4
+5	38	43
+6	39	43
+7	40	43
+9	35	35
+10	36	36
+11	36	37
+12	36	38
+13	36	39
+14	36	40
+15	36	41
+16	37	42
 \.
 
 
@@ -1326,18 +1411,20 @@ COPY public.yakuri_subject (id, subjects, subinfo) FROM stdin;
 -- Data for Name: yakuri_target; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.yakuri_target (id, targets) FROM stdin;
-1	ヒスタミンH1受容体
-2	ヒスタミンH2受容体
-3	アドレナリンα受容体(非選択的)
-4	アドレナリンα１受容体
-35	作用機序不明
-36	GABAa受容体
-37	Cl⁻チャネル 複合体のバビルツレート 結合部位
-38	Cl-チャネル 複合体のβサブユニット
-39	オピオイドμ受容体
-40	ドパミンD2受容体
-41	グルタミン酸NMDA受容体
+COPY public.yakuri_target (id, targets, phsiologic) FROM stdin;
+1	ヒスタミンH1受容体	\N
+2	ヒスタミンH2受容体	\N
+3	アドレナリンα受容体(非選択的)	\N
+4	アドレナリンα１受容体	\N
+35	作用機序不明	\N
+36	GABAa受容体	\N
+37	Cl⁻チャネル 複合体のバビルツレート 結合部位	\N
+38	Cl-チャネル 複合体のβサブユニット	\N
+39	オピオイドμ受容体	\N
+40	ドパミンD2受容体	\N
+41	グルタミン酸NMDA受容体	\N
+42	中枢神経のDA・NAトランスポーター	
+43	PBP(ペニシリン結合タンパク)	ペプチドグリカン合成に関与\r\nトランスペプチターゼ活性を有し架橋形成反応を触媒
 \.
 
 
@@ -1402,7 +1489,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 95, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 128, true);
 
 
 --
@@ -1416,35 +1503,35 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 13, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 18, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 19, true);
 
 
 --
 -- Name: yakuri_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 48, true);
+SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 63, true);
 
 
 --
 -- Name: yakuri_detail_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 54, true);
+SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 69, true);
 
 
 --
 -- Name: yakuri_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_fields_id_seq', 36, true);
+SELECT pg_catalog.setval('public.yakuri_fields_id_seq', 40, true);
 
 
 --
 -- Name: yakuri_fields_reltarget_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_fields_reltarget_id_seq', 1, false);
+SELECT pg_catalog.setval('public.yakuri_fields_reltarget_id_seq', 16, true);
 
 
 --
@@ -1472,7 +1559,7 @@ SELECT pg_catalog.setval('public.yakuri_subject_id_seq', 5, true);
 -- Name: yakuri_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_target_id_seq', 41, true);
+SELECT pg_catalog.setval('public.yakuri_target_id_seq', 43, true);
 
 
 --
