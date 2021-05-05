@@ -87,7 +87,9 @@ class Detail(models.Model):
     
     #構造式の投稿(imageファイルへのアップロード)
     structure=models.ImageField(upload_to='image',blank=True,null=True)
-    studynum=models.ForeignKey(verbose_name_plural='学習した順番',on_delete=models.CASCADE)
+    
+    NUMBER_LIST=tuple(range(35))  
+    studynum=models.InIntegerField('学習順序', choices=NUMBER_LIST)
     
     
     def __str__(self):
@@ -109,28 +111,7 @@ class Detail(models.Model):
     
 #医薬品の学習順序カラム(ManyToMany)の影響を受けずに医薬品の並べ替えを実装
 
-class StudyNum(models.Model):
-    num=models.IntengerField(verbose_name="学習順序",
-    blank=False,
-    null=False,
-    unique=True,
-    #最小値0最大値35
-    validators=[
-        validators.MinValueValidator(0),
-        validators.MaxValueValidator(35),
-        ],
-    )
-    
-    def __str__(self):
-        return self.num
-        
-    class Meta:
-        verbose_name_plural="学習ナンバー(ソート用)"
-        
 
-    
-    
-    
     
     
     
