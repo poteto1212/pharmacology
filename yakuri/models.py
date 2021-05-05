@@ -98,15 +98,28 @@ class Detail(models.Model):
         
         constraints=[
             models.UniqueConstraint(
-                fields=['field','name'],
+                fields=['field','name'],#分野と医薬品名の重複予防
                 name="field_name"
+                ),
+            models.UniqueConstraint(
+                fields=['field','studynum'],#同じ分野内での学習順序重複予防
+                name="field_studynum"
                 )
             ]
     
 #医薬品の学習順序カラム(ManyToMany)の影響を受けずに医薬品の並べ替えを実装
 
 class StudyNum(models.Model):
-    num=models.IntengerField(verbose_name="学習順序",blank=False,null=False,unique=True)
+    num=models.IntengerField(verbose_name="学習順序",
+    blank=False,
+    null=False,
+    unique=True,
+    #最小値0最大値35
+    validators=[
+        validators.MinValueValidator(0),
+        validators.MaxValueValidator(35),
+        ],
+    )
     
     def __str__(self):
         return self.num
