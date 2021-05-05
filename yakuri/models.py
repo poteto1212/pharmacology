@@ -87,7 +87,7 @@ class Detail(models.Model):
     
     #構造式の投稿(imageファイルへのアップロード)
     structure=models.ImageField(upload_to='image',blank=True,null=True)
-    studynum=models.ForeignKey(verbose_name_plural='学習した順番')
+    studynum=models.ForeignKey(verbose_name_plural='学習した順番',on_delete=models.CASCADE)
     
     
     def __str__(self):
