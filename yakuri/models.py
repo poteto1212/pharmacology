@@ -40,7 +40,7 @@ class Work(models.Model):
         blank=True,
         null=True,
         unique=False,
-        validators=[MinValueValidator(1),MinValueValidator(15)]
+        validators=[MinValueValidator(1),MaxValueValidator(15)]
     )
     
     def __str__(self):
@@ -59,7 +59,7 @@ class Fields(models.Model):
     descriptione=models.TextField(verbose_name="分野の紹介",blank=True,null=True)
     reltarget=models.ManyToManyField('Target',verbose_name='関連薬の主な作用点',blank=True,null=True)
     fieldsnum=models.IntegerField(
-        verbose_name="目次の順番",
+        verbose_name="目次順番",
         default=1,
         blank=True,
         null=True,
@@ -87,7 +87,7 @@ class Target(models.Model):
     targets=models.CharField(verbose_name="作用点",max_length=35,unique=True)
     phsiologic=models.TextField(verbose_name="受容体の生理機能",blank=True,null=True)
     targetsnum=models.IntegerField(
-        verbose_name="目次の順番",
+        verbose_name="作用点表示順",
         default=1,
         blank=True,
         null=True,

@@ -5,12 +5,14 @@ from .models import Subject,Grade,Season,Work,Fields,Detail,Target
 #作用点管理画面(抹消・中枢・循環etc)
 class TargetAdmin(admin.ModelAdmin):
     list_display=('targets','targetsnum')
-    list_editable('targetsnum',)
+    list_editable=('targetsnum',)
+    ordering=('targetsnum',)
 
 #作用の仕方の管理画面(刺激・遮断・酵素阻害etc)
 class WorkAdmin(admin.ModelAdmin):
     list_display=('works','worknum')
-    list_editable('worknum',)
+    list_editable=('worknum',)
+    ordering=('worknum',)
 
 #作用領域管理画面
 class FieldsAdmin(admin.ModelAdmin):
