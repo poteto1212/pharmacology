@@ -41,7 +41,7 @@ class PharmIndex(ListView):
 
 #作用機序別に薬物を絞り込むクラス
 class TargetList(ListView):
-    template_name="receptor.html"
+    template_name="target.html"
     model=Detail
     
     def get_context_data(self,**kwargs):
