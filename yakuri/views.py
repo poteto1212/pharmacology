@@ -66,3 +66,10 @@ class PracticeList(ListView):
     template_name="practice.html"
     model=Detail
     
+    #科目・分野での絞り込み用ボタンの設置
+    
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        
+        context['category_list']=Subject.
+        return context
