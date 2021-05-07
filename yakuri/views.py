@@ -61,3 +61,8 @@ class TargetList(ListView):
         context['medicines_list']=Detail.objects.filter(target__id=targetkey)
         return context
         
+#問題一覧を作用機序別に表示する(薬理学序論から順番に)       
+class PracticeList(ListView):
+    template_name="practice.html"
+    model=Detail
+    
