@@ -2,82 +2,39 @@
 {% block content %}
 {% load static %}
 
+<script type="text/javascript" src="{% static 'jquery/switch.js' %}"></script>
+<title>{{targets}}</title>
 <p><strong>{{targets}}</strong>に作用する医薬品一覧</p>
 
-<div id="tabArea">
- 
-  <input type="radio" name="tab" id="tab1" onclick="tabClick(1)" checked>
-    <label for="tab1">タブ1</label>
- 
-  <input type="radio" name="tab" id="tab2" onclick="tabClick(2)">
-    <label for="tab2">タブ2</label>
- 
-  <input type="radio" name="tab" id="tab3" onclick="tabClick(3)">
-    <label for="tab3">タブ3</label>
- 
-  <div class="tabBody"><p>サンプル</p><p id="tabNo">タブ1</p></div>
- 
-</div>
-<style>
- /* --- タブ（ラジオボタン）のエリア ------------------------ */
-#tabArea{
-  line-height    : 1;                   /* 1行の高さ          */
-  letter-spacing : 0;                   /* 文字間             */
-  text-align     : center;              /* 文字位置は中央     */
-}
- 
- /* --- ラジオボタン ---------------------------------------- */
-#tabArea input[type="radio"] {
-  display        : none;                /* ラジオボタン非表示 */
-}
- 
- /* --- ラジオボタン直後のlabel ----------------------------- */
-#tabArea input[type="radio"] + label {
-  display        : inline-block;
-  position       : relative;
-  padding        : 6px 10px;            /* labelの余白 */
-  font-size      : 12pt;                /* タブの文字サイズ   */
-  font-weight    : bold;                /* タブは太文字       */
-  border         : 3px solid #999;      /* 未選択タブのの枠線 */
-  border-bottom  : none;                /* 下罫線は消す       */
-  border-radius  : 5px 5px 0 0;         /* タブの上左右角丸   */
-  margin         : 0 1px;               /* タブ間隔           */
-  background     : #fff;                /* 未選択タブの背景色 */
-  color          : #666;                /* 未選択タブの文字色 */
-}
- 
- /* --- 選択されたラジオボタン直後のlabel ------------------- */
-#tabArea input[type="radio"]:checked + label {
-  border-color   : #4682B4;             /* 選択タブの枠線     */
-  color          : #4682B4;             /* 選択タブの文字色   */
-  cursor         : default;             /* デフォルトカーソル */
-  z-index        : 2;                   /* 重なりを最前面へ   */
-}
- 
- /* --- 未選択ラジオボタン直後のlabelにマウスが乗った ------- */
-#tabArea input[type="radio"]:not(:checked) + label:hover {
-  background     : #b4cee2;             /* カーソルタブの背景 */
-  cursor         : pointer;             /* リンクカーソル     */
-}
- 
- /* --- タブ下の本体エリア ---------------------------------- */
-.tabBody{
-  position       : relative;
-  border         : 3px solid #4682B4;   /* 本体の枠線         */
-  background     : #fff;                /* 本体の背景色       */
-  margin-top     : -3px;                /* タブと罫線分重ねる */
-  z-index        : 1;                   /* 未選択タブより全面 */
-}
-</style>
+<div style="size:60%;">
 
-<script>
- // ------------------------------------------------------------
- //     タブがクリックされた
- // ------------------------------------------------------------
-function tabClick(argTabNo){
- 
-  document.getElementById("tabNo").innerHTML = 'タブ'+argTabNo;
- 
-}
-</script>
+<button class="hide">医薬品名を非表示にする</button>
+<button class="show">医薬品名を表示する</button>
+{% for works in work_list %}    
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">{{targets}}に対して<strong>{{works.work__works}}</strong>作用を有する薬剤</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text">
+        <ul>
+          {% for medicines in medicines_list %}
+              {% if medicines.work.works == works.work__works %}
+                <li>
+                    <strong>
+                      (薬物名:<span class="addname" style="color:red;">{{medicines.name}}</span>)
+                    </strong>
+                は{{medicines.detail}}
+                </li>
+              {% endif %}
+          {% endfor %}
+        </ul>
+    </p>
+    <a href="#!" class="card-link">Card link</a>
+    <a href="#!" class="card-link">Another link</a>
+  </div>
+</div>
+{% endfor %}
+
+
+
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView,ListView
-from .models import Detail,Subject,Fields,Target
+from .models import Detail,Subject,Fields,Target,Work
 # Create your views here.
 
 class HomeView(TemplateView):
@@ -34,6 +34,7 @@ class PharmIndex(ListView):
         key=self.kwargs['id']
         context['title']=Subject.objects.filter(id=key).first()
         context['field_list']=Fields.objects.filter(subject__id=key).order_by('id')
+        
         return context
 
 
@@ -49,6 +50,14 @@ class TargetList(ListView):
         
         targetkey=self.kwargs['id']
         #作用点をベースに絞り込み
-        context['medicines']=Detail.objects.filter(target__targets=targetkey).distinct().order_by('studynum','-work','-detail')
+       
+        #タイトル・見出し・生理機能説明用       
         context['targets']=Target.objects.get(id=targetkey)
+        
+        #作用の仕方(刺激・遮断etcを取得)
+        context['work_list']=Detail.objects.filter(target__id=targetkey).order_by('work__worknum').distinct().values('work__works')
+        
+        #情報取得クエリ
+        context['medicines_list']=Detail.objects.filter(target__id=targetkey)
         return context
+        
