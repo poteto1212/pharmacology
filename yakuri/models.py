@@ -34,6 +34,14 @@ class Season(models.Model):
         
 class Work(models.Model):
     works=models.CharField(verbose_name="刺激・遮断・酵素阻害等",max_length=25)
+    worknum=models.IntegerField(
+        verbose_name="作用分類の順序",
+        default=1,
+        blank=True,
+        null=True,
+        unique=False,
+        validators=[MinValueValidator(1),MinValueValidator(15)]
+    )
     
     def __str__(self):
         return self.works
@@ -78,6 +86,16 @@ class Fields(models.Model):
 class Target(models.Model):
     targets=models.CharField(verbose_name="作用点",max_length=35,unique=True)
     phsiologic=models.TextField(verbose_name="受容体の生理機能",blank=True,null=True)
+    targetsnum=models.IntegerField(
+        verbose_name="目次の順番",
+        default=1,
+        blank=True,
+        null=True,
+        unique=False,
+        validators=[MinValueValidator(1), MaxValueValidator(35)]
+        )
+    
+    
     
     
     def __str__(self):

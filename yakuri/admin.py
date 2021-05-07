@@ -2,8 +2,17 @@ from django.contrib import admin
 from .models import Subject,Grade,Season,Work,Fields,Detail,Target
 
 
+#作用点管理画面(抹消・中枢・循環etc)
+class TargetAdmin(admin.ModelAdmin):
+    list_display=('targets','targetsnum')
+    list_editable('targetsnum',)
 
+#作用の仕方の管理画面(刺激・遮断・酵素阻害etc)
+class WorkAdmin(admin.ModelAdmin):
+    list_display=('works','worknum')
+    list_editable('worknum',)
 
+#作用領域管理画面
 class FieldsAdmin(admin.ModelAdmin):
     list_display=('subject','fields','_reltarget','fieldsnum')
     list_editable=('fieldsnum',)
@@ -14,7 +23,7 @@ class FieldsAdmin(admin.ModelAdmin):
     
     def _reltarget(self,row):
         return '\n'.join([X.targets for X in row.reltarget.all()])
-    
+
 
 #医薬品登録(管理画面カスタマイズ)    
 class DetailAdmin(admin.ModelAdmin):
@@ -77,8 +86,8 @@ class DetailAdmin(admin.ModelAdmin):
 admin.site.register(Subject)
 admin.site.register(Grade)
 admin.site.register(Season)
-admin.site.register(Work)
-admin.site.register(Target)
+admin.site.register(Work,WorkAdmin)
+admin.site.register(Target,TargetAdmin)
 admin.site.register(Fields,FieldsAdmin)
 admin.site.register(Detail,DetailAdmin)
 # Register your models here.
