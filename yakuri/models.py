@@ -5,6 +5,13 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class Subject(models.Model):
     subjects=models.CharField(verbose_name='講義名',max_length=10,unique=True)
     subinfo=models.TextField(verbose_name="講義内容の紹介",null=True,blank=True)
+    subjectsnum=models.IntegerField(verbose_name="科目ナンバー",
+        default=1,
+        blank=True,
+        null=True,
+        unique=False,
+        validators=[MinValueValidator(1),MaxValueValidator(15)]
+        )
     
     def __str__(self):
         return self.subjects

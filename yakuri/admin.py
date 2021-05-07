@@ -1,6 +1,11 @@
 from django.contrib import admin
 from .models import Subject,Grade,Season,Work,Fields,Detail,Target
 
+#科目管理画面
+class SubjectAdmin(admin.ModelAdmin):
+    list_display=('subjects','subjectsnum')
+    list_editable=('subjectsnum',)
+    ordering=('subjectsnum',)
 
 #作用点管理画面(抹消・中枢・循環etc)
 class TargetAdmin(admin.ModelAdmin):
@@ -85,7 +90,7 @@ class DetailAdmin(admin.ModelAdmin):
 
 
 #管理権限付与
-admin.site.register(Subject)
+admin.site.register(Subject,SubjectAdmin)
 admin.site.register(Grade)
 admin.site.register(Season)
 admin.site.register(Work,WorkAdmin)
