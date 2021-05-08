@@ -134,6 +134,11 @@ class Detail(models.Model):
             )
     
     
+    #穴埋め演習問題の問題文(薬物名は～)
+    question=models.TextField(verbose_name="問題文",blank=True,null=True,unique=False)
+    
+    #先発品名
+    blandname=models.CharField(verbose_name="主な先発品名",max_length=15,blank=True,null=True,unique=False)
     def __str__(self):
         return self.name
         

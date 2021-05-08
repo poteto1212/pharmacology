@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<script type="text/javascript" src="{% static 'jquery/switch.js' %}"></script>
 <title>薬品名演習問題</title>
 
 <h2>分野別で絞り込む</h2>
@@ -35,12 +36,18 @@
 <div class="card">
   <div class="card-body">
     <h4 class="card-title">{{fields.fields}}</h4>
-    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <h6 class="card-subtitle mb-2 text-muted">
+        <button class="hide">医薬品名を非表示にする</button>
+        <button class="show">医薬品名を表示する</button>
+    </h6>
     <p class="card-text">
     <ul>
     {% for medicines in medicines_list %}
         {% if medicines.field.id == fields.id %}
-        <li>{{medicines.name}}</li>
+        <li>
+            (薬物名:<span class="addname" style="color:red;">{{medicines.name}}</span>)
+            {{medicines.question}}
+        </li>
         {% endif %}
     {% endfor %}
     </ul>

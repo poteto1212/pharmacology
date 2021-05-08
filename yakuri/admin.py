@@ -37,6 +37,7 @@ class DetailAdmin(admin.ModelAdmin):
     list_display=(
         'field',
         'name',
+        'blandname',
         '_target',
         'work',
         'detail',
@@ -45,6 +46,8 @@ class DetailAdmin(admin.ModelAdmin):
      #一覧画面での編集
 
     list_editable=(
+        'name',
+        'blandname',
         'work',
         'studynum',
         )
@@ -62,6 +65,8 @@ class DetailAdmin(admin.ModelAdmin):
         'grade',
         'season',
         'studynum',
+        'question',
+        'blandname',
         ]
     
     #外部キーフィルター
