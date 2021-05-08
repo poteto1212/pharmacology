@@ -1198,6 +1198,16 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 138	2021-05-07 12:49:05.418634+00	4	薬理学Ⅲ	2	[{"changed": {"fields": ["\\u79d1\\u76ee\\u30ca\\u30f3\\u30d0\\u30fc"]}}]	9	1
 139	2021-05-07 12:49:05.423936+00	3	薬理学Ⅱ	2	[{"changed": {"fields": ["\\u79d1\\u76ee\\u30ca\\u30f3\\u30d0\\u30fc"]}}]	9	1
 140	2021-05-07 12:49:05.429204+00	2	薬理学Ⅰ	2	[{"changed": {"fields": ["\\u79d1\\u76ee\\u30ca\\u30f3\\u30d0\\u30fc"]}}]	9	1
+141	2021-05-08 03:59:18.229185+00	41	呼吸器興奮薬(薬理Ⅱ)	1	[{"added": {}}]	12	1
+142	2021-05-08 03:59:46.576412+00	44	呼吸中枢	1	[{"added": {}}]	10	1
+143	2021-05-08 04:00:17.112086+00	66	ジモルホラミン	1	[{"added": {}}]	13	1
+144	2021-05-08 04:00:24.771661+00	66	ジモルホラミン	2	[]	13	1
+145	2021-05-08 04:00:25.076469+00	66	ジモルホラミン	2	[]	13	1
+146	2021-05-08 04:00:25.154566+00	66	ジモルホラミン	2	[]	13	1
+147	2021-05-08 04:00:58.380652+00	45	化学受容器	1	[{"added": {}}]	10	1
+148	2021-05-08 04:01:25.12036+00	67	ドキサプラム	1	[{"added": {}}]	13	1
+149	2021-05-08 04:02:05.722758+00	67	二酸化炭素	2	[{"changed": {"fields": ["\\u85ac\\u7269\\u540d", "\\u6a19\\u7684\\u53d7\\u5bb9\\u4f53\\u30fb\\u6a19\\u7684\\u30bf\\u30f3\\u30d1\\u30af", "\\u7279\\u5fb4\\u30fb\\u8aac\\u660e", "\\u8868\\u793a\\u9806\\u5e8f"]}}]	13	1
+150	2021-05-08 04:02:51.276569+00	68	ドキサプラム	1	[{"added": {}}]	13	1
 \.
 
 
@@ -1304,6 +1314,9 @@ COPY public.yakuri_detail (id, name, detail, structure, studynum, field_id, grad
 63	ビアペネム	DHP-1抵抗性。		4	40	1	2	4
 64	ブナゾシン			7	2	1	1	2
 65	プラゾシン	ぶどう膜強膜を広げる		7	2	1	1	2
+66	ジモルホラミン	血管運動中枢も刺激→血圧上昇。\r\n適応：薬物中毒（睡眠薬、麻薬など）による中枢性\r\n呼吸抑制。\r\n禁忌：モルヒネによる呼吸抑制には用いない。		1	41	2	1	1
+67	二酸化炭素	適応：酸素吸入時にO2ガスに1～5％混合して使\r\nう。		3	41	2	1	1
+68	ドキサプラム	血管運動中枢も刺激→血圧上昇。\r\n適応：麻酔時の呼吸抑制、肺の換気不全。		2	41	2	1	1
 \.
 
 
@@ -1354,6 +1367,10 @@ COPY public.yakuri_detail_target (id, detail_id, target_id) FROM stdin;
 69	63	43
 70	64	4
 71	65	4
+72	66	44
+73	67	45
+74	67	44
+75	68	45
 \.
 
 
@@ -1370,6 +1387,7 @@ COPY public.yakuri_fields (id, fields, descriptione, subject_id, fieldsnum) FROM
 35	吸引麻酔薬(薬理Ⅰ)		2	1
 36	静脈麻酔薬(薬理Ⅰ)		2	2
 37	脳作用型中枢興奮薬(薬理Ⅰ)		2	3
+41	呼吸器興奮薬(薬理Ⅱ)		3	1
 \.
 
 
@@ -1447,6 +1465,8 @@ COPY public.yakuri_target (id, targets, phsiologic, targetsnum) FROM stdin;
 41	グルタミン酸NMDA受容体	\N	1
 42	中枢神経のDA・NAトランスポーター		1
 43	PBP(ペニシリン結合タンパク)	ペプチドグリカン合成に関与\r\nトランスペプチターゼ活性を有し架橋形成反応を触媒	1
+44	呼吸中枢		1
+45	化学受容器		1
 \.
 
 
@@ -1511,7 +1531,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 140, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 150, true);
 
 
 --
@@ -1532,21 +1552,21 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 22, true);
 -- Name: yakuri_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 65, true);
+SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 68, true);
 
 
 --
 -- Name: yakuri_detail_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 71, true);
+SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 75, true);
 
 
 --
 -- Name: yakuri_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_fields_id_seq', 40, true);
+SELECT pg_catalog.setval('public.yakuri_fields_id_seq', 41, true);
 
 
 --
@@ -1581,7 +1601,7 @@ SELECT pg_catalog.setval('public.yakuri_subject_id_seq', 5, true);
 -- Name: yakuri_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_target_id_seq', 43, true);
+SELECT pg_catalog.setval('public.yakuri_target_id_seq', 45, true);
 
 
 --
