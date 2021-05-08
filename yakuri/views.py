@@ -17,12 +17,36 @@ class PharmList(ListView):
         context['title']=Subject.objects.filter(id=titlekey).first()
         context['medicines']=Detail.objects.filter(field__subject__id=titlekey).distinct().order_by('studynum','-work','-detail')
         
-        #分野名のみを取得
-        context['fields']=Fields.objects.filter(subject__id=titlekey).order_by('fieldsnum').distinct().values('fields')
+        #科目に準じた分野名と分野idを取得
+        context['fields']=Fields.objects.filter(subject__id=titlekey).order_by('fieldsnum').distinct().values('fields','id')
+        
+        
+        #絞り込みプルダウン用
+        context['fields_list']=Fields.objects.filter(subject__id=titlekey).order_by('fieldsnum').distinct().values('fields','id')
         
         return context
-        
 
+#医薬品一覧の分野別絞り込み
+class FilterPharmList(ListView):
+    template_name="list.html"
+    model=Detail
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        
+        titlekey=self.request.GET.get('fieldset')
+        
+        fieldkey=Fields.objects.filter(id=titlekey).first()
+        
+        context['title']=Subject.objects.filter(id=fieldkey.subject.id).first()
+        context['fields_list']=Fields.objects.filter(subject__id=fieldkey.subject.id).order_by('fieldsnum').distinct().values('fields','id')
+        
+        
+        #医薬品一覧及び科目名はpost値と分野IDによってフィルタ
+        context['medicines']=Detail.objects.filter(field__id=titlekey).distinct().order_by('studynum','-work','-detail')
+        
+        #分野名はpost値をそのままisに
+        context['fields']=Fields.objects.filter(id=titlekey).order_by('fieldsnum').distinct().values('fields','id')
+        return context
 #科目別の一覧目次画面を作成するクラス
 class PharmIndex(ListView):
     template_name='index.html'

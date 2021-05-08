@@ -13,11 +13,38 @@
 <link rel="stylesheet" href="{% static 'design/list.css' %}">
 
 
-<a href="{% url 'yakuri:index' title.id　%}">
-    <button style="width:60%;" type="button" class="btn btn-primary btn-lg btn-block">
-    {{title.subjects}}で学んだ医薬品目次へ
-    </button>
-</a>
+
+
+<div class="card-group">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">作用機序別演習問題へ</h4>
+            <p class="card-text">{{title.subjects}}で学習した医薬品の作用機序別演習問題</p>
+        </div>
+        <div class="card-footer">
+            <button style="width:60%;" type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'yakuri:index' title.id %}'">
+            作用機序別検索
+            </button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">分野で絞り込む</h4>
+            <form method="GET" action='{% url "yakuri:filterlist" %}'>
+                <select name="fieldset">
+                    {% for field in fields_list %}
+                    <option value="{{field.id}}">{{field.fields}}</option>
+                    {% endfor %}
+                </select>
+        </div>
+        <div class="card-footer">
+            <button type="submit">絞り込む</button>
+            </form>
+            <button onclick="location.href='{% url 'yakuri:list' title.id %}'">絞り込み解除</button>
+        </div>
+    </div>
+</div>
+</div>
 {% for field in fields %}
 <div class="card">
     <div class="card-header">
