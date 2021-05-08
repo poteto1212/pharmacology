@@ -2,27 +2,36 @@
 {% load static %}
 {% block content %}
 <title>薬品名演習問題</title>
-<h1>ここに薬物名演習問題を作成する</h1>
 
-{% for subjects in subjects_list %}
-
-    <form method="POST">
-        {% csrf_token %}
-        <p>{{subjects.subjects}}で学習した領域<p>
-        <select name="filldsset">
+<h2>分野別で絞り込む</h2>
+<div class="card-group">
+    {% for subjects in subjects_list %}
+    <div class="card">
+        <div class="card-header">{{subjects.subjects}}</div>
+    <div class="card-body">
+        <h4 class="card-title">分野を選択してください</h4>
+        <p class="card-text">
+        <form method="GET" action="{% url 'yakuri:fieldspractice' %}">
+            {% csrf_token %}
+            <select name="fieldsset" style="width:80%;">
             {% for fields in fields_list %}
                 {% if fields.subject__id == subjects.id %}
                 <option value="{{fields.id}}">{{fields.fields}}分野ID{{fields.id}}</option>
     　　          {% endif %}
             {% endfor %}
         </select>
-         <input type="submit" value="送信する">
-    </form>
+         </p>
+    </div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">絞り込む</button>
+        </form>
+        <button class="btn btn-primary" onclick="location.href='{% url 'yakuri:practice' %}'">絞り込み解除</button>
+    </div>
+    </div>
+    {% endfor %}
+</div>
 
-{% endfor %}
-
-
-{% for fields in fields_list  %}
+{% for fields in fieldsmedicines_list  %}
 <div class="card">
   <div class="card-body">
     <h4 class="card-title">{{fields.fields}}</h4>

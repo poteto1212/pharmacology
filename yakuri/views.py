@@ -75,7 +75,29 @@ class PracticeList(ListView):
         #ボタン用に分野名と分野IDを取得
         context['fields_list']=Fields.objects.all().order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
         
+        #見出し用に分野名と分野IDを取得
+        context['fieldsmedicines_list']=Fields.objects.all().order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
         #科目順に医薬品名を取得する
         context['medicines_list']=Detail.objects.all().order_by('field__subject__subjectsnum')
 
         return context
+        
+#演習問題絞り込み用
+        
+class FieldsPractice(PracticeList):
+    #PracticeListクラスを継承してget_context_dataメソッドに一部機能追加(Get値で絞り込む)
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data()
+        
+        #医薬品一覧表示関連の辞書をオーバーライド
+        
+        fieldskey=self.request.GET.get('fieldsset')
+        context['fieldsmedicines_list']=Fields.objects.filter(id=fieldskey).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
+        
+        #選択されていない時は全表示
+        
+        return context
+        
+        
+        
+        
