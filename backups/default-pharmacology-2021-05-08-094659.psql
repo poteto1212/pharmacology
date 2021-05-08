@@ -749,7 +749,8 @@ ALTER SEQUENCE public.yakuri_season_id_seq OWNED BY public.yakuri_season.id;
 CREATE TABLE public.yakuri_subject (
     id integer NOT NULL,
     subjects character varying(10) NOT NULL,
-    subinfo text
+    subinfo text,
+    subjectsnum integer
 );
 
 
@@ -784,7 +785,8 @@ ALTER SEQUENCE public.yakuri_subject_id_seq OWNED BY public.yakuri_subject.id;
 CREATE TABLE public.yakuri_target (
     id integer NOT NULL,
     targets character varying(35) NOT NULL,
-    phsiologic text
+    phsiologic text,
+    targetsnum integer
 );
 
 
@@ -818,7 +820,8 @@ ALTER SEQUENCE public.yakuri_target_id_seq OWNED BY public.yakuri_target.id;
 
 CREATE TABLE public.yakuri_work (
     id integer NOT NULL,
-    works character varying(25) NOT NULL
+    works character varying(25) NOT NULL,
+    worknum integer
 );
 
 
@@ -1183,6 +1186,18 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 126	2021-05-05 10:01:39.738212+00	36	静脈麻酔薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u76ee\\u6b21\\u306e\\u9806\\u756a"]}}]	12	1
 127	2021-05-05 10:02:04.308219+00	36	静脈麻酔薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
 128	2021-05-05 10:02:18.184057+00	37	脳作用型中枢興奮薬(薬理Ⅰ)	2	[{"changed": {"fields": ["\\u95a2\\u9023\\u85ac\\u306e\\u4e3b\\u306a\\u4f5c\\u7528\\u70b9"]}}]	12	1
+129	2021-05-07 08:14:53.221282+00	7	非競合的拮抗	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u5206\\u985e\\u306e\\u9806\\u5e8f"]}}]	11	1
+130	2021-05-07 08:14:53.230156+00	6	複数成分	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u5206\\u985e\\u306e\\u9806\\u5e8f"]}}]	11	1
+131	2021-05-07 08:14:53.23492+00	5	なし	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u5206\\u985e\\u306e\\u9806\\u5e8f"]}}]	11	1
+132	2021-05-07 08:14:53.240397+00	4	酵素阻害	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u5206\\u985e\\u306e\\u9806\\u5e8f"]}}]	11	1
+133	2021-05-07 08:14:53.246463+00	3	酵素活性化	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u5206\\u985e\\u306e\\u9806\\u5e8f"]}}]	11	1
+134	2021-05-07 08:14:53.251224+00	2	遮断	2	[{"changed": {"fields": ["\\u4f5c\\u7528\\u5206\\u985e\\u306e\\u9806\\u5e8f"]}}]	11	1
+135	2021-05-07 09:49:11.659385+00	64	ブナゾシン	1	[{"added": {}}]	13	1
+136	2021-05-07 09:50:28.82528+00	65	プラゾシン	1	[{"added": {}}]	13	1
+137	2021-05-07 12:49:05.407938+00	5	微生物学Ⅱ	2	[{"changed": {"fields": ["\\u79d1\\u76ee\\u30ca\\u30f3\\u30d0\\u30fc"]}}]	9	1
+138	2021-05-07 12:49:05.418634+00	4	薬理学Ⅲ	2	[{"changed": {"fields": ["\\u79d1\\u76ee\\u30ca\\u30f3\\u30d0\\u30fc"]}}]	9	1
+139	2021-05-07 12:49:05.423936+00	3	薬理学Ⅱ	2	[{"changed": {"fields": ["\\u79d1\\u76ee\\u30ca\\u30f3\\u30d0\\u30fc"]}}]	9	1
+140	2021-05-07 12:49:05.429204+00	2	薬理学Ⅰ	2	[{"changed": {"fields": ["\\u79d1\\u76ee\\u30ca\\u30f3\\u30d0\\u30fc"]}}]	9	1
 \.
 
 
@@ -1231,6 +1246,9 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 17	sessions	0001_initial	2021-05-05 08:16:50.027928+00
 18	yakuri	0001_initial	2021-05-05 08:16:50.114135+00
 19	yakuri	0002_auto_20210505_1815	2021-05-05 09:15:49.754689+00
+20	yakuri	0003_auto_20210507_1712	2021-05-07 08:12:15.73892+00
+21	yakuri	0004_auto_20210507_1715	2021-05-07 08:15:23.723575+00
+22	yakuri	0005_subject_subjectsnum	2021-05-07 12:47:49.659665+00
 \.
 
 
@@ -1284,6 +1302,8 @@ COPY public.yakuri_detail (id, name, detail, structure, studynum, field_id, grad
 61	バニペネム	腎臓移行抑制薬ベタミプロンと併用。		2	40	1	2	4
 62	メロペネム	DHP-1抵抗性。		3	40	1	2	4
 63	ビアペネム	DHP-1抵抗性。		4	40	1	2	4
+64	ブナゾシン			7	2	1	1	2
+65	プラゾシン	ぶどう膜強膜を広げる		7	2	1	1	2
 \.
 
 
@@ -1332,6 +1352,8 @@ COPY public.yakuri_detail_target (id, detail_id, target_id) FROM stdin;
 67	61	43
 68	62	43
 69	63	43
+70	64	4
+71	65	4
 \.
 
 
@@ -1398,12 +1420,12 @@ COPY public.yakuri_season (id, seasons) FROM stdin;
 -- Data for Name: yakuri_subject; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.yakuri_subject (id, subjects, subinfo) FROM stdin;
-1	薬理学序論	自律神経・内分泌系Ⅰ
-2	薬理学Ⅰ	中枢神経・内分泌系Ⅱ
-3	薬理学Ⅱ	消化器系・代謝系
-4	薬理学Ⅲ	循環器系・自己免疫
-5	微生物学Ⅱ	細菌感染・ウイルス感染症
+COPY public.yakuri_subject (id, subjects, subinfo, subjectsnum) FROM stdin;
+1	薬理学序論	自律神経・内分泌系Ⅰ	1
+5	微生物学Ⅱ	細菌感染・ウイルス感染症	5
+4	薬理学Ⅲ	循環器系・自己免疫	4
+3	薬理学Ⅱ	消化器系・代謝系	3
+2	薬理学Ⅰ	中枢神経・内分泌系Ⅱ	2
 \.
 
 
@@ -1411,20 +1433,20 @@ COPY public.yakuri_subject (id, subjects, subinfo) FROM stdin;
 -- Data for Name: yakuri_target; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.yakuri_target (id, targets, phsiologic) FROM stdin;
-1	ヒスタミンH1受容体	\N
-2	ヒスタミンH2受容体	\N
-3	アドレナリンα受容体(非選択的)	\N
-4	アドレナリンα１受容体	\N
-35	作用機序不明	\N
-36	GABAa受容体	\N
-37	Cl⁻チャネル 複合体のバビルツレート 結合部位	\N
-38	Cl-チャネル 複合体のβサブユニット	\N
-39	オピオイドμ受容体	\N
-40	ドパミンD2受容体	\N
-41	グルタミン酸NMDA受容体	\N
-42	中枢神経のDA・NAトランスポーター	
-43	PBP(ペニシリン結合タンパク)	ペプチドグリカン合成に関与\r\nトランスペプチターゼ活性を有し架橋形成反応を触媒
+COPY public.yakuri_target (id, targets, phsiologic, targetsnum) FROM stdin;
+1	ヒスタミンH1受容体	\N	1
+2	ヒスタミンH2受容体	\N	1
+3	アドレナリンα受容体(非選択的)	\N	1
+4	アドレナリンα１受容体	\N	1
+35	作用機序不明	\N	1
+36	GABAa受容体	\N	1
+37	Cl⁻チャネル 複合体のバビルツレート 結合部位	\N	1
+38	Cl-チャネル 複合体のβサブユニット	\N	1
+39	オピオイドμ受容体	\N	1
+40	ドパミンD2受容体	\N	1
+41	グルタミン酸NMDA受容体	\N	1
+42	中枢神経のDA・NAトランスポーター		1
+43	PBP(ペニシリン結合タンパク)	ペプチドグリカン合成に関与\r\nトランスペプチターゼ活性を有し架橋形成反応を触媒	1
 \.
 
 
@@ -1432,14 +1454,14 @@ COPY public.yakuri_target (id, targets, phsiologic) FROM stdin;
 -- Data for Name: yakuri_work; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.yakuri_work (id, works) FROM stdin;
-1	刺激
-2	遮断
-3	酵素活性化
-4	酵素阻害
-5	なし
-6	複数成分
-7	非競合的拮抗
+COPY public.yakuri_work (id, works, worknum) FROM stdin;
+1	刺激	1
+7	非競合的拮抗	5
+6	複数成分	6
+5	なし	7
+4	酵素阻害	4
+3	酵素活性化	3
+2	遮断	2
 \.
 
 
@@ -1489,7 +1511,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 128, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 140, true);
 
 
 --
@@ -1503,21 +1525,21 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 13, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 19, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 22, true);
 
 
 --
 -- Name: yakuri_detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 63, true);
+SELECT pg_catalog.setval('public.yakuri_detail_id_seq', 65, true);
 
 
 --
 -- Name: yakuri_detail_target_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 69, true);
+SELECT pg_catalog.setval('public.yakuri_detail_target_id_seq', 71, true);
 
 
 --

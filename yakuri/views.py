@@ -70,6 +70,12 @@ class PracticeList(ListView):
     
     def get_context_data(self,**kwargs):
         context=super().get_context_data(**kwargs)
+        #科目リスト取得
+        context['subjects_list']=Subject.objects.all().order_by('subjectsnum')
+        #ボタン用に分野名と分野IDを取得
+        context['fields_list']=Fields.objects.all().order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
         
-        context['category_list']=Subject.
+        #科目順に医薬品名を取得する
+        context['medicines_list']=Detail.objects.all().order_by('field__subject__subjectsnum')
+
         return context

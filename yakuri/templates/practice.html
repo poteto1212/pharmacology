@@ -3,4 +3,44 @@
 {% block content %}
 <title>薬品名演習問題</title>
 <h1>ここに薬物名演習問題を作成する</h1>
+
+{% for subjects in subjects_list %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <p>{{subjects.subjects}}で学習した領域<p>
+        <select name="filldsset">
+            {% for fields in fields_list %}
+                {% if fields.subject__id == subjects.id %}
+                <option value="{{fields.id}}">{{fields.fields}}分野ID{{fields.id}}</option>
+    　　          {% endif %}
+            {% endfor %}
+        </select>
+         <input type="submit" value="送信する">
+    </form>
+
+{% endfor %}
+
+
+{% for fields in fields_list  %}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">{{fields.fields}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text">
+    <ul>
+    {% for medicines in medicines_list %}
+        {% if medicines.field.id == fields.id %}
+        <li>{{medicines.name}}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+     </p>
+    <a href="#!" class="card-link">Card link</a>
+    <a href="#!" class="card-link">Another link</a>
+  </div>
+</div>
+{% endfor %}
+
+
 {% endblock content %}
