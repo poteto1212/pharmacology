@@ -56,6 +56,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'yakuri.context.related',
+                'django.template.context_processors.media',
             ],
             'builtins':[
                 'bootstrap4.templatetags.bootstrap4',#bootstrap4のHTMLタグを有効化する
@@ -132,8 +133,8 @@ DBBACKUP_STORAGE_OPTIONS={'location':os.path.join(BASE_DIR,'backups')}
 
 #構造式画像のアップロード設定
 
-MEDIA_URL='/image/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'image')
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 
 

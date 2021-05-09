@@ -122,6 +122,11 @@ class FieldsPractice(PracticeList):
         
         return context
         
-        
-        
+
+#構造式一覧画面
+class StructureList(ListView):
+    template_name="structure.html"
+    model=Detail
+    
+    
         

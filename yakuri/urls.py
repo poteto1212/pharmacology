@@ -10,6 +10,8 @@ urlpatterns=[
     path('index/<int:id>',views.PharmIndex.as_view(),name='index'),
     path('target/<int:id>',views.TargetList.as_view(),name='target'),
     path('practice/',views.PracticeList.as_view(),name='practice'),
-    path('fieldspractice/',views.FieldsPractice.as_view(),name='fieldspractice')
+    path('fieldspractice/',views.FieldsPractice.as_view(),name='fieldspractice'),
+    path('structure/',views.StructureList.as_view(),name='structure')
     ]
+    
     
