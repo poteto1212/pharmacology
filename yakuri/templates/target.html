@@ -21,9 +21,9 @@
               {% if medicines.work.works == works.work__works %}
                 <li>
                     <strong>
-                      (薬物名:<span class="addname" style="color:red;">{{medicines.name}}</span>)
+                      (一般名:<span class="addname" style="color:red;">{{medicines.name}}</span>)
                     </strong>
-                は{{medicines.detail}}
+            ・・・{{medicines.detail}}※主な先発品(<strong>販売名:<span style="color:blue;">{{medicines.blandname}}</spane></strong>)               
                 </li>
               {% endif %}
           {% endfor %}

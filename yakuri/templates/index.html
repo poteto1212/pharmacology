@@ -12,7 +12,7 @@
 <h4>{{fields.fields}}</h4>
 <ul>
     {% for rel in fields.reltarget.all %}
-    <li><a href="{% url 'yakuri:target' rel.id %}">{{rel}} 　　対応ID：<strong>{{rel.id}}</strong></a></li>
+    <li><a href="{% url 'yakuri:target' rel.id %}">{{rel}}に作用する医薬品</a></li>
     {% endfor %}
 </ul>
 {% endfor %}
