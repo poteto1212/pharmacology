@@ -130,8 +130,12 @@ class StructureList(ListView):
     
     def get_context_data(self,**kwargs):
         context=super().get_context_data()
-        #科目選択プルダウン用
+        #科目選択ラジオボタン用
         context['subjects_list']=Subject.objects.all().order_by('subjectsnum')
+        
+        #分野選択プルダウン用
+        context['fields_list']=Fields.objects.all().order_by('subject__subjectsnum')
+        
         return context
     
     
