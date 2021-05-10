@@ -1246,6 +1246,8 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 216	2021-05-08 06:10:06.955254+00	6	フェキソフェナジン	2	[{"changed": {"fields": ["\\u4e3b\\u306a\\u5148\\u767a\\u54c1\\u540d"]}}]	13	1
 217	2021-05-08 06:10:06.959507+00	65	プラゾシン	2	[{"changed": {"fields": ["\\u4e3b\\u306a\\u5148\\u767a\\u54c1\\u540d"]}}]	13	1
 218	2021-05-08 06:10:06.9637+00	64	ブナゾシン	2	[{"changed": {"fields": ["\\u4e3b\\u306a\\u5148\\u767a\\u54c1\\u540d"]}}]	13	1
+219	2021-05-10 05:17:21.505921+00	12	ナファゾリン	2	[{"changed": {"fields": ["Structure"]}}]	13	1
+220	2021-05-10 05:55:44.250672+00	66	ジモルホラミン	2	[{"changed": {"fields": ["Structure"]}}]	13	1
 \.
 
 
@@ -1326,10 +1328,8 @@ COPY public.yakuri_detail (id, name, detail, structure, studynum, field_id, grad
 51	ペニシリンG	梅毒トレポネーマの第一選択薬。		1	38	1	2	4	\N	ペニシリンGカリウム
 67	二酸化炭素	適応：酸素吸入時にO2ガスに1～5％混合して使\r\nう。		3	41	2	1	1	\N	\N
 49	メタンフェタミン	中枢興奮作用（不眠、気分高揚、疲労感減少、食欲\r\n抑制、多幸感）\r\nうつ病、ナルコレプシーなどに用いられる。\r\n精神依存性がある		1	37	1	2	2	\N	ヒロポン
-66	ジモルホラミン	血管運動中枢も刺激→血圧上昇。\r\n適応：薬物中毒（睡眠薬、麻薬など）による中枢性\r\n呼吸抑制。\r\n禁忌：モルヒネによる呼吸抑制には用いない。		1	41	2	1	1	は、呼吸中枢を直接刺激する事で呼吸興奮作用を示す	テラプチク
 68	ドキサプラム	血管運動中枢も刺激→血圧上昇。\r\n適応：麻酔時の呼吸抑制、肺の換気不全。		2	41	2	1	1	\N	ドプラム
 44	チオペンタール	基礎麻酔薬として補助的に使われる。		1	36	1	2	1	\N	ラボナール
-12	ナファゾリン			1	2	1	1	1	\N	プリビナ
 2	ジフェンヒドラミン	抗コリン作用あり		1	1	1	1	2	\N	レスタミン
 1	クロルフェニラミン	抗コリン作用あり		1	1	1	1	2	\N	ポララミン
 61	パニペネム	腎臓移行抑制薬ベタミプロンと併用。		2	40	1	2	4	\N	カルベニン
@@ -1357,6 +1357,8 @@ COPY public.yakuri_detail (id, name, detail, structure, studynum, field_id, grad
 6	フェキソフェナジン	BBB通過しにくい\r\nケミカルメディエーター遊離阻害		6	1	1	1	2	\N	アレグラ
 65	プラゾシン	ぶどう膜強膜を広げる		7	2	1	1	2	\N	ミニプレス
 64	ブナゾシン			7	2	1	1	2	\N	デタントール
+12	ナファゾリン		image/ナファゾリン塩酸塩.jfif	1	2	1	1	1		プリビナ
+66	ジモルホラミン	血管運動中枢も刺激→血圧上昇。\r\n適応：薬物中毒（睡眠薬、麻薬など）による中枢性\r\n呼吸抑制。\r\n禁忌：モルヒネによる呼吸抑制には用いない。	image/ジモルホラミン_rehgG1l.jfif	1	41	2	1	1	は、呼吸中枢を直接刺激する事で呼吸興奮作用を示す	テラプチク
 \.
 
 
@@ -1571,7 +1573,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 218, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 220, true);
 
 
 --
