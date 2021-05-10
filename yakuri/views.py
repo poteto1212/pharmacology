@@ -138,7 +138,32 @@ class StructureList(ListView):
         
         #構造一覧表示
         context['structure_list']=Detail.objects.all().order_by('field__subject__subjectsnum','field__fieldsnum')
+        #プルダウンデフォルト値
+        context['defaultfield']=Fields.objects.all().first()
         return context
     
+#構造式画面の絞り込み検索
+class FilterStructureList(StructureList):
     
+     def get_context_data(self,**kwargs):
+        context=super().get_context_data()
+        
+        #各GET条件に応じた条件分岐
+        #科目で絞り込まれた時
+        if self.request.GET.get('subjectkey'):
+            key=self.request.GET.get('subjectkey')
+            context['fields_list']=Fields.objects.filter(subject__id=key).order_by('subject__subjectsnum')
+            context['structure_list']=Detail.objects.filter(field__subject__id=key).order_by('field__subject__subjectsnum','field__fieldsnum')
+            context['defaultfield']=Fields.objects.filter(subject__id=key).first()
+        elif self.request.GET.get('fieldskey'):
+            key=self.request.GET.get('fieldskey')
+            fieldkey=Fields.objects.filter(id=key).first()
+            
+            context['fields_list']=Fields.objects.filter(subject__id=fieldkey.subject.id).order_by('subject__subjectsnum')
+            context['structure_list']=Detail.objects.filter(field__id=key).order_by('field__subject__subjectsnum','field__fieldsnum')
+            context['defaultfield']=Fields.objects.filter(id=key).first()
+        
+        return context
+        
+        
         
