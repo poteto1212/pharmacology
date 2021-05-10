@@ -104,24 +104,20 @@ class PracticeList(ListView):
         #科目順に医薬品名を取得する
         context['medicines_list']=Detail.objects.all().order_by('field__subject__subjectsnum','studynum')
 
-        return context
         
-#演習問題絞り込み用
+        #Get値がある時のり込み用の処理
         
-class FieldsPractice(PracticeList):
-    #PracticeListクラスを継承してget_context_dataメソッドに一部機能追加(Get値で絞り込む)
-    def get_context_data(self,**kwargs):
-        context=super().get_context_data()
-        
-        #医薬品一覧表示関連の辞書をオーバーライド
-        
-        fieldskey=self.request.GET.get('fieldsset')
-        context['fieldsmedicines_list']=Fields.objects.filter(id=fieldskey).order_by('subject__subjectsnum','fieldsnum').distinct().values('fields','subject__id','id')
-        
-        #選択されていない時は全表示
+        if self.request.GET.get('subjectkey'):
+            key=self.request.GET.get('subjectkey')
+            context['fields_list']=Fields.objects.filter(subject__id=key).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
+            context['fieldsmedicines_list']=Fields.objects.filter(subject__id=key).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
+        elif self.request.GET.get('fieldsset'):
+            key=self.request.GET.get('fieldsset')
+            fieldkey=Fields.objects.filter(id=key).first()
+            context['fields_list']=Fields.objects.filter(subject__id=fieldkey.subject.id).order_by('subject__subjectsnum')
+            context['fieldsmedicines_list']=Fields.objects.filter(id=key).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')    
         
         return context
-        
 
 #構造式一覧画面
 class StructureList(ListView):

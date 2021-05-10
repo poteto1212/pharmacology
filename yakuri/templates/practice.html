@@ -5,7 +5,7 @@
 <title>薬品名演習問題</title>
 
 <h2>分野別で絞り込む</h2>
-    <form method="GET" action="{% url 'yakuri:fieldspractice' %}">
+    <form method="GET" action="{% url 'yakuri:practice' %}">
     <P>科目選択<br>
     {% for subjects in subjects_list %}
        <input type="radio" name="subjectkey" value="{{subjects.id}}">{{subjects.subjects}}
@@ -13,7 +13,7 @@
     </p>
     <button type="submit" class="btn btn-primary">絞り込む</button>
     </form>
-        <form method="GET" action="{% url 'yakuri:fieldspractice' %}">
+        <form method="GET" action="{% url 'yakuri:practice' %}">
             <select name="fieldsset" style="width:20%;">
             {% for fields in fields_list %}
                 <option value="{{fields.id}}">{{fields.fields}}分野ID{{fields.id}}</option>
@@ -21,7 +21,7 @@
         </select>
         <button type="submit" class="btn btn-primary">絞り込む</button>
         <button class="btn btn-primary" onclick="location.href='{% url 'yakuri:practice' %}'">絞り込み解除</button>
-        </form>
+    </form>
         
     
     
