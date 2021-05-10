@@ -34,15 +34,17 @@
 
 <h1>構造式含めた一覧表示</h1>
 
-<div class="card-columns">
+<div class="card-deck">
 {% for structures in structure_list %}
+ <div style="float:left; width:300px; height:300px; text-align:center;" >
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title"><strong>{{structures.name}}</strong></h4>
+            <h4 class="card-title" style="text-align:left;"><strong>{{structures.name}}</strong></h4>
             <img style="width:80%;" alt="Card image" src='{% if structures.structure %}{{structures.structure.url}}{% else %}{% static "img/nonpic.png" %}{% endif %}'>
-            <p>商品名(先発品):<strong>{{structures.blandname}}®</strong></p>
+            <p style="text-align:left;">商品名(先発品):<strong>{{structures.blandname}}®</strong></p>
         </div>
     </div>
+</div>
 {% endfor %}
 </div>
 {% endblock content %}

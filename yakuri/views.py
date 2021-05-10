@@ -102,7 +102,7 @@ class PracticeList(ListView):
         #見出し用に分野名と分野IDを取得
         context['fieldsmedicines_list']=Fields.objects.all().order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
         #科目順に医薬品名を取得する
-        context['medicines_list']=Detail.objects.all().order_by('field__subject__subjectsnum')
+        context['medicines_list']=Detail.objects.all().order_by('field__subject__subjectsnum','studynum')
 
         return context
         
@@ -116,7 +116,7 @@ class FieldsPractice(PracticeList):
         #医薬品一覧表示関連の辞書をオーバーライド
         
         fieldskey=self.request.GET.get('fieldsset')
-        context['fieldsmedicines_list']=Fields.objects.filter(id=fieldskey).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
+        context['fieldsmedicines_list']=Fields.objects.filter(id=fieldskey).order_by('subject__subjectsnum','fieldsnum').distinct().values('fields','subject__id','id')
         
         #選択されていない時は全表示
         
@@ -137,7 +137,7 @@ class StructureList(ListView):
         context['fields_list']=Fields.objects.all().order_by('subject__subjectsnum')
         
         #構造一覧表示
-        context['structure_list']=Detail.objects.all().order_by('field__subject__subjectsnum','field__fieldsnum')
+        context['structure_list']=Detail.objects.all().order_by('field__subject__subjectsnum','field__fieldsnum','studynum')
         #プルダウンデフォルト値
         context['defaultfield']=Fields.objects.all().first()
         return context
@@ -153,14 +153,14 @@ class FilterStructureList(StructureList):
         if self.request.GET.get('subjectkey'):
             key=self.request.GET.get('subjectkey')
             context['fields_list']=Fields.objects.filter(subject__id=key).order_by('subject__subjectsnum')
-            context['structure_list']=Detail.objects.filter(field__subject__id=key).order_by('field__subject__subjectsnum','field__fieldsnum')
+            context['structure_list']=Detail.objects.filter(field__subject__id=key).order_by('field__subject__subjectsnum','field__fieldsnum','studynum')
             context['defaultfield']=Fields.objects.filter(subject__id=key).first()
         elif self.request.GET.get('fieldskey'):
             key=self.request.GET.get('fieldskey')
             fieldkey=Fields.objects.filter(id=key).first()
             
             context['fields_list']=Fields.objects.filter(subject__id=fieldkey.subject.id).order_by('subject__subjectsnum')
-            context['structure_list']=Detail.objects.filter(field__id=key).order_by('field__subject__subjectsnum','field__fieldsnum')
+            context['structure_list']=Detail.objects.filter(field__id=key).order_by('field__subject__subjectsnum','field__fieldsnum','studynum')
             context['defaultfield']=Fields.objects.filter(id=key).first()
         
         return context
