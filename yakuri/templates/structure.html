@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
 <h1>構造式・商品名・一般名</h1>
 
 
@@ -29,4 +30,18 @@
  <button type="submit">絞り込む</button>
 </p>
 </form>
+
+<h1>構造式含めた一覧表示</h1>
+
+<div class="card-columns">
+{% for structures in structure_list %}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"><strong>{{structures.name}}</strong></h4>
+            <img style="width:80%;" alt="Card image" src='{% if structures.structure %}{{structures.structure.url}}{% else %}{% static "img/nonpic.png" %}{% endif %}'>
+            <p>商品名(先発品):<strong>{{structures.blandname}}®</strong></p>
+        </div>
+    </div>
+{% endfor %}
+</div>
 {% endblock content %}

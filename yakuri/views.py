@@ -136,6 +136,8 @@ class StructureList(ListView):
         #分野選択プルダウン用
         context['fields_list']=Fields.objects.all().order_by('subject__subjectsnum')
         
+        #構造一覧表示
+        context['structure_list']=Detail.objects.all().order_by('field__subject__subjectsnum','field__fieldsnum')
         return context
     
     
