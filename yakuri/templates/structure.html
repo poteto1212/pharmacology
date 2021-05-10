@@ -4,13 +4,29 @@
 <h1>構造式・商品名・一般名</h1>
 
 
-<h1>作用点絞り込み</h1>
+
 <form method="GET" action="#">
+    <p>科目選択<br>
+    {% for subjects in subjects_list %}
+        <input type="radio" name="subjectkey" value="{{subjects.id}}">{{subjects.subjects}}
+    {% endfor %}
+    </p>
+    <button type="submit">絞り込む</button>
+</form>
+<form method="GET" action="#">
+    <p>作用点絞り込み</p>
     <select name="fieldskey">
         {% for fields in fields_list %}
         <option value="{{fields.id}}">{{fields.fields}}</option>
         {% endfor %}
     </select>
     <button type="submit">絞り込む</button>
+</form>
+
+<form  method="GET" action="#">
+<p>検索<br>
+ <input type="search" name="search" placeholder="薬品名・作用機序">
+ <button type="submit">絞り込む</button>
+</p>
 </form>
 {% endblock content %}
