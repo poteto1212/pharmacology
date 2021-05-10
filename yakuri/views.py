@@ -128,5 +128,11 @@ class StructureList(ListView):
     template_name="structure.html"
     model=Detail
     
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data()
+        #科目選択プルダウン用
+        context['subjects_list']=Subject.objects.all().order_by('subjectsnum')
+        return context
+    
     
         
