@@ -11,7 +11,6 @@ urlpatterns=[
     path('target/<int:id>',views.TargetList.as_view(),name='target'),
     path('practice/',views.PracticeList.as_view(),name='practice'),
     path('structure/',views.StructureList.as_view(),name='structure'),
-    path('filterstructure/',views.FilterStructureList.as_view(),name="filterstructure")
     ]
     
     

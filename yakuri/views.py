@@ -98,12 +98,13 @@ class PracticeList(ListView):
         context['subjects_list']=Subject.objects.all().order_by('subjectsnum')
         #ボタン用に分野名と分野IDを取得
         context['fields_list']=Fields.objects.all().order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
-        
+        #分野選択のデフォルト値
+        context['defaultfield']=Fields.objects.all().first()
         #見出し用に分野名と分野IDを取得
         context['fieldsmedicines_list']=Fields.objects.all().order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
         #科目順に医薬品名を取得する
         context['medicines_list']=Detail.objects.all().order_by('field__subject__subjectsnum','studynum')
-
+      
         
         #Get値がある時のり込み用の処理
         
@@ -111,11 +112,13 @@ class PracticeList(ListView):
             key=self.request.GET.get('subjectkey')
             context['fields_list']=Fields.objects.filter(subject__id=key).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
             context['fieldsmedicines_list']=Fields.objects.filter(subject__id=key).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
+            context['defaultfield']=Fields.objects.filter(subject__id=key).first()
         elif self.request.GET.get('fieldsset'):
             key=self.request.GET.get('fieldsset')
             fieldkey=Fields.objects.filter(id=key).first()
             context['fields_list']=Fields.objects.filter(subject__id=fieldkey.subject.id).order_by('subject__subjectsnum')
-            context['fieldsmedicines_list']=Fields.objects.filter(id=key).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')    
+            context['fieldsmedicines_list']=Fields.objects.filter(id=key).order_by('subject__subjectsnum','fieldsnum',).distinct().values('fields','subject__id','id')
+            context['defaultfield']=Fields.objects.filter(id=key).first()
         
         return context
 
@@ -136,14 +139,9 @@ class StructureList(ListView):
         context['structure_list']=Detail.objects.all().order_by('field__subject__subjectsnum','field__fieldsnum','studynum')
         #プルダウンデフォルト値
         context['defaultfield']=Fields.objects.all().first()
-        return context
     
 #構造式画面の絞り込み検索
-class FilterStructureList(StructureList):
-    
-     def get_context_data(self,**kwargs):
-        context=super().get_context_data()
-        
+
         #各GET条件に応じた条件分岐
         #科目で絞り込まれた時
         if self.request.GET.get('subjectkey'):

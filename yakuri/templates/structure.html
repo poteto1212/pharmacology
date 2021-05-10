@@ -6,7 +6,7 @@
 
 
 
-<form method="GET" action="{% url 'yakuri:filterstructure' %}">
+<form method="GET" action="{% url 'yakuri:structure' %}">
     <p>科目選択<br>
     {% for subjects in subjects_list %}
         <input type="radio" name="subjectkey" value="{{subjects.id}}">{{subjects.subjects}}
@@ -14,7 +14,7 @@
     </p>
     <button type="submit">絞り込む</button>
 </form>
-<form method="GET" action="{% url 'yakuri:filterstructure' %}">
+<form method="GET" action="{% url 'yakuri:structure' %}">
     <p>作用点絞り込み</p>
     <select name="fieldskey">
         <option value="{{defaultfield.id}}" selected="">{{defaultfield.fields}}</option>
@@ -25,7 +25,7 @@
     <button type="submit">絞り込む</button>
 </form>
 
-<form  method="GET" action="{% url 'yakuri:filterstructure' %}">
+<form  method="GET" action="{% url 'yakuri:structure' %}">
 <p>検索<br>
  <input type="search" name="search" placeholder="薬品名・作用機序">
  <button type="submit">絞り込む</button>
