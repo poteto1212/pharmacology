@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView,ListView
 from .models import Detail,Subject,Fields,Target,Work
+from django.db.models import Q
 # Create your views here.
 
 class HomeView(TemplateView):
@@ -156,7 +157,13 @@ class StructureList(ListView):
             context['fields_list']=Fields.objects.filter(subject__id=fieldkey.subject.id).order_by('subject__subjectsnum')
             context['structure_list']=Detail.objects.filter(field__id=key).order_by('field__subject__subjectsnum','field__fieldsnum','studynum')
             context['defaultfield']=Fields.objects.filter(id=key).first()
-        
+        #検索フォームでは該当薬品のみを検索する.
+        elif self.request.GET.get('search'):
+            key=self.request.GET.get('search')
+            context['structure_list']=Detail.objects.filter(
+                Q(name__icontains=key)|
+                Q(blandname__icontains=key)
+            ).order_by('field__subject__subjectsnum')
         return context
         
         
