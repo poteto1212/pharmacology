@@ -19,7 +19,7 @@ class PharmList(ListView):
         context['medicines']=Detail.objects.filter(field__subject__id=titlekey).distinct().order_by('studynum','-work','-detail')
         
         #科目に準じた分野名と分野idを取得
-        context['fields']=Fields.objects.filter(subject__id=titlekey).order_by('fieldsnum').distinct().values('fields','id')
+        context['fields']=Fields.objects.filter(subject__id=titlekey).order_by('fieldsnum').distinct().values('fields','id','descriptione')
         
         
         #絞り込みプルダウン用
@@ -80,7 +80,7 @@ class TargetList(ListView):
         context['targets']=Target.objects.get(id=targetkey)
         
         #作用の仕方(刺激・遮断etcを取得)
-        context['work_list']=Detail.objects.filter(target__id=targetkey).order_by('work__worknum').distinct().values('work__works')
+        context['work_list']=Detail.objects.filter(target__id=targetkey).order_by('work__worknum').distinct().values('work__works',)
         
         #情報取得クエリ
         context['medicines_list']=Detail.objects.filter(target__id=targetkey)
