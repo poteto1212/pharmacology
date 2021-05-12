@@ -5,6 +5,7 @@
 <title>医薬品の構造式まとめ</title>
 <h1>構造式・商品名・一般名</h1>
 
+<script type="text/javascript" src="{% static 'jquery/switch.js' %}"></script>
 
 
 <form method="GET" action="{% url 'yakuri:structure' %}">
@@ -34,15 +35,16 @@
 </form>
 
 <h1>構造式含めた一覧表示</h1>
-
+<button class="hide">医薬品名を非表示にする</button>
+<button class="show">医薬品名を表示する</button>
 <div class="card-deck">
 {% for structures in structure_list %}
- <div style="float:left; width:300px; height:300px; text-align:center;" >
+ <div style="float:left; width:300px; height:400px; text-align:center;" >
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title" style="text-align:left;"><strong>{{structures.name}}</strong></h4>
+            <h4 class="card-title" style="text-align:left;"><strong class="addname">一般名<br>{{structures.name}}</strong></h4>
             <img style="width:80%;" alt="Card image" src='{% if structures.structure %}{{structures.structure.url}}{% else %}{% static "img/nonpic.png" %}{% endif %}'>
-            <p style="text-align:left;">商品名(先発品):<strong>{{structures.blandname}}®</strong></p>
+            <p style="text-align:left;">商品名(先発品):<br><strong class="addname">{{structures.blandname}}®</strong></p>
         </div>
     </div>
 </div>

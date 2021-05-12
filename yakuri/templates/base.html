@@ -35,13 +35,8 @@
     </ul>
   </div>
 </nav>
-<div>
-    <h3>サイト内検索</h3>
-</div>
-<form class="form-inline"　method="GET" action="#">
+<h1></h1>
+
     {% csrf_token %}
-    <input class="form-control mr-sm-2" type="text" placeholder="科目名　分野名等" name="keyword">
-    <button class="btn btn-info my-2 my-sm-0" type="submit">検索</button>
-</form>
 {% block content %}
 {% endblock content %}
