@@ -38,7 +38,7 @@
     {% for medicines in medicines_list %}
         {% if medicines.field.id == fields.id %}
         <li>
-            (薬物名:<span class="addname" style="color:red;">{{medicines.name}}</span>)
+            (薬物名:<span class="addname" style="color:red; opacity:0;">{{medicines.name}}</span>)
             {{medicines.question}}
         </li>
         {% endif %}
