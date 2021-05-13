@@ -1058,7 +1058,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$180000$mboKrjvRDViz$rkH10rd+oMZ6w5KBggraV1uBF0LphTu6xcqGkcIEzqI=	2021-05-05 08:17:48.267282+00	t	poteto1212			test@gmail.com	t	t	2021-05-05 08:17:23.138121+00
+1	pbkdf2_sha256$180000$mboKrjvRDViz$rkH10rd+oMZ6w5KBggraV1uBF0LphTu6xcqGkcIEzqI=	2021-05-12 08:59:01.118717+00	t	poteto1212			test@gmail.com	t	t	2021-05-05 08:17:23.138121+00
 \.
 
 
@@ -1248,6 +1248,7 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 218	2021-05-08 06:10:06.9637+00	64	ブナゾシン	2	[{"changed": {"fields": ["\\u4e3b\\u306a\\u5148\\u767a\\u54c1\\u540d"]}}]	13	1
 219	2021-05-10 05:17:21.505921+00	12	ナファゾリン	2	[{"changed": {"fields": ["Structure"]}}]	13	1
 220	2021-05-10 05:55:44.250672+00	66	ジモルホラミン	2	[{"changed": {"fields": ["Structure"]}}]	13	1
+221	2021-05-13 08:42:40.961008+00	45	チアミラール	2	[{"changed": {"fields": ["Structure"]}}]	13	1
 \.
 
 
@@ -1310,6 +1311,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 d7xl0s2ynsgtiavp8m40y8hqts5usrkt	OTI4ZTEzMDQyMThiM2I3Zjc3OGU4YmFlZmI5NjVjZmFmYWFmMjdkMzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxMTMxZDM3YTAxNjVhZjQxOTdmN2JlY2U5ZTUxYzRhNTViZGZhYzEyIn0=	2021-05-19 08:17:48.279671+00
+ba0gpgejhccej6g5715viehdvvtz4sal	OTI4ZTEzMDQyMThiM2I3Zjc3OGU4YmFlZmI5NjVjZmFmYWFmMjdkMzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxMTMxZDM3YTAxNjVhZjQxOTdmN2JlY2U5ZTUxYzRhNTViZGZhYzEyIn0=	2021-05-26 08:59:01.122034+00
 \.
 
 
@@ -1334,7 +1336,6 @@ COPY public.yakuri_detail (id, name, detail, structure, studynum, field_id, grad
 1	クロルフェニラミン	抗コリン作用あり		1	1	1	1	2	\N	ポララミン
 61	パニペネム	腎臓移行抑制薬ベタミプロンと併用。		2	40	1	2	4	\N	カルベニン
 50	メチルフェニデート	ナルコレプシー、小児期の注意欠陥多動性障害(ADHD)に適用		2	37	1	2	2	\N	コンサータ
-45	チアミラール	基礎麻酔薬として補助的に使われる。		2	36	1	2	1	\N	イソゾール・チトゾール
 13	ミドドリン			2	2	1	1	1	\N	メトリジン
 62	メロペネム	DHP-1抵抗性。		3	40	1	2	4	\N	メロペン
 53	クロキサシリン	ペニシリナーゼ非分解。		3	38	1	2	4	\N	ピクシリン
@@ -1359,6 +1360,7 @@ COPY public.yakuri_detail (id, name, detail, structure, studynum, field_id, grad
 64	ブナゾシン			7	2	1	1	2	\N	デタントール
 12	ナファゾリン		image/ナファゾリン塩酸塩.jfif	1	2	1	1	1		プリビナ
 66	ジモルホラミン	血管運動中枢も刺激→血圧上昇。\r\n適応：薬物中毒（睡眠薬、麻薬など）による中枢性\r\n呼吸抑制。\r\n禁忌：モルヒネによる呼吸抑制には用いない。	image/ジモルホラミン_rehgG1l.jfif	1	41	2	1	1	は、呼吸中枢を直接刺激する事で呼吸興奮作用を示す	テラプチク
+45	チアミラール	基礎麻酔薬として補助的に使われる。	image/te.gif	2	36	1	2	1		イソゾール・チトゾール
 \.
 
 
@@ -1573,7 +1575,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 220, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 221, true);
 
 
 --

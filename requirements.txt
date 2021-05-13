@@ -7,3 +7,4 @@ python-dotenv==0.17.1
 soupsieve==2.2.1
 whitenoise==5.2.0
 pillow
+django-cloudinary-storage
