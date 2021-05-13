@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'dbbackup',
     'yakuri.apps.YakuriConfig',
     'bootstrap4',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +138,13 @@ DBBACKUP_STORAGE_OPTIONS={'location':os.path.join(BASE_DIR,'backups')}
 MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
-
+#画像アップロード先をClOUDINARYストレージに飛ばす
+CLOUDINARY_STORAGE={
+    'CLOUD_NAME':'duipobhgk',
+    'API_KEY':'742599664161793',
+    'API_SECRET':'-QwM-l9ABp-mwNkyM-JBtuTfPEI',
+            
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
