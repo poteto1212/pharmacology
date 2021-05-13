@@ -1,1 +1,1 @@
-web:gunicorn pharmacology.wsgi
+web: gunicorn pharmacology.wsgi
