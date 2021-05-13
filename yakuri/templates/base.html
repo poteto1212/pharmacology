@@ -35,8 +35,13 @@
     </ul>
   </div>
 </nav>
+<div style="height:80px;">
+    <form>
+         <input type="image" src="{% static 'img/printimg.png' %}" onclick="window.print()" style="width:90px; height:72px; float:right;"><br>
+         <a style="float:right;" href="javascript:void(o)" onclick="window.print()">印刷はこちら</a>
+    </form>
+</div>
 <h1></h1>
-
-    {% csrf_token %}
+{% csrf_token %}
 {% block content %}
 {% endblock content %}
