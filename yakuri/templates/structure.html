@@ -14,7 +14,7 @@
         <button type="submit" name="subjectkey" value="{{subjects.id}}">{{subjects.subjects}}</button>
     {% endfor %}
     </p>
-    <button type="reset">全科目</buttom>
+    <button onclick="'{% url 'yakuri:structure' %}'">全科目</button>
 </form>
 <form method="GET" action="{% url 'yakuri:structure' %}">
     <p>作用点絞り込み</p>
