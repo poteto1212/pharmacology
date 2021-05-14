@@ -11,10 +11,10 @@
 <form method="GET" action="{% url 'yakuri:structure' %}">
     <p>科目選択<br>
     {% for subjects in subjects_list %}
-        <button type="submit" name="subjectkey" value="{{subjects.id}}">{{subjects.subjects}}</button>
+        <button type="submit" name="subjectkey" value="{{subjects.id}}" class="btn btn-primary">{{subjects.subjects}}</button>
     {% endfor %}
     </p>
-    <button onclick="'{% url 'yakuri:structure' %}'">全科目</button>
+    <button onclick="'{% url 'yakuri:structure' %}'" class="btn btn-primary">全科目</button>
 </form>
 <form method="GET" action="{% url 'yakuri:structure' %}">
     <p>作用点絞り込み</p>
