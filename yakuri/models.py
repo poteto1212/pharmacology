@@ -10,7 +10,7 @@ class Subject(models.Model):
         blank=True,
         null=True,
         unique=False,
-        validators=[MinValueValidator(1),MaxValueValidator(15)]
+        validators=[MinValueValidator(1)]
         )
     
     def __str__(self):
@@ -47,7 +47,7 @@ class Work(models.Model):
         blank=True,
         null=True,
         unique=False,
-        validators=[MinValueValidator(1),MaxValueValidator(15)]
+        validators=[MinValueValidator(1)]
     )
     
     def __str__(self):
@@ -71,7 +71,7 @@ class Fields(models.Model):
         blank=True,
         null=True,
         unique=False,
-        validators=[MinValueValidator(1), MaxValueValidator(35)]
+        validators=[MinValueValidator(1)]
         )
     
             
@@ -99,7 +99,7 @@ class Target(models.Model):
         blank=True,
         null=True,
         unique=False,
-        validators=[MinValueValidator(1), MaxValueValidator(35)]
+        validators=[MinValueValidator(1)]
         )
     
     
@@ -130,7 +130,7 @@ class Detail(models.Model):
             blank=True,
             null=True,
             unique=False,
-            validators=[MinValueValidator(1), MaxValueValidator(35)]
+            validators=[MinValueValidator(1)]
             )
     
     

@@ -6,28 +6,29 @@ class SubjectAdmin(admin.ModelAdmin):
     list_display=('subjects','subjectsnum')
     list_editable=('subjectsnum',)
     ordering=('subjectsnum',)
-
+    save_as=True
 #作用点管理画面(抹消・中枢・循環etc)
 class TargetAdmin(admin.ModelAdmin):
     list_display=('targets','targetsnum')
     list_editable=('targetsnum',)
     ordering=('targetsnum',)
-
+    save_as=True
 #作用の仕方の管理画面(刺激・遮断・酵素阻害etc)
 class WorkAdmin(admin.ModelAdmin):
     list_display=('works','worknum')
     list_editable=('worknum',)
     ordering=('worknum',)
-
+    save_as=True
+    
 #作用領域管理画面
 class FieldsAdmin(admin.ModelAdmin):
     list_display=('subject','fields','_reltarget','fieldsnum')
-    list_editable=('fieldsnum',)
+    list_editable=('fields','fieldsnum',)
     ordering=('fieldsnum',)
     list_filter=('subject__subjects',)
     season_field=('fields')#分野名から検索
     filter_horizontal=('reltarget',)
-    
+    save_as=True
     def _reltarget(self,row):
         return '\n'.join([X.targets for X in row.reltarget.all()])
 
