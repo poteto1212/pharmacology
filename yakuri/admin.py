@@ -22,6 +22,7 @@ class WorkAdmin(admin.ModelAdmin):
     
 #作用領域管理画面
 class FieldsAdmin(admin.ModelAdmin):
+    season_field=['subject','fields']
     list_display=('subject','fields','_reltarget','fieldsnum')
     list_editable=('fields','fieldsnum',)
     ordering=('fieldsnum',)

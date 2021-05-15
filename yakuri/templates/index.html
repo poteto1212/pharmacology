@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<p>ここで学んだ医薬品の目次を作成する</p>
+
 <a href="{% url 'yakuri:list' title.id %}">
     <button style="width:60%;" type="button" class="btn btn-primary btn-lg btn-block">
     {{title.subjects}}で学んだ医薬品一覧へ

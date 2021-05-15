@@ -46,7 +46,7 @@ class FilterPharmList(ListView):
         context['medicines']=Detail.objects.filter(field__id=titlekey).distinct().order_by('studynum','-work','-detail')
         
         #分野名はpost値をそのままisに
-        context['fields']=Fields.objects.filter(id=titlekey).order_by('fieldsnum').distinct().values('fields','id')
+        context['fields']=Fields.objects.filter(id=titlekey).order_by('fieldsnum').distinct().values('fields','id','descriptione')
         return context
 #科目別の一覧目次画面を作成するクラス
 class PharmIndex(ListView):
@@ -58,7 +58,7 @@ class PharmIndex(ListView):
         
         key=self.kwargs['id']
         context['title']=Subject.objects.filter(id=key).first()
-        context['field_list']=Fields.objects.filter(subject__id=key).order_by('id')
+        context['field_list']=Fields.objects.filter(subject__id=key)
         
         return context
 
