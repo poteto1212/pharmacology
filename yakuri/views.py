@@ -58,7 +58,7 @@ class PharmIndex(ListView):
         
         key=self.kwargs['id']
         context['title']=Subject.objects.filter(id=key).first()
-        context['field_list']=Fields.objects.filter(subject__id=key)
+        context['field_list']=Fields.objects.filter(subject__id=key).order_by('fieldsnum')
         
         return context
 
