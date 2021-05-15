@@ -41,7 +41,7 @@ class DetailAdmin(admin.ModelAdmin):
         'blandname',
         '_target',
         'work',
-        'detail',
+        'structure',
         'studynum',
         )
      #一覧画面での編集
@@ -50,6 +50,7 @@ class DetailAdmin(admin.ModelAdmin):
         'name',
         'blandname',
         'work',
+        'structure',
         'studynum',
         )
         
