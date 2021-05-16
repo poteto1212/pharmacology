@@ -62,7 +62,7 @@
             </tr>
             
             {% for medicine in medicines %}
-            {% if medicine.field.fields in field.fields  %}
+            {% if medicine.field.fields == field.fields  %}
             <tr>
                 <td>□<span class=addname>{{medicine.name}}</span></td>
                 <td>
