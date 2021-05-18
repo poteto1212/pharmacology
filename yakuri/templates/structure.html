@@ -39,12 +39,15 @@
 <button class="show">医薬品名を表示する</button>
 <div class="card-deck">
 {% for structures in structure_list %}
- <div style="float:left; width:300px; height:400px; text-align:center;" >
+ <div style="float:left; width:300px; height:500px; text-align:center;" >
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title" style="text-align:left;"><strong class="addname">一般名<br>{{structures.name}}</strong></h4>
+            <h4 class="card-title" style="text-align:left;"><strong>一般名<br><span class="addname">{{structures.name}}<span></strong></h4>
             <img style="width:80%;　height:60%;" alt="Card image" src='{% if structures.structure %}{{structures.structure.url}}{% else %}{% static "img/nonpic.png" %}{% endif %}'>
             <p style="text-align:left;">商品名(先発品):<br><strong class="addname">{{structures.blandname}}®</strong></p>
+            <div style="float:right;">
+            <button class="hide">隠す</button><button class="show" >表示</button>
+            </div>
         </div>
     </div>
 </div>
