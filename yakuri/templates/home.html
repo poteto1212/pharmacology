@@ -62,6 +62,15 @@
             </div>
             <p class="text-contents">{{biseibutu.subinfo}}</p>
           </div>
+          <div class="lesson">
+            <div class="lesson-icon">
+            <a href="{% url 'yakuri:list' biseibutu.id %}">
+            　<img src="{% static 'img/htmlred.png' %}">
+              <p>{{bunsiseibutu.subjects}}</p><!--微生物学Ⅱ-->
+            </a>
+            </div>
+            <p class="text-contents">{{bunsiseibutu.subinfo}}</p>
+          </div>
           <div class="clear"></div>
         </div>
       </div>
