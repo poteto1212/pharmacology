@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Subject,Grade,Season,Work,Fields,Detail,Target
+from admin_auto_filters.filters import AutocompleteFilter
+
 
 #科目管理画面
 class SubjectAdmin(admin.ModelAdmin):
@@ -19,6 +21,15 @@ class WorkAdmin(admin.ModelAdmin):
     list_editable=('worknum',)
     ordering=('worknum',)
     save_as=True
+
+#薬効分類の検索
+class FieldsFilter(AutocompleteFilter):
+    title="Field"
+    field_name='field'
+    
+class FieldsFilterAdmin(admin.ModelAdmin):
+    search_fields=['fields']
+
     
 #作用領域管理画面
 class FieldsAdmin(admin.ModelAdmin):
@@ -74,11 +85,11 @@ class DetailAdmin(admin.ModelAdmin):
     
     #外部キーフィルター
     list_filter=(
+        FieldsFilter,#作用部位検索
         'grade__grades',#学年
         'season__seasons',#学期
         'work__works',#刺激と遮断
         'field__subject__subjects',#科目名
-        'field__fields',#作用部位
         )
         
     #薬品名検索

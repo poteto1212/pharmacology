@@ -12,10 +12,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%+!2ob33dtkpi#p2b_^^gk0jn#^6hv9oc4b#8=*=z)zzfd@25@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
+DEBUG=False
 
 # Application definition
 
@@ -26,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'admin_auto_filters',
     'dbbackup',
     'yakuri.apps.YakuriConfig',
     'bootstrap4',

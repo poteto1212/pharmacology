@@ -1058,7 +1058,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$180000$mboKrjvRDViz$rkH10rd+oMZ6w5KBggraV1uBF0LphTu6xcqGkcIEzqI=	2021-05-12 08:59:01.118717+00	t	poteto1212			test@gmail.com	t	t	2021-05-05 08:17:23.138121+00
+1	pbkdf2_sha256$180000$mboKrjvRDViz$rkH10rd+oMZ6w5KBggraV1uBF0LphTu6xcqGkcIEzqI=	2021-06-01 10:07:04.93565+00	t	poteto1212			test@gmail.com	t	t	2021-05-05 08:17:23.138121+00
 \.
 
 
@@ -1249,6 +1249,7 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 219	2021-05-10 05:17:21.505921+00	12	ナファゾリン	2	[{"changed": {"fields": ["Structure"]}}]	13	1
 220	2021-05-10 05:55:44.250672+00	66	ジモルホラミン	2	[{"changed": {"fields": ["Structure"]}}]	13	1
 221	2021-05-13 08:42:40.961008+00	45	チアミラール	2	[{"changed": {"fields": ["Structure"]}}]	13	1
+222	2021-06-01 10:08:30.205364+00	6	薬治Ⅳ(抗がん剤)	1	[{"added": {}}]	9	1
 \.
 
 
@@ -1302,6 +1303,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 22	yakuri	0005_subject_subjectsnum	2021-05-07 12:47:49.659665+00
 23	yakuri	0006_detail_question	2021-05-08 05:32:38.228022+00
 24	yakuri	0007_detail_blandname	2021-05-08 05:52:42.960747+00
+25	yakuri	0002_auto_20210515_1254	2021-06-01 10:08:43.996358+00
 \.
 
 
@@ -1312,6 +1314,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 d7xl0s2ynsgtiavp8m40y8hqts5usrkt	OTI4ZTEzMDQyMThiM2I3Zjc3OGU4YmFlZmI5NjVjZmFmYWFmMjdkMzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxMTMxZDM3YTAxNjVhZjQxOTdmN2JlY2U5ZTUxYzRhNTViZGZhYzEyIn0=	2021-05-19 08:17:48.279671+00
 ba0gpgejhccej6g5715viehdvvtz4sal	OTI4ZTEzMDQyMThiM2I3Zjc3OGU4YmFlZmI5NjVjZmFmYWFmMjdkMzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxMTMxZDM3YTAxNjVhZjQxOTdmN2JlY2U5ZTUxYzRhNTViZGZhYzEyIn0=	2021-05-26 08:59:01.122034+00
+l767mo136mi2iiidv4vazz1wst6ifolf	OTI4ZTEzMDQyMThiM2I3Zjc3OGU4YmFlZmI5NjVjZmFmYWFmMjdkMzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxMTMxZDM3YTAxNjVhZjQxOTdmN2JlY2U5ZTUxYzRhNTViZGZhYzEyIn0=	2021-06-15 10:07:04.939235+00
 \.
 
 
@@ -1488,6 +1491,7 @@ COPY public.yakuri_subject (id, subjects, subinfo, subjectsnum) FROM stdin;
 4	薬理学Ⅲ	循環器系・自己免疫	4
 3	薬理学Ⅱ	消化器系・代謝系	3
 2	薬理学Ⅰ	中枢神経・内分泌系Ⅱ	2
+6	薬治Ⅳ(抗がん剤)	抗がん剤	1
 \.
 
 
@@ -1575,7 +1579,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 221, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 222, true);
 
 
 --
@@ -1589,7 +1593,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 13, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 24, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 25, true);
 
 
 --
@@ -1638,7 +1642,7 @@ SELECT pg_catalog.setval('public.yakuri_season_id_seq', 2, true);
 -- Name: yakuri_subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.yakuri_subject_id_seq', 5, true);
+SELECT pg_catalog.setval('public.yakuri_subject_id_seq', 6, true);
 
 
 --
