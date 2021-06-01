@@ -90,6 +90,7 @@ class DetailAdmin(admin.ModelAdmin):
         'season__seasons',#学期
         'work__works',#刺激と遮断
         'field__subject__subjects',#科目名
+        'field__fields',
         )
         
     #薬品名検索
