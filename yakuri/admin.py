@@ -92,6 +92,7 @@ class DetailAdmin(admin.ModelAdmin):
         'field__subject__subjects',#科目名
         'field__fields',
         )
+    raw_id_fields=('field',)
         
     #薬品名検索
     #説明文から検索
