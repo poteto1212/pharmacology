@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'admin_auto_filters',
     'dbbackup',
     'yakuri.apps.YakuriConfig',
+    'linebot.apps.LinebotConfig',
     'bootstrap4',
     'cloudinary',
     'cloudinary_storage',
