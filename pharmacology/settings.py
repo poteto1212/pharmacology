@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'admin_auto_filters',
+    #'admin_auto_filters',
     'dbbackup',
     'yakuri.apps.YakuriConfig',
     'linebot.apps.LinebotConfig',
