@@ -9,4 +9,3 @@ whitenoise==5.2.0
 pillow
 django-cloudinary-storage
 gunicorn
-django-admin-autocomplete-filter
