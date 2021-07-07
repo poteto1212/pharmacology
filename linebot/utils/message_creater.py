@@ -42,7 +42,8 @@ def create_single_text_message(message):
         
             
             test_message.append(sendmessage)
-        
+    
+    #該当薬品がない時返すメッセージ
     else:
         message="ごめんなさい\n"+message+"は登録されていません。順次追加してまいります。"
         
@@ -50,6 +51,8 @@ def create_single_text_message(message):
                     'type': 'text',
                     'text': message
                 }
+        
+        test_message.append(sendmessage)
             
             
             
