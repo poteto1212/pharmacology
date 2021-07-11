@@ -41,13 +41,14 @@ def callback(request):
         for event in events:
             if isinstance(event, MessageEvent):
 
+                #メッセージを生成してリストで返すインスタンス
+                reply_list=[TextSendMessage(text=x) for x in message_controller.replay_controll(event.message.text)]
+                #生成したメッセージを送信する処理
                 line_bot_api.reply_message(
                     event.reply_token,
-                   [
-                        TextSendMessage(text=message_controller.replay_controll(event.message.text)),
-                        TextSendMessage(text=message_controller.replay_controll(event.message.text))
-                   ])
+                    reply_list
+                   )
 
-        return HttpResponse
+        return HttpResponse('ok')
     else:
         return HttpResponseBadRequest()
