@@ -18,8 +18,8 @@ from linebot.models import (
 )
 
 from .message import message_controller,template_controller
-LINE_CHANNEL_ACCESS_TOKEN = 'Li0swYw0GWbk1o7XzBF1KJLJ2/BV9n9nttEbuDsQdQi7AggHSmYL5w3Tsc+IUJ6fLHMa2DMj95oRww0W+DKJiBk978G2btHgqUO8wjs8dtJZJCjQjDks7sAsjK9rujXVvkBPmk77rtHjSLKfbWAi5QdB04t89/1O/w1cDnyilFU='
-LINE_CHANNEL_SECRET = '18657efd765b4ed4cbb7cc2cfe3612fe'
+LINE_CHANNEL_ACCESS_TOKEN = 'tgrGCa33Z8HKX5ug84Iq4/+3dHZYJggUYQsPmtxl6KwJKQAre40SGrsNZd1wfdLoo0vCjWAYqZ3aBxqqCYOwfb2HA+VsIAoU0Zr7PbmaGJHUHwLscV/yEDp/0Z8/KGdMHwgqwJRUa0gRL0H1VvX8/gdB04t89/1O/w1cDnyilFU='
+LINE_CHANNEL_SECRET = '3ea3febc256e24df0bb3da11ef421678'
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 parser = WebhookParser(LINE_CHANNEL_SECRET)
