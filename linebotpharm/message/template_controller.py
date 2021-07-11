@@ -15,5 +15,7 @@ def template_message(message):
         elif Detail.objects.filter(detail__icontains=message):
             details=Detail.objects.filter(detail__icontains=message)
             return details
+        else:
+            return False
     else:
         return False
