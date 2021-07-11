@@ -8,7 +8,7 @@ from .import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('yakuri.urls')),
-    path('linebot/',include('linebot.urls')),
+    path('linebot/',include('linebotpharm.urls')),
 ]
 
 #画像urlを定義

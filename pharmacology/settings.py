@@ -14,7 +14,7 @@ SECRET_KEY = '%+!2ob33dtkpi#p2b_^^gk0jn#^6hv9oc4b#8=*=z)zzfd@25@'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 ALLOWED_HOSTS = ['*']
-DEBUG=False
+DEBUG=True
 
 # Application definition
 
@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     #'admin_auto_filters',
     'dbbackup',
     'yakuri.apps.YakuriConfig',
-    'linebot.apps.LinebotConfig',
+    'linebotpharm.apps.LinebotpharmConfig',
     'bootstrap4',
     'cloudinary',
     'cloudinary_storage',
