@@ -84,9 +84,12 @@ def callback(request):
 
             #生成したメッセージを送信する処理
                 elif details==False:
-                    reply_list=[TextSendMessage(text=x) for x in message_controller.replay_controll(event.message.text)]
-                    reply_list.extend(reply_list)
-
+                    #reply_list=[TextSendMessage(text=x) for x in message_controller.replay_controll(event.message.text)]
+                    #reply_list.extend(reply_list)
+                    
+                    for replys in message_controller.replay_controll(event.message.text):
+                        reply=TextSendMessage(replys)
+                        reply_list.append(reply)
 
                 line_bot_api.reply_message(
                         event.reply_token,
