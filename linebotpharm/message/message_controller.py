@@ -1,5 +1,5 @@
 from yakuri.models import Detail
-
+from django.db.models import Q
 #返すメッセージをコントロール
 #該当するものを順に返そう
 #引数(メッセージ,クラス名)
@@ -36,6 +36,9 @@ def replay_controll(message):
     return reply_list
 
     #核種検索項目に対応出来るような設定を行う
-    def template_message(message):
-        reply_list=[]
+   
+        #薬品名の検索は弾く
+    
+       
+        
 

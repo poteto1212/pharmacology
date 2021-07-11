@@ -17,7 +17,7 @@ from linebot.models import (
     MessageEvent, TextMessage, TemplateSendMessage, CarouselTemplate, CarouselColumn,TextSendMessage
 )
 
-from .message import message_controller
+from .message import message_controller,template_controller
 LINE_CHANNEL_ACCESS_TOKEN = 'Li0swYw0GWbk1o7XzBF1KJLJ2/BV9n9nttEbuDsQdQi7AggHSmYL5w3Tsc+IUJ6fLHMa2DMj95oRww0W+DKJiBk978G2btHgqUO8wjs8dtJZJCjQjDks7sAsjK9rujXVvkBPmk77rtHjSLKfbWAi5QdB04t89/1O/w1cDnyilFU='
 LINE_CHANNEL_SECRET = '18657efd765b4ed4cbb7cc2cfe3612fe'
 
@@ -40,14 +40,58 @@ def callback(request):
 
         for event in events:
             if isinstance(event, MessageEvent):
-
+                reply_list=[]
                 #メッセージを生成してリストで返すインスタンス
-                reply_list=[TextSendMessage(text=x) for x in message_controller.replay_controll(event.message.text)]
-                #生成したメッセージを送信する処理
+                details=template_controller.template_message(event.message.text)
+
+                if details != False:
+                    details=template_controller.template_message(event.message.text)
+                    #メソッドから帰って来たクエリを使ってテンプレートメッセージを生成する。
+                    reply_list=[]
+                    for detail in details:
+                        #構造式画像が存在するかの確認
+                        if detail.structure:
+                            thumbnail=detail.structure.url
+                        else:
+                            thumbnail="https://www.sozailab.jp/db_img/sozai/17976/e32e86c7d1a7e7e2ce0bf0d39d17d82f.jpg"
+
+                        if detail.blandname:
+                            blandname=detail.blandname
+                        else:
+                            blandname="販売中止"
+                        template_list=[CarouselColumn(
+                                        thumbnail_image_url=thumbnail,
+                                        title="一般名:"+detail.name,
+                                        text="商品名"+blandname,
+                                        actions=[
+                                            {
+                                            "type":"message",
+                                            "label":"詳細表示",
+                                            "text":detail.name
+                                            }
+                                        ]
+                                    )]
+                        reply_list.extend(template_list)
+                                    
+                    
+                        
+                    reply_list=[TemplateSendMessage(
+                            alt_text='template',
+                            template=CarouselTemplate(columns=reply_list)
+                        )]
+
+                                 
+
+            #生成したメッセージを送信する処理
+                elif details==False:
+                    reply_list=[TextSendMessage(text=x) for x in message_controller.replay_controll(event.message.text)]
+                    reply_list.extend(reply_list)
+
+
                 line_bot_api.reply_message(
-                    event.reply_token,
-                    reply_list
-                   )
+                        event.reply_token,
+                        reply_list
+                        )
 
         return HttpResponse('ok')
     else:
