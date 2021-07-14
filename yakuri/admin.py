@@ -52,7 +52,7 @@ class DetailAdmin(admin.ModelAdmin):
         'name',
         'blandname',
         '_target',
-        'work',
+        #'work',
         'structure',
         'studynum',
         )
@@ -61,7 +61,7 @@ class DetailAdmin(admin.ModelAdmin):
     list_editable=(
         'name',
         'blandname',
-        'work',
+        #'work',
         'structure',
         'studynum',
         )
