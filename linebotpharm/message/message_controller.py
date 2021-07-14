@@ -6,18 +6,18 @@ from django.db.models import Q
 def replay_controll(message):
     reply_list=[]
     
-    #一般名を受け取った時は販売名リストを生成する
-    if Detail.objects.filter(name__icontains=message):
-        details=Detail.objects.filter(name__icontains=message)
+    #一般名を完全一致受け取った時は販売名リストを生成する
+    if Detail.objects.filter(name=message):
+        details=Detail.objects.filter(name=message)
         for detail in details:
             reply_message="1.商品名:"+detail.blandname+'\n\n一般名:'+detail.name+'\n\n2.特徴\n\n'+detail.detail
 
             if detail.structure:
                 reply_message=reply_message+'\n\n構造式リンク\n\n'+detail.structure.url
             reply_list.append(reply_message)
-    #商品名を受け取った時は販売名リストを生成する
-    elif Detail.objects.filter(blandname__icontains=message):
-        details=Detail.objects.filter(blandname__icontains=message)
+    #商品名を完全一致受け取った時は販売名リストを生成する
+    elif Detail.objects.filter(blandname=message):
+        details=Detail.objects.filter(blandname=message)
 
         for detail in details:
             reply_message="1.一般名:"+detail.name+'\n\n商品名:'+detail.blandname+'\n\n2.特徴\n\n'+detail.detail
